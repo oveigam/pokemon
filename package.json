@@ -4,21 +4,31 @@
   "scripts": {
     "dev": "vinxi dev",
     "build": "vinxi build",
-    "start": "vinxi start"
+    "start": "vinxi start",
+    "pokemon:fetch": "bun run scripts/pokemon.fetch.ts",
+    "pokemon:seed": "bun run scripts/pokemon.seed.ts",
+    "db:push": "drizzle-kit push"
   },
   "dependencies": {
-    "@tanstack/react-router": "^1.82.1",
-    "@tanstack/start": "^1.82.1",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "vinxi": "^0.4.3"
+    "@tanstack/react-router": "^1.86.1",
+    "@tanstack/start": "^1.86.1",
+    "drizzle-orm": "^0.37.0",
+    "latest": "^0.2.0",
+    "postgres": "^3.4.5",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "vinxi": "^0.5.1"
   },
   "devDependencies": {
     "@types/bun": "latest",
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
-    "@vitejs/plugin-react": "^4.3.3",
-    "prettier": "^3.3.3",
-    "typescript": "^5.6.3"
+    "@types/react": "^19.0.1",
+    "@types/react-dom": "^19.0.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "axios": "^1.7.9",
+    "axios-cache-interceptor": "^1.6.2",
+    "drizzle-kit": "^0.29.1",
+    "pokenode-ts": "^1.20.0",
+    "prettier": "^3.4.2",
+    "typescript": "^5.7.2"
   }
 }
