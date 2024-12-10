@@ -1,0 +1,64 @@
+- [x] language
+- [x] languageName
+- [x] generation
+- [x] generationName
+- [x] pokedex
+- [x] pokedexName
+- [x] pokedexDescription
+- [ ] pokedexEntry
+- [ ] pokemonSpecies
+- [ ] pokemonSpeciesName
+- [ ] pokemonSpeciesGenus
+- [ ] pokemon
+- [ ] pokemonPastType
+- [ ] pokemonForm
+- [ ] pokemonFormName
+- [ ] pokemonSprites
+- [ ] pokemonVersionAppearance
+- [ ] pokemonHeldItem
+- [ ] pokemonSpecieslavorText
+- [ ] pokemonSpeciesEggGroup
+- [ ] eggGroup
+- [ ] eggGroupName
+- [x] pokedexVersionGroup
+- [x] item
+- [x] itemName
+- [x] itemEffect
+- [x] itemFlingEffect
+- [x] itemFlavorText
+- [x] itemGeneration
+- [x] itemItemAttribute
+- [x] itemAttribute
+- [x] itemAttributeName
+- [x] itemAttributeDescription
+- [x] itemCategory
+- [x] itemCategoryName
+- [x] itemPocket
+- [x] itemPocketName
+- [x] version
+- [x] versionName
+- [x] versionGroup
+- [x] versionGroupRegion
+- [x] region
+- [x] regionName
+- [x] location
+- [x] locationName
+- [x] locationGeneration
+- [x] locationArea
+- [x] locationAreaName
+- [x] type
+- [x] typeName
+- [x] typeDamageRelation
+- [ ] move
+- [ ] moveItem
+- [ ] moveName
+- [ ] moveEffect
+- [ ] movePastValues
+- [ ] moveFlavorText
+- [ ] pokemonMove
+- [x] ability
+- [x] abilityName
+- [x] abilityEffect
+- [x] abilityFlavorText
+- [ ] pokemonAbility
+

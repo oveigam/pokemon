@@ -1,17 +1,5 @@
 import { sql } from "drizzle-orm";
-import {
-  boolean,
-  check,
-  integer,
-  PgColumn,
-  pgTable,
-  primaryKey,
-  real,
-  serial,
-  text,
-  timestamp,
-  type PgTableWithColumns,
-} from "drizzle-orm/pg-core";
+import { boolean, check, integer, PgColumn, pgTable, primaryKey, real, serial, text, timestamp } from "drizzle-orm/pg-core";
 
 // TODO location area encounters? guardar en que areas se pueden encontrar los pokemon
 
@@ -147,7 +135,7 @@ const moveAilment = [
  * TABLES
  */
 
-export const language = pgTable("laguage", {
+export const language = pgTable("language", {
   ...idCols,
 
   /** Whether or not the games are published in this language */
@@ -286,7 +274,7 @@ export const pokemonSpecies = pgTable("pokemon_species", {
 export const pokemonSpeciesName = translationTable("pokemon_species_name", pokemonSpecies.id);
 
 /** En taxonomía, el género es una categoría taxonómica que se ubica entre la familia y la especie */
-export const pokemonSpeciesGenus = translationTable("poekmon_species_genus", pokemonSpecies.id);
+export const pokemonSpeciesGenus = translationTable("pokemon_species_genus", pokemonSpecies.id);
 
 /**
  * ## Pokemon
@@ -784,7 +772,7 @@ export const typeDamageRelation = pgTable(
     toTypeId: integer()
       .notNull()
       .references(() => type.id),
-    damage: integer().notNull(),
+    damage: real().notNull(),
     /** Past generation of the relation, if null it is the current relation */
     generationId: integer().references(() => generation.id),
   },
