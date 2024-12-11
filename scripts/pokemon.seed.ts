@@ -176,8 +176,6 @@ await migrate("languages", async (lng) => {
       name: name.name,
     });
   }
-
-  await resetSerial(schema.language);
 });
 
 // generation
@@ -188,8 +186,6 @@ await migrate("generation", async (gen) => {
   });
 
   await insertTranslation(gen.id, gen.names, schema.generationName);
-
-  await resetSerial(schema.generation);
 });
 
 // region
@@ -201,8 +197,6 @@ await migrate("regions", async (re) => {
   });
 
   await insertTranslation(re.id, re.names, schema.regionName);
-
-  await resetSerial(schema.region);
 });
 
 // version group
@@ -220,8 +214,6 @@ await migrate("versionGroup", async (vg) => {
       versionGroupId: vg.id,
     });
   }
-
-  await resetSerial(schema.versionGroup);
 });
 
 // version
@@ -233,8 +225,6 @@ await migrate("versions", async (version) => {
   });
 
   await insertTranslation(version.id, version.names, schema.versionName);
-
-  await resetSerial(schema.version);
 });
 
 // location
@@ -256,8 +246,6 @@ await migrate("locations", async (loc) => {
       })
       .onConflictDoNothing();
   }
-
-  await resetSerial(schema.location);
 });
 
 // location area
@@ -269,8 +257,6 @@ await migrate("locationAreas", async (loa) => {
   });
 
   await insertTranslation(loa.id, loa.names, schema.locationAreaName);
-
-  await resetSerial(schema.locationArea);
 });
 
 // types
@@ -283,8 +269,6 @@ await migrate("types", async (ty) => {
   });
 
   await insertTranslation(ty.id, ty.names, schema.typeName);
-
-  await resetSerial(schema.type);
 });
 
 // type dagmage relations
@@ -304,8 +288,6 @@ await migrate("itemsPocket", async (pocket) => {
   });
 
   await insertTranslation(pocket.id, pocket.names, schema.itemPocketName);
-
-  await resetSerial(schema.itemPocket);
 });
 
 // item category
@@ -317,8 +299,6 @@ await migrate("itemsCategories", async (cat) => {
   });
 
   await insertTranslation(cat.id, cat.names, schema.itemCategoryName);
-
-  await resetSerial(schema.itemCategory);
 });
 
 // item attribute
@@ -337,8 +317,6 @@ await migrate("itemsAttributes", async (attr) => {
       text: desc.description,
     });
   }
-
-  await resetSerial(schema.itemAttribute);
 });
 
 // item
@@ -400,8 +378,6 @@ await migrate(
         itemAttributeId: itemsAttributes.get(attr.name)!.id,
       });
     }
-
-    await resetSerial(schema.item);
   },
   async (item, err) => {
     if (err instanceof Error) {
@@ -456,8 +432,6 @@ await migrate("abilities", async (ab) => {
       versionGroupId: versionGroups.get(flavor.version_group.name)!.id,
     });
   }
-
-  await resetSerial(schema.ability);
 });
 
 // moves
@@ -545,8 +519,6 @@ await migrate("move", async (move) => {
       versionGroupId: versionGroups.get(flavor.version_group.name)!.id,
     });
   }
-
-  await resetSerial(schema.move);
 });
 
 // move learn
@@ -565,8 +537,6 @@ await migrate("learn", async (learn) => {
       text: desc.description,
     });
   }
-
-  await resetSerial(schema.moveLearnMethod);
 });
 
 // eggs
@@ -577,8 +547,6 @@ await migrate("eggGroups", async (egg) => {
   });
 
   await insertTranslation(egg.id, egg.names, schema.eggGroupName);
-
-  await resetSerial(schema.eggGroup);
 });
 
 // pokemon species
@@ -629,8 +597,6 @@ await migrate("pokemonSpecies", async (sp) => {
       pokemonSpeciesId: sp.id,
     });
   }
-
-  await resetSerial(schema.pokemonSpecies);
 });
 
 await migrate("pokemon", async (poke) => {
@@ -754,8 +720,6 @@ await migrate("pokemon", async (poke) => {
       slot: ab.slot,
     });
   }
-
-  await resetSerial(schema.pokemon);
 });
 
 await migrate("pokemonForm", async (form) => {
@@ -781,8 +745,6 @@ await migrate("pokemonForm", async (form) => {
   });
 
   await insertTranslation(form.id, form.names, schema.pokemonFormName);
-
-  await resetSerial(schema.pokemonForm);
 });
 
 // pokedex
@@ -818,8 +780,28 @@ await migrate("pokedex", async (dex) => {
       entryNumber: entry.entry_number,
     });
   }
-
-  await resetSerial(schema.pokedex);
 });
+
+// Reset all sequences
+await resetSerial(schema.language);
+await resetSerial(schema.generation);
+await resetSerial(schema.region);
+await resetSerial(schema.versionGroup);
+await resetSerial(schema.version);
+await resetSerial(schema.location);
+await resetSerial(schema.locationArea);
+await resetSerial(schema.type);
+await resetSerial(schema.itemPocket);
+await resetSerial(schema.itemCategory);
+await resetSerial(schema.itemAttribute);
+await resetSerial(schema.item);
+await resetSerial(schema.ability);
+await resetSerial(schema.move);
+await resetSerial(schema.moveLearnMethod);
+await resetSerial(schema.eggGroup);
+await resetSerial(schema.pokemonSpecies);
+await resetSerial(schema.pokemon);
+await resetSerial(schema.pokemonForm);
+await resetSerial(schema.pokedex);
 
 process.exit(0);
