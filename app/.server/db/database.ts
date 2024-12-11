@@ -12,4 +12,6 @@ export const db = drizzle(process.env.DATABASE_URL!, {
   },
 });
 
+export * from "./types.db";
+
 export { schema };

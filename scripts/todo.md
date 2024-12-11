@@ -49,12 +49,12 @@
 - [x] type
 - [x] typeName
 - [x] typeDamageRelation
-- [ ] move
-- [ ] moveItem
-- [ ] moveName
-- [ ] moveEffect
-- [ ] movePastValues
-- [ ] moveFlavorText
+- [x] move
+- [x] moveMachine
+- [x] moveName
+- [x] moveEffect
+- [x] movePastValues
+- [x] moveFlavorText
 - [ ] pokemonMove
 - [x] ability
 - [x] abilityName

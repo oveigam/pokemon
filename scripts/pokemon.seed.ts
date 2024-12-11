@@ -1,10 +1,10 @@
 // https://pokenode-ts.vercel.app
 
 import { sql } from "drizzle-orm";
-import { db, schema } from "../app/.server/db/database";
+import { db, schema, type DamageClass, type MoveAilment, type MoveCategory, type MoveTarget } from "../app/.server/db/database";
 import { data } from "../data/data";
 import type { PgTable } from "drizzle-orm/pg-core";
-import type { Name, TypeRelations } from "pokenode-ts";
+import { Machine, type Name, type TypeRelations } from "pokenode-ts";
 
 type TranslationTable = typeof schema.generationName;
 
@@ -96,6 +96,11 @@ const itemsEffects = byName(data.itemsEffect);
 const itemsPockets = byName(data.itemsPocket);
 
 const abilities = byName(data.abilities);
+
+const machines = data.machine.reduce((map, machine) => {
+  map.set(`https://pokeapi.co/api/v2/move-damage-class/${machine.id}/`, machine);
+  return map;
+}, new Map<string, Machine>());
 
 // language
 for (const lng of data.languages) {
@@ -381,8 +386,18 @@ for (const ab of data.abilities) {
       languageId: languages.get(effect.language.name)!.id,
       resourceId: ab.id,
       text: effect.effect,
-      versionGroupId: versionGroups.get(effect.language.name)!.id,
     });
+  }
+
+  for (const past of ab.effect_changes) {
+    for (const effect of past.effect_entries) {
+      await db.insert(schema.abilityEffect).values({
+        languageId: languages.get(effect.language.name)!.id,
+        resourceId: ab.id,
+        text: effect.effect,
+        versionGroupId: versionGroups.get(past.version_group.name)!.id,
+      });
+    }
   }
 
   for (const flavor of ab.flavor_text_entries) {
@@ -399,8 +414,91 @@ for (const ab of data.abilities) {
 
 // moves
 for (const move of data.move) {
-  // TODO
-  // await db.insert(schema.move).values({})
+  await db.insert(schema.move).values({
+    id: move.id,
+    name: move.name,
+    damageClass: move.damage_class!.name as DamageClass,
+    generationId: generations.get(move.generation.name)!.id,
+    priority: move.priority,
+    target: move.target.name as MoveTarget,
+    typeId: types.get(move.type.name)!.id,
+    accuracy: move.accuracy,
+    ailment: move.meta?.ailment.name as MoveAilment,
+    ailmentChance: move.meta?.ailment_chance,
+    category: move.meta?.category.name as MoveCategory,
+    changeAccuracy: move.stat_changes.find((c) => c.stat.name === "accuracy")?.change,
+    changeAttack: move.stat_changes.find((c) => c.stat.name === "attack")?.change,
+    changeDefense: move.stat_changes.find((c) => c.stat.name === "defence")?.change,
+    changeEvasion: move.stat_changes.find((c) => c.stat.name === "evasion")?.change,
+    changeSpecialAttack: move.stat_changes.find((c) => c.stat.name === "special-attack")?.change,
+    changeSpecialDefense: move.stat_changes.find((c) => c.stat.name === "special-defense")?.change,
+    changeSpeed: move.stat_changes.find((c) => c.stat.name === "speed")?.change,
+    drain: move.meta?.drain,
+    effectChance: move.effect_chance,
+    critRate: move.meta?.crit_rate,
+    flinchChance: move.meta?.flinch_chance,
+    healing: move.meta?.healing,
+    maxHits: move.meta?.max_hits,
+    maxTurns: move.meta?.max_turns,
+    minHits: move.meta?.min_hits,
+    minTurns: move.meta?.min_turns,
+    power: move.power,
+    pp: move.pp,
+    statChance: move.meta?.stat_chance,
+  });
+
+  await insertTranslation(move.id, move.names, schema.moveName);
+
+  for (const machine of move.machines) {
+    await db.insert(schema.moveMachine).values({
+      moveId: move.id,
+      itemId: items.get(machines.get(machine.machine.url)!.item.name)!.id,
+      versionGroupId: versionGroups.get(machine.version_group.name)!.id,
+    });
+  }
+
+  for (const effect of move.effect_entries) {
+    await db.insert(schema.moveEffect).values({
+      languageId: languages.get(effect.language.name)!.id,
+      resourceId: move.id,
+      text: effect.effect,
+      shortText: effect.short_effect,
+    });
+  }
+
+  for (const past of move.effect_changes) {
+    for (const effect of past.effect_entries) {
+      await db.insert(schema.moveEffect).values({
+        languageId: languages.get(effect.language.name)!.id,
+        resourceId: move.id,
+        text: effect.effect,
+        versionGroupId: versionGroups.get(past.version_group!.name)!.id,
+      });
+    }
+  }
+
+  for (const past of move.past_values) {
+    await db.insert(schema.movePastValues).values({
+      moveId: move.id,
+      typeId: past.type ? types.get(past.type.name)!.id : null,
+      versionGroupId: versionGroups.get(past.version_group!.name)!.id,
+      accuracy: past.accuracy,
+      effectChance: past.effect_chance,
+      power: past.power,
+      pp: past.pp,
+    });
+  }
+
+  for (const flavor of move.flavor_text_entries) {
+    await db.insert(schema.moveFlavorText).values({
+      languageId: languages.get(flavor.language.name)!.id,
+      resourceId: move.id,
+      text: flavor.flavor_text,
+      versionGroupId: versionGroups.get(flavor.version_group.name)!.id,
+    });
+  }
+
+  await resetSerial(schema.move);
 }
 
 process.exit(0);

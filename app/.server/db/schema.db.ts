@@ -1,5 +1,6 @@
 import { sql } from "drizzle-orm";
 import { boolean, check, integer, PgColumn, pgTable, primaryKey, real, serial, text, timestamp } from "drizzle-orm/pg-core";
+import { damageClass, growthRates, moveAilment, moveCategory, moveTarget, pokemonColors, pokemonHabitat, pokemonShapes } from "./enums.db";
 
 // TODO location area encounters? guardar en que areas se pueden encontrar los pokemon
 
@@ -51,85 +52,6 @@ const translationTable = (name: string, reouceIdCol: PgColumn) =>
 /*
  * ENUMS
  */
-
-const growthRates = ["slow", "medium", "fast", "medium-slow", "slow-then-very-fast", "fast-then-very-slow"] as const;
-const pokemonColors = ["black", "blue", "brown", "gray", "green", "pink", "purple", "red", "white", "yellow"] as const;
-const pokemonShapes = [
-  "ball",
-  "squiggle",
-  "fish",
-  "arms",
-  "blob",
-  "upright",
-  "legs",
-  "quadruped",
-  "wings",
-  "tentacles",
-  "heads",
-  "humanoid",
-  "bug-wings",
-  "armor",
-] as const;
-const pokemonHabitat = ["cave", "forest", "grassland", "mountain", "rare", "rough-terrain", "sea", "urban", "waters-edge"] as const;
-const damageClass = ["status", "physical", "special"] as const;
-const moveTarget = [
-  "specific-move",
-  "selected-pokemon-me-first",
-  "ally",
-  "users-field",
-  "user-or-ally",
-  "opponents-field",
-  "user",
-  "random-opponent",
-  "all-other-pokemon",
-  "selected-pokemon",
-  "all-opponents",
-  "entire-field",
-  "user-and-allies",
-  "all-pokemon",
-  "all-allies",
-  "fainting-pokemon",
-] as const;
-const moveCategory = [
-  "damage",
-  "ailment",
-  "net-good-stats",
-  "heal",
-  "damage+ailment",
-  "swagger",
-  "damage+lower",
-  "damage+raise",
-  "damage+heal",
-  "ohko",
-  "whole-field-effect",
-  "field-effect",
-  "force-switch",
-  "unique",
-] as const;
-const moveAilment = [
-  "unknown",
-  "none",
-  "paralysis",
-  "sleep",
-  "freeze",
-  "burn",
-  "poison",
-  "confusion",
-  "infatuation",
-  "trap",
-  "nightmare",
-  "torment",
-  "disable",
-  "yawn",
-  "heal-block",
-  "no-type-immunity",
-  "leech-seed",
-  "embargo",
-  "perish-song",
-  "ingrain",
-  "silence",
-  "tar-shot",
-] as const;
 
 /*
  * TABLES
@@ -816,7 +738,6 @@ export const move = pgTable(
     target: text({ enum: moveTarget }).notNull(),
 
     // Stat changes
-    changeHp: integer(),
     changeAttack: integer(),
     changeDefense: integer(),
     changeSpecialAttack: integer(),
@@ -843,7 +764,7 @@ export const move = pgTable(
     /** The amount of hp gained by the attacking Pokemon, in percent of it's maximum HP. */
     healing: integer(),
     /**  Critical hit rate bonus. */
-    critTate: integer(),
+    critRate: integer(),
     /** The likelihood this attack will cause an ailment. */
     ailmentChance: integer(),
     /** The likelihood this attack will cause the target Pokémon to flinch. */
@@ -856,8 +777,8 @@ export const move = pgTable(
   (t) => [{ checkPriorityValues: check("checkPriorityValues", sql`${t.priority} >= -8 AND ${t.priority} <= 8`) }],
 );
 
-export const moveItem = pgTable(
-  "move_item",
+export const moveMachine = pgTable(
+  "move_machine",
   {
     moveId: integer()
       .notNull()
@@ -868,7 +789,6 @@ export const moveItem = pgTable(
     versionGroupId: integer()
       .notNull()
       .references(() => versionGroup.id),
-    name: text().notNull(),
 
     ...auditCols,
   },
@@ -888,7 +808,7 @@ export const moveEffect = pgTable(
       .notNull()
       .references(() => move.id),
     text: text().notNull(),
-    shortText: text().notNull(),
+    shortText: text(),
     /** Past generation of the effect, if null it is the current effect */
     versionGroupId: integer().references(() => versionGroup.id),
 
@@ -908,9 +828,7 @@ export const movePastValues = pgTable(
       .references(() => versionGroup.id),
 
     /** The elemental type of this move */
-    typeId: integer()
-      .notNull()
-      .references(() => type.id),
+    typeId: integer().references(() => type.id),
     /** The percent value of how likely this move is to be successful */
     accuracy: integer(),
     /** The percent value of how likely it is this moves effect will happen */
