@@ -234,8 +234,6 @@ export const pokemon = pgTable("pokemon", {
   baseSpecialAttack: integer().notNull(),
   baseSpecialDefense: integer().notNull(),
   baseSpeed: integer().notNull(),
-  baseAccuracy: integer().notNull(),
-  baseEvasion: integer().notNull(),
 
   evHp: integer().notNull(),
   evAttack: integer().notNull(),
@@ -243,8 +241,23 @@ export const pokemon = pgTable("pokemon", {
   evSpecialAttack: integer().notNull(),
   evSpecialDefense: integer().notNull(),
   evSpeed: integer().notNull(),
-  evAccuracy: integer().notNull(),
-  evEvasion: integer().notNull(),
+
+  /** The default depiction of this Pokémon form from the front in battle */
+  frontDefault: text(),
+  /** The female depiction of this Pokémon form from the front in battle */
+  frontFemale: text(),
+  /** The shiny depiction of this Pokémon form from the front in battle */
+  frontShiny: text(),
+  /** The shiny female depiction of this Pokémon form from the front in battle */
+  frontShinyFemale: text(),
+  /** The default depiction of this Pokémon form from the back in battle */
+  backDefault: text(),
+  /** The female depiction of this Pokémon form from the back in battle */
+  backFemale: text(),
+  /** The shiny depiction of this Pokémon form from the back in battle */
+  backShiny: text(),
+  /** The shiny female depiction of this Pokémon form from the back in battle */
+  backShinyFemale: text(),
 
   ...auditCols,
 });
@@ -318,17 +331,6 @@ export const pokemonForm = pgTable("pokemon_form", {
 
 export const pokemonFormName = translationTable("pokemon_form_name", pokemonForm.id);
 
-export const pokemonSprites = pgTable("pokemon_sprites", {
-  pokemonId: integer()
-    .notNull()
-    .references(() => pokemon.id),
-  versionGroupId: integer()
-    .notNull()
-    .references(() => versionGroup.id),
-
-  ...auditCols,
-});
-
 export const pokemonVersionAppearance = pgTable(
   "pokemon_version_appearance",
   {
@@ -340,11 +342,11 @@ export const pokemonVersionAppearance = pgTable(
       .references(() => version.id),
 
     /** The default depiction of this Pokémon form from the front in battle */
-    frontDefault: text().notNull(),
+    frontDefault: text(),
     /** The female depiction of this Pokémon form from the front in battle */
     frontFemale: text(),
     /** The default depiction of this Pokémon form from the back in battle */
-    backDefault: text().notNull(),
+    backDefault: text(),
     /** The female depiction of this Pokémon form from the back in battle */
     backFemale: text(),
 

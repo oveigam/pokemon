@@ -15,7 +15,7 @@ import {
 } from "../app/.server/db/database";
 import { data } from "../data/data";
 import type { PgTable } from "drizzle-orm/pg-core";
-import { type Machine, type Name, type TypeRelations } from "pokenode-ts";
+import { type Machine, type Name, type TypeRelations, type VersionSprites } from "pokenode-ts";
 
 type TranslationTable = typeof schema.generationName;
 
@@ -572,6 +572,137 @@ for (const sp of data.pokemonSpecies) {
   }
 
   await resetSerial(schema.pokemonSpecies);
+}
+
+for (const poke of data.pokemon) {
+  const stats = {
+    hp: poke.stats.find((s) => s.stat.name === "hp")!,
+    attack: poke.stats.find((s) => s.stat.name === "attack")!,
+    defense: poke.stats.find((s) => s.stat.name === "defense")!,
+    special: poke.stats.find((s) => s.stat.name === "special-attack")!,
+    specialDef: poke.stats.find((s) => s.stat.name === "special-defense")!,
+    speed: poke.stats.find((s) => s.stat.name === "speed")!,
+  };
+
+  await db.insert(schema.pokemon).values({
+    id: poke.id,
+    name: poke.name,
+
+    baseAttack: stats.attack.base_stat,
+    baseDefense: stats.defense.base_stat,
+    baseHp: stats.hp.base_stat,
+    baseSpecialAttack: stats.special.base_stat,
+    baseSpecialDefense: stats.specialDef.base_stat,
+    baseSpeed: stats.special.base_stat,
+
+    evAttack: stats.attack.effort,
+    evDefense: stats.defense.effort,
+    evHp: stats.hp.effort,
+    evSpecialAttack: stats.special.effort,
+    evSpecialDefense: stats.specialDef.effort,
+    evSpeed: stats.special.effort,
+
+    baseExperience: poke.base_experience,
+    height: poke.height * 10,
+    order: poke.order,
+    primaryTypeId: types.get(poke.types.find((t) => t.slot === 1)!.type.name)!.id,
+    secondaryTypeId: poke.types.find((t) => t.slot === 2) ? types.get(poke.types.find((t) => t.slot === 2)!.type.name)!.id : null,
+    speciesId: pokemonSpecies.get(poke.species.name)!.id,
+    weight: poke.weight * 0.1,
+
+    backDefault: poke.sprites.back_default,
+    backFemale: poke.sprites.back_female,
+    backShiny: poke.sprites.back_shiny,
+    backShinyFemale: poke.sprites.back_shiny_female,
+    frontDefault: poke.sprites.front_default,
+    frontFemale: poke.sprites.front_female,
+    frontShiny: poke.sprites.front_shiny,
+    frontShinyFemale: poke.sprites.front_shiny_female,
+  });
+
+  for (const past of poke.past_types) {
+    await db.insert(schema.pokemonPastType).values({
+      generationId: generations.get(past.generation.name)!.id,
+      pokemonId: poke.id,
+      primaryTypeId: types.get(past.types.find((t) => t.slot === 1)!.type.name)!.id,
+      secondaryTypeId: past.types.find((t) => t.slot === 2) ? types.get(past.types.find((t) => t.slot === 2)!.type.name)!.id : null,
+    });
+  }
+
+  for (const v of poke.game_indices) {
+    const version = versions.get(v.version.name)!;
+    const versionGroup = versionGroups.get(version.version_group.name)!;
+
+    let versionSprites: {
+      back_default?: string | null;
+      back_female?: string | null;
+      back_shiny?: string | null;
+      back_shiny_female?: string | null;
+      front_default?: string | null;
+      front_female?: string | null;
+      front_shiny?: string | null;
+      front_shiny_female?: string | null;
+    } | null = null;
+
+    const generationSprites = poke.sprites.versions[versionGroup.generation.name as keyof VersionSprites];
+    if (generationSprites) {
+      // @ts-ignore menudo cristo
+      versionSprites = generationSprites[version.name] ?? null;
+    }
+
+    await db.insert(schema.pokemonVersionAppearance).values({
+      versoinId: version.id,
+      pokemonId: poke.id,
+      backDefault: versionSprites?.back_default,
+      backFemale: versionSprites?.back_female,
+      backShiny: versionSprites?.back_shiny,
+      backShinyFemale: versionSprites?.back_shiny_female,
+      frontDefault: versionSprites?.front_default,
+      frontFemale: versionSprites?.front_female,
+      frontShiny: versionSprites?.front_shiny,
+      frontShinyFemale: versionSprites?.front_shiny_female,
+    });
+  }
+
+  for (const item of poke.held_items) {
+    for (const version of item.version_details) {
+      await db.insert(schema.pokemonHeldItem).values({
+        pokemonId: poke.id,
+        itemId: items.get(item.item.name)!.id,
+        rarity: version.rarity,
+        versionId: versions.get(version.version.name)!.id,
+      });
+    }
+  }
+
+  await resetSerial(schema.pokemon);
+}
+
+for (const form of data.pokemonForm) {
+  await db.insert(schema.pokemonForm).values({
+    id: form.id,
+    name: form.name,
+    pokemonId: pokemons.get(form.pokemon.name)!.id,
+    isBattleOnly: form.is_battle_only,
+    isDefault: form.is_default,
+    isMega: form.is_mega,
+    order: form.order,
+    primaryTypeId: types.get(form.types.find((t) => t.slot === 1)!.type.name)!.id,
+    secondaryTypeId: form.types.find((t) => t.slot === 2) ? types.get(form.types.find((t) => t.slot === 2)!.type.name)!.id : null,
+    versionGroupId: versionGroups.get(form.version_group.name)!.id,
+    backDefault: form.sprites.back_default,
+    backFemale: form.sprites.back_female,
+    backShiny: form.sprites.back_shiny,
+    backShinyFemale: form.sprites.back_shiny_female,
+    frontDefault: form.sprites.front_default,
+    frontFemale: form.sprites.front_female,
+    frontShiny: form.sprites.front_shiny,
+    frontShinyFemale: form.sprites.front_shiny_female,
+  });
+
+  await insertTranslation(form.id, form.names, schema.pokemonFormName);
+
+  await resetSerial(schema.pokemonForm);
 }
 
 process.exit(0);
