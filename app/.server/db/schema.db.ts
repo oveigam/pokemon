@@ -865,6 +865,14 @@ export const moveFlavorText = pgTable(
   (t) => [{ pk: primaryKey({ columns: [t.languageId, t.resourceId, t.versionGroupId] }) }],
 );
 
+export const moveLearnMethod = pgTable("move_learn_method", {
+  ...idCols,
+  ...auditCols,
+});
+
+export const moveLearnMethodName = translationTable("move_learn_method_name", moveLearnMethod.id);
+export const moveLearnMethodDescription = translationTable("move_learn_method_description", moveLearnMethod.id);
+
 export const pokemonMove = pgTable(
   "pokemon_move",
   {
@@ -874,10 +882,15 @@ export const pokemonMove = pgTable(
     moveId: integer()
       .notNull()
       .references(() => move.id),
+    versionGroupId: integer()
+      .notNull()
+      .references(() => versionGroup.id),
+    learnMethodId: integer().references(() => moveLearnMethod.id),
+    learnLevel: integer().notNull(),
 
     ...auditCols,
   },
-  (t) => [{ pk: primaryKey({ columns: [t.pokemonId, t.moveId] }) }],
+  (t) => [{ pk: primaryKey({ columns: [t.pokemonId, t.moveId, t.versionGroupId] }) }],
 );
 
 /**

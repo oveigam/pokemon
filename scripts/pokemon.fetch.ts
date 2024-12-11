@@ -67,7 +67,7 @@ const machines = async () => {
 // await apiToJson("egg-group", api.pokemon.listEggGroups.bind(api), api.pokemon.getEggGroupByName.bind(api));
 // await apiToJson("pokemon-shape", api.pokemon.listPokemonShapes.bind(api), api.pokemon.getPokemonShapeByName.bind(api));
 // await apiToJson("type", api.pokemon.listTypes.bind(api), api.pokemon.getTypeByName.bind(api));
-await apiToJson("ability", api.pokemon.listAbilities.bind(api), api.pokemon.getAbilityByName.bind(api));
+// await apiToJson("ability", api.pokemon.listAbilities.bind(api), api.pokemon.getAbilityByName.bind(api));
 
 // moves
 // await apiToJson("move", api.move.listMoves.bind(api), api.move.getMoveByName.bind(api));
@@ -84,10 +84,8 @@ await apiToJson("ability", api.pokemon.listAbilities.bind(api), api.pokemon.getA
 // await apiToJson("items-pocket", api.item.listItemPockets.bind(api), api.item.getItemPocketByName.bind(api));
 // await machines();
 
-for (const l of data.locations) {
-  if (l.game_indices.length > 1) {
-    console.log(l.name, l.game_indices.length);
-  }
-}
+// await apiToJson("learn", api.move.listMoveLearnMethods.bind(api), api.move.getMoveLearnMethodByName.bind(api));
+
+console.log(data.learn.map((l) => l.name));
 
 process.exit(0);

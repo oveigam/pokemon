@@ -27,6 +27,7 @@
  * @typedef {import("pokenode-ts").Version} Version
  * @typedef {import("pokenode-ts").VersionGroup} VersionGroup
  * @typedef {import("pokenode-ts").Ability} Ability
+ * @typedef {import("pokenode-ts").MoveLearnMethod} MoveLearnMethod
  */
 
 const abilities = require("./ability.json");
@@ -57,6 +58,7 @@ const regions = require("./region.json");
 const types = require("./type.json");
 const versionGroup = require("./version-group.json");
 const versions = require("./version.json");
+const learn = require("./learn.json");
 
 /**
  * @type {{
@@ -88,6 +90,7 @@ const versions = require("./version.json");
  *   itemsPocket: ItemPocket[],
  *   machine: Machine[],
  *   abilities: Ability[],
+ *   learn: MoveLearnMethod[],
  * }}
  */
 const data = {
@@ -125,6 +128,7 @@ const data = {
   machine,
 
   abilities,
+  learn,
 };
 
 module.exports = { data };

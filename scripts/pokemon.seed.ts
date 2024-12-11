@@ -107,6 +107,7 @@ const itemsEffects = byName(data.itemsEffect);
 const itemsPockets = byName(data.itemsPocket);
 
 const abilities = byName(data.abilities);
+const learnMethods = byName(data.learn);
 
 const machines = data.machine.reduce((map, machine) => {
   map.set(`https://pokeapi.co/api/v2/move-damage-class/${machine.id}/`, machine);
@@ -512,6 +513,25 @@ for (const move of data.move) {
   await resetSerial(schema.move);
 }
 
+for (const learn of data.learn) {
+  await db.insert(schema.moveLearnMethod).values({
+    id: learn.id,
+    name: learn.name,
+  });
+
+  await insertTranslation(learn.id, learn.names, schema.moveLearnMethodName);
+
+  for (const desc of learn.descriptions) {
+    await db.insert(schema.moveLearnMethodDescription).values({
+      languageId: languages.get(desc.language.name)!.id,
+      resourceId: learn.id,
+      text: desc.description,
+    });
+  }
+
+  await resetSerial(schema.moveLearnMethod);
+}
+
 for (const egg of data.eggGroups) {
   await db.insert(schema.eggGroup).values({
     id: egg.id,
@@ -671,6 +691,18 @@ for (const poke of data.pokemon) {
         itemId: items.get(item.item.name)!.id,
         rarity: version.rarity,
         versionId: versions.get(version.version.name)!.id,
+      });
+    }
+  }
+
+  for (const move of poke.moves) {
+    for (const vg of move.version_group_details) {
+      await db.insert(schema.pokemonMove).values({
+        moveId: moves.get(move.move.name)!.id,
+        pokemonId: poke.id,
+        versionGroupId: versionGroups.get(vg.version_group.name)!.id,
+        learnLevel: vg.level_learned_at,
+        learnMethodId: learnMethods.get(vg.move_learn_method.name)!.id,
       });
     }
   }
