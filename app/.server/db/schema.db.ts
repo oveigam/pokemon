@@ -182,7 +182,7 @@ export const pokemonSpecies = pgTable("pokemon_species", {
   /** The shape of this Pokémon for Pokédex search */
   shape: text({ enum: pokemonShapes }).notNull(),
   /** The Pokémon species that evolves into this Pokemon_species */
-  evolvesFromPokemonSpeciesId: integer().notNull(),
+  evolvesFromPokemonSpeciesId: integer(),
   /** The generation this Pokémon species was introduced in */
   generationId: integer()
     .notNull()
@@ -382,10 +382,10 @@ export const pokemonHeldItem = pgTable(
   (t) => [{ pk: primaryKey({ columns: [t.pokemonId, t.itemId, t.versionId] }) }],
 );
 
-export const pokemonSpecieslavorText = pgTable(
+export const pokemonSpeciesFlavorText = pgTable(
   "pokemon_species_flavor_text",
   {
-    pokemonSpeciesId: integer()
+    resourceId: integer()
       .notNull()
       .references(() => pokemonSpecies.id),
     versionId: integer()
@@ -398,7 +398,7 @@ export const pokemonSpecieslavorText = pgTable(
 
     ...auditCols,
   },
-  (t) => [{ pk: primaryKey({ columns: [t.pokemonSpeciesId, t.versionId, t.languageId] }) }],
+  (t) => [{ pk: primaryKey({ columns: [t.resourceId, t.versionId, t.languageId] }) }],
 );
 
 export const pokemonSpeciesEggGroup = pgTable(

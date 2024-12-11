@@ -6,9 +6,9 @@
 - [x] pokedexName
 - [x] pokedexDescription
 - [ ] pokedexEntry
-- [ ] pokemonSpecies
-- [ ] pokemonSpeciesName
-- [ ] pokemonSpeciesGenus
+- [x] pokemonSpecies
+- [x] pokemonSpeciesName
+- [x] pokemonSpeciesGenus
 - [ ] pokemon
 - [ ] pokemonPastType
 - [ ] pokemonForm
@@ -16,10 +16,10 @@
 - [ ] pokemonSprites
 - [ ] pokemonVersionAppearance
 - [ ] pokemonHeldItem
-- [ ] pokemonSpecieslavorText
-- [ ] pokemonSpeciesEggGroup
-- [ ] eggGroup
-- [ ] eggGroupName
+- [x] pokemonSpecieslavorText
+- [x] pokemonSpeciesEggGroup
+- [x] eggGroup
+- [x] eggGroupName
 - [x] pokedexVersionGroup
 - [x] item
 - [x] itemName

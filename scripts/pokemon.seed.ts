@@ -1,10 +1,21 @@
 // https://pokenode-ts.vercel.app
 
 import { sql } from "drizzle-orm";
-import { db, schema, type DamageClass, type MoveAilment, type MoveCategory, type MoveTarget } from "../app/.server/db/database";
+import {
+  db,
+  schema,
+  type DamageClass,
+  type GrowthRate,
+  type MoveAilment,
+  type MoveCategory,
+  type MoveTarget,
+  type PokemonColor,
+  type PokemonHabitat,
+  type PokemonShapes,
+} from "../app/.server/db/database";
 import { data } from "../data/data";
 import type { PgTable } from "drizzle-orm/pg-core";
-import { Machine, type Name, type TypeRelations } from "pokenode-ts";
+import { type Machine, type Name, type TypeRelations } from "pokenode-ts";
 
 type TranslationTable = typeof schema.generationName;
 
@@ -499,6 +510,68 @@ for (const move of data.move) {
   }
 
   await resetSerial(schema.move);
+}
+
+for (const egg of data.eggGroups) {
+  await db.insert(schema.eggGroup).values({
+    id: egg.id,
+    name: egg.name,
+  });
+
+  await insertTranslation(egg.id, egg.names, schema.eggGroupName);
+
+  await resetSerial(schema.eggGroup);
+}
+
+for (const sp of data.pokemonSpecies) {
+  await db.insert(schema.pokemonSpecies).values({
+    id: sp.id,
+    name: sp.name,
+    baseHappiness: sp.base_happiness,
+    captureRate: sp.capture_rate,
+    color: sp.color.name as PokemonColor,
+    formsSwitchable: sp.forms_switchable,
+    genderRate: sp.gender_rate,
+    generationId: generations.get(sp.generation.name)!.id,
+    growthRate: sp.growth_rate.name as GrowthRate,
+    habitat: sp.habitat.name as PokemonHabitat,
+    hasGenderDifferences: sp.has_gender_differences,
+    hatchCounter: sp.hatch_counter,
+    isBaby: sp.is_baby,
+    isLegendary: sp.is_legendary,
+    isMythical: sp.is_mythical,
+    order: sp.order,
+    shape: sp.shape.name as PokemonShapes,
+    evolvesFromPokemonSpeciesId: sp.evolves_from_species ? pokemonSpecies.get(sp.evolves_from_species.name)?.id : null,
+  });
+
+  await insertTranslation(sp.id, sp.names, schema.pokemonSpeciesName);
+
+  for (const genus of sp.genera) {
+    await db.insert(schema.pokemonSpeciesGenus).values({
+      languageId: languages.get(genus.language.name)!.id,
+      resourceId: sp.id,
+      text: genus.genus,
+    });
+  }
+
+  for (const flavor of sp.flavor_text_entries) {
+    await db.insert(schema.pokemonSpeciesFlavorText).values({
+      languageId: languages.get(flavor.language.name)!.id,
+      resourceId: sp.id,
+      text: flavor.flavor_text,
+      versionId: versions.get((flavor as any).version.name)!.id,
+    });
+  }
+
+  for (const egg of sp.egg_groups) {
+    await db.insert(schema.pokemonSpeciesEggGroup).values({
+      eggGroupId: eggGroups.get(egg.name)!.id,
+      pokemonSpeciesId: sp.id,
+    });
+  }
+
+  await resetSerial(schema.pokemonSpecies);
 }
 
 process.exit(0);
