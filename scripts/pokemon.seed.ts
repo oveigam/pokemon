@@ -310,7 +310,7 @@ for (const item of data.items) {
     categoryId: itemsCategories.get(item.category.name)!.id,
     cost: item.cost,
     flingPower: item.fling_power,
-    sprite: item.sprites.default,
+    sprite: item.sprites?.default,
   });
 
   await insertTranslation(item.id, item.names, schema.itemName);

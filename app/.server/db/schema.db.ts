@@ -453,7 +453,7 @@ export const item = pgTable("item", {
     .notNull()
     .references(() => itemCategory.id),
   /** Sprite used to depict this item in the game */
-  sprite: text().notNull(),
+  sprite: text(),
 
   ...auditCols,
 });
