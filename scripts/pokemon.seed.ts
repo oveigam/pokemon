@@ -17,6 +17,8 @@ import { data } from "../data/data";
 import type { PgTable } from "drizzle-orm/pg-core";
 import { type Machine, type Name, type TypeRelations, type VersionSprites } from "pokenode-ts";
 
+const start = Date.now();
+
 type TranslationTable = typeof schema.generationName;
 
 const byName = <T extends { name: string }>(arr: T[]) => {
@@ -104,7 +106,10 @@ const machines = data.machine.reduce((map, machine) => {
   return map;
 }, new Map<string, Machine>());
 
+console.log("Starting migration...");
+
 // language
+console.log("Inserting languages...");
 for (const lng of data.languages) {
   await db.insert(schema.language).values({
     id: lng.id,
@@ -125,6 +130,7 @@ for (const lng of data.languages) {
 }
 
 // generation
+console.log("Inserting generations...");
 for (const gen of data.generation) {
   await db.insert(schema.generation).values({
     id: gen.id,
@@ -137,6 +143,7 @@ for (const gen of data.generation) {
 }
 
 // region
+console.log("Inserting regions...");
 for (const re of data.regions) {
   await db.insert(schema.region).values({
     id: re.id,
@@ -150,6 +157,7 @@ for (const re of data.regions) {
 }
 
 // version group
+console.log("Inserting version groups...");
 for (const vg of data.versionGroup) {
   await db.insert(schema.versionGroup).values({
     id: vg.id,
@@ -169,6 +177,7 @@ for (const vg of data.versionGroup) {
 }
 
 // version
+console.log("Inserting versions...");
 for (const version of data.versions) {
   await db.insert(schema.version).values({
     id: version.id,
@@ -182,6 +191,7 @@ for (const version of data.versions) {
 }
 
 // location
+console.log("Inserting locations...");
 for (const loc of data.locations) {
   await db.insert(schema.location).values({
     id: loc.id,
@@ -205,6 +215,7 @@ for (const loc of data.locations) {
 }
 
 // location area
+console.log("Inserting location areas...");
 for (const loa of data.locationAreas) {
   await db.insert(schema.locationArea).values({
     id: loa.id,
@@ -218,6 +229,7 @@ for (const loa of data.locationAreas) {
 }
 
 // types
+console.log("Inserting types...");
 for (const ty of data.types) {
   await db.insert(schema.type).values({
     id: ty.id,
@@ -238,6 +250,7 @@ for (const ty of data.types) {
 }
 
 // item pocket
+console.log("Inserting item pockets...");
 for (const pocket of data.itemsPocket) {
   await db.insert(schema.itemPocket).values({
     id: pocket.id,
@@ -250,6 +263,7 @@ for (const pocket of data.itemsPocket) {
 }
 
 // item category
+console.log("Inserting item categories...");
 for (const cat of data.itemsCategories) {
   await db.insert(schema.itemCategory).values({
     id: cat.id,
@@ -263,6 +277,7 @@ for (const cat of data.itemsCategories) {
 }
 
 // item attribute
+console.log("Inserting item attributes...");
 for (const attr of data.itemsAttributes) {
   await db.insert(schema.itemAttribute).values({
     id: attr.id,
@@ -283,6 +298,7 @@ for (const attr of data.itemsAttributes) {
 }
 
 // item
+console.log("Inserting items...");
 for (const item of data.items) {
   await db.insert(schema.item).values({
     id: item.id,
@@ -344,6 +360,7 @@ for (const item of data.items) {
 }
 
 // ability
+console.log("Inserting abilities...");
 for (const ab of data.abilities) {
   await db.insert(schema.ability).values({
     id: ab.id,
@@ -386,6 +403,7 @@ for (const ab of data.abilities) {
 }
 
 // moves
+console.log("Inserting moves...");
 for (const move of data.move) {
   await db.insert(schema.move).values({
     id: move.id,
@@ -474,6 +492,7 @@ for (const move of data.move) {
   await resetSerial(schema.move);
 }
 
+console.log("Inserting learn...");
 for (const learn of data.learn) {
   await db.insert(schema.moveLearnMethod).values({
     id: learn.id,
@@ -493,6 +512,7 @@ for (const learn of data.learn) {
   await resetSerial(schema.moveLearnMethod);
 }
 
+console.log("Inserting eggs...");
 for (const egg of data.eggGroups) {
   await db.insert(schema.eggGroup).values({
     id: egg.id,
@@ -504,6 +524,7 @@ for (const egg of data.eggGroups) {
   await resetSerial(schema.eggGroup);
 }
 
+console.log("Inserting species...");
 for (const sp of data.pokemonSpecies) {
   await db.insert(schema.pokemonSpecies).values({
     id: sp.id,
@@ -555,6 +576,7 @@ for (const sp of data.pokemonSpecies) {
   await resetSerial(schema.pokemonSpecies);
 }
 
+console.log("Inserting pokemon...");
 for (const poke of data.pokemon) {
   const stats = {
     hp: poke.stats.find((s) => s.stat.name === "hp")!,
@@ -680,6 +702,7 @@ for (const poke of data.pokemon) {
   await resetSerial(schema.pokemon);
 }
 
+console.log("Inserting pokemon forms...");
 for (const form of data.pokemonForm) {
   await db.insert(schema.pokemonForm).values({
     id: form.id,
@@ -708,6 +731,7 @@ for (const form of data.pokemonForm) {
 }
 
 // pokedex
+console.log("Inserting pokedex...");
 for (const dex of data.pokedex) {
   await db.insert(schema.pokedex).values({
     id: dex.id,
@@ -743,5 +767,7 @@ for (const dex of data.pokedex) {
 
   await resetSerial(schema.pokedexName);
 }
+
+console.log(`Migration finished in ${(Date.now() - start) / 60000} mins`);
 
 process.exit(0);
