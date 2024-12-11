@@ -79,26 +79,16 @@ const insertDamageTo = async (from: number, relations: TypeRelations, generation
 const languages = byName(data.languages);
 const generations = byName(data.generation);
 const regions = byName(data.regions);
-const pokedexes = byName(data.pokedex);
 const versions = byName(data.versions);
 const versionGroups = byName(data.versionGroup);
 const locations = byName(data.locations);
-const locationAreas = byName(data.locationAreas);
-const palParks = byName(data.palParks);
 
 const pokemons = byName(data.pokemon);
-const pokemonForms = byName(data.pokemonForm);
 const pokemonSpecies = byName(data.pokemonSpecies);
-const growthRates = byName(data.growthRates);
 const eggGroups = byName(data.eggGroups);
-const shapes = byName(data.shapes);
 const types = byName(data.types);
 
 const moves = byName(data.move);
-const moveDamageClasses = byName(data.moveDamageClass);
-const moveTargets = byName(data.moveTarget);
-const moveAilments = byName(data.moveAilment);
-const moveCategories = byName(data.moveCategory);
 
 const items = byName(data.items);
 const itemsAttributes = byName(data.itemsAttributes);
