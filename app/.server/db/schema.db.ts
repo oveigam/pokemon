@@ -163,7 +163,7 @@ export const pokemonSpecies = pgTable("pokemon_species", {
   /** The base capture rate; up to 255. The higher the number, the easier the catch */
   captureRate: integer().notNull(),
   /** The happiness when caught by a normal Pokéball; up to 255. The higher the number, the happier the Pokémon */
-  baseHappiness: integer().notNull(),
+  baseHappiness: integer(),
   /** Whether or not this is a baby Pokémon */
   isBaby: boolean().notNull(),
   /** Whether or not this is a legendary Pokémon */
@@ -171,7 +171,7 @@ export const pokemonSpecies = pgTable("pokemon_species", {
   /** Whether or not this is a mythical Pokémon */
   isMythical: boolean().notNull(),
   /** Initial hatch counter: one must walk 255 × (hatch_counter + 1) steps before this Pokémon's egg hatches, unless utilizing bonuses like Flame Body's */
-  hatchCounter: integer().notNull(),
+  hatchCounter: integer(),
   /** Whether or not this Pokémon has visual gender differences */
   hasGenderDifferences: boolean().notNull(),
   /** Whether or not this Pokémon has multiple forms and can switch between them */
@@ -189,7 +189,7 @@ export const pokemonSpecies = pgTable("pokemon_species", {
     .notNull()
     .references(() => generation.id),
   /** The habitat this Pokémon species can be encountered in */
-  habitat: text({ enum: pokemonHabitat }).notNull(),
+  habitat: text({ enum: pokemonHabitat }),
 
   ...auditCols,
 });

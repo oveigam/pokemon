@@ -593,7 +593,7 @@ await migrate("pokemonSpecies", async (sp) => {
     genderRate: sp.gender_rate,
     generationId: generations.get(sp.generation.name)!.id,
     growthRate: sp.growth_rate.name as GrowthRate,
-    habitat: sp.habitat.name as PokemonHabitat,
+    habitat: sp.habitat?.name as PokemonHabitat | undefined,
     hasGenderDifferences: sp.has_gender_differences,
     hatchCounter: sp.hatch_counter,
     isBaby: sp.is_baby,
@@ -819,7 +819,7 @@ await migrate("pokedex", async (dex) => {
     });
   }
 
-  await resetSerial(schema.pokedexName);
+  await resetSerial(schema.pokedex);
 });
 
 process.exit(0);
