@@ -148,7 +148,7 @@ for (const re of data.regions) {
   await db.insert(schema.region).values({
     id: re.id,
     name: re.name,
-    mainGenerationId: generations.get(re.main_generation.name)!.id,
+    mainGenerationId: re.main_generation ? generations.get(re.main_generation.name)!.id : null,
   });
 
   await insertTranslation(re.id, re.names, schema.regionName);

@@ -610,9 +610,7 @@ export const versionGroupRegion = pgTable(
  */
 export const region = pgTable("region", {
   ...idCols,
-  mainGenerationId: integer()
-    .notNull()
-    .references(() => generation.id),
+  mainGenerationId: integer().references(() => generation.id),
 
   ...auditCols,
 });
