@@ -1,6 +1,8 @@
 // https://pokenode-ts.vercel.app
 
 import { sql } from "drizzle-orm";
+import type { PgTable } from "drizzle-orm/pg-core";
+import { type Machine, type Name, type TypeRelations, type VersionSprites } from "pokenode-ts";
 import {
   db,
   schema,
@@ -14,10 +16,9 @@ import {
   type PokemonShapes,
 } from "../app/.server/db/database";
 import { data } from "../data/data";
-import type { PgTable } from "drizzle-orm/pg-core";
-import { type Machine, type Name, type TypeRelations, type VersionSprites } from "pokenode-ts";
 
 const start = Date.now();
+let progress = 0;
 
 type TranslationTable = typeof schema.generationName;
 
@@ -234,19 +235,22 @@ for (const ty of data.types) {
   await db.insert(schema.type).values({
     id: ty.id,
     name: ty.name,
-    damageClass: ty.move_damage_class.name as "status" | "physical" | "special",
+    damageClass: ty.move_damage_class?.name as DamageClass | undefined,
     generationId: generations.get(ty.generation.name)!.id,
   });
 
   await insertTranslation(ty.id, ty.names, schema.typeName);
 
+  await resetSerial(schema.type);
+}
+
+console.log("Inserting type damage relations");
+for (const ty of data.types) {
   await insertDamageTo(ty.id, ty.damage_relations, null);
 
   for (const past of ty.past_damage_relations) {
     await insertDamageTo(ty.id, past.damage_relations, generations.get(past.generation.name)!.id);
   }
-
-  await resetSerial(schema.type);
 }
 
 // item pocket

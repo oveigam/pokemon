@@ -679,7 +679,7 @@ export const type = pgTable("type", {
     .notNull()
     .references(() => generation.id),
   /** The class of damage inflicted by this type in generation 1 and 2 */
-  damageClass: text({ enum: damageClass }).notNull(),
+  damageClass: text({ enum: damageClass }),
 
   ...auditCols,
 });
