@@ -7,6 +7,8 @@
     "start": "vinxi start",
     "pokemon:fetch": "bun run scripts/pokemon.fetch.ts",
     "pokemon:seed": "bun run scripts/pokemon.seed.ts",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push"
   },
   "dependencies": {
