@@ -16,7 +16,6 @@ import {
   type PokemonShapes,
 } from "../app/.server/db/database";
 import { data } from "../data/data";
-import { PostgresError } from "postgres";
 
 const start = Date.now();
 
@@ -406,7 +405,7 @@ await migrate(
     await resetSerial(schema.item);
   },
   async (item, err) => {
-    if (err instanceof PostgresError) {
+    if (err instanceof Error) {
       if (err.message === `duplicate key value violates unique constraint "item_pkey"`) {
         // No se por qué hay items duplicados
         console.log("ERROR: Duplicate item: ", item.id);
@@ -435,6 +434,7 @@ await migrate("abilities", async (ab) => {
       languageId: languages.get(effect.language.name)!.id,
       resourceId: ab.id,
       text: effect.effect,
+      shortText: effect.short_effect,
     });
   }
 

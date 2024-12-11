@@ -923,8 +923,9 @@ export const abilityEffect = pgTable(
       .references(() => language.id),
     resourceId: integer()
       .notNull()
-      .references(() => move.id),
+      .references(() => ability.id),
     text: text().notNull(),
+    shortText: text(),
 
     /** Past generation of the effect, if null it is the current effect */
     versionGroupId: integer().references(() => versionGroup.id),
