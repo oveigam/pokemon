@@ -28,7 +28,7 @@ class Progress {
     this.max = max;
     this.start = Date.now();
     this.name = name;
-    console.log(`Migrating ${name}...`);
+    console.log(`\nMigrating ${name}...`);
   }
 
   track() {
@@ -104,6 +104,8 @@ const insertDamageTo = async (from: number, relations: TypeRelations, generation
   }
 };
 
+const mainProgrees = new Progress("migration", 20);
+
 const migrate = async <T extends keyof typeof data>(
   name: T,
   migrationFn: (item: (typeof data)[T][number]) => Promise<void>,
@@ -128,6 +130,7 @@ const migrate = async <T extends keyof typeof data>(
   }
 
   progress.end();
+  mainProgrees.track();
 };
 
 const languages = byName(data.languages);
@@ -157,8 +160,6 @@ const machines = data.machine.reduce((map, machine) => {
   map.set(`https://pokeapi.co/api/v2/machine/${machine.id}/`, machine);
   return map;
 }, new Map<string, Machine>());
-
-console.log("Starting migration...");
 
 // language
 await migrate("languages", async (lng) => {
@@ -803,5 +804,7 @@ await resetSerial(schema.pokemonSpecies);
 await resetSerial(schema.pokemon);
 await resetSerial(schema.pokemonForm);
 await resetSerial(schema.pokedex);
+
+mainProgrees.end();
 
 process.exit(0);
