@@ -29,10 +29,10 @@ const auditCols = {
  * Helper para crear una table normalizada de traducciones
  *
  * @param name nombre de la tabla
- * @param reouceIdCol referencia a la columna id del recurso traducido
+ * @param resourceIdCol referencia a la columna id del recurso traducido
  * @returns tabla con pk(languageId, resourceId) y text (traducción)
  */
-const translationTable = (name: string, reouceIdCol: PgColumn) =>
+const translationTable = (name: string, resourceIdCol: PgColumn) =>
   pgTable(
     name,
     {
@@ -41,7 +41,7 @@ const translationTable = (name: string, reouceIdCol: PgColumn) =>
         .references(() => language.id),
       resourceId: integer()
         .notNull()
-        .references(() => reouceIdCol),
+        .references(() => resourceIdCol),
       text: text().notNull(),
 
       ...auditCols,
@@ -338,7 +338,7 @@ export const pokemonVersionAppearance = pgTable(
     pokemonId: integer()
       .notNull()
       .references(() => pokemon.id),
-    versoinId: integer()
+    versionId: integer()
       .notNull()
       .references(() => version.id),
 
@@ -362,7 +362,7 @@ export const pokemonVersionAppearance = pgTable(
 
     ...auditCols,
   },
-  (t) => [{ pk: primaryKey({ columns: [t.pokemonId, t.versoinId] }) }],
+  (t) => [{ pk: primaryKey({ columns: [t.pokemonId, t.versionId] }) }],
 );
 
 export const pokemonHeldItem = pgTable(

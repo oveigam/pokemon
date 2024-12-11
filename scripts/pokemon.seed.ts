@@ -17,8 +17,6 @@ import {
 } from "../app/.server/db/database";
 import { data } from "../data/data";
 
-const start = Date.now();
-
 class Progress {
   private progress = 0;
   private max: number;
@@ -156,7 +154,7 @@ const abilities = byName(data.abilities);
 const learnMethods = byName(data.learn);
 
 const machines = data.machine.reduce((map, machine) => {
-  map.set(`https://pokeapi.co/api/v2/move-damage-class/${machine.id}/`, machine);
+  map.set(`https://pokeapi.co/api/v2/machine/${machine.id}/`, machine);
   return map;
 }, new Map<string, Machine>());
 
@@ -289,6 +287,7 @@ await migrate("types", async (ty) => {
   await resetSerial(schema.type);
 });
 
+// type dagmage relations
 await migrate("types", async (ty) => {
   await insertDamageTo(ty.id, ty.damage_relations, null);
 
@@ -550,6 +549,7 @@ await migrate("move", async (move) => {
   await resetSerial(schema.move);
 });
 
+// move learn
 await migrate("learn", async (learn) => {
   await db.insert(schema.moveLearnMethod).values({
     id: learn.id,
@@ -569,6 +569,7 @@ await migrate("learn", async (learn) => {
   await resetSerial(schema.moveLearnMethod);
 });
 
+// eggs
 await migrate("eggGroups", async (egg) => {
   await db.insert(schema.eggGroup).values({
     id: egg.id,
@@ -580,6 +581,7 @@ await migrate("eggGroups", async (egg) => {
   await resetSerial(schema.eggGroup);
 });
 
+// pokemon species
 await migrate("pokemonSpecies", async (sp) => {
   await db.insert(schema.pokemonSpecies).values({
     id: sp.id,
@@ -708,7 +710,7 @@ await migrate("pokemon", async (poke) => {
     }
 
     await db.insert(schema.pokemonVersionAppearance).values({
-      versoinId: version.id,
+      versionId: version.id,
       pokemonId: poke.id,
       backDefault: versionSprites?.back_default,
       backFemale: versionSprites?.back_female,
