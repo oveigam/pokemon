@@ -138,6 +138,7 @@ export const pokedexEntry = pgTable(
     pokemonSpeciesId: integer()
       .notNull()
       .references(() => pokemonSpecies.id),
+    entryNumber: integer().notNull(),
 
     ...auditCols,
   },

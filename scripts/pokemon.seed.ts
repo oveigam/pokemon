@@ -227,35 +227,6 @@ for (const loa of data.locationAreas) {
   await resetSerial(schema.locationArea);
 }
 
-// pokedex
-for (const dex of data.pokedex) {
-  await db.insert(schema.pokedex).values({
-    id: dex.id,
-    name: dex.name,
-    isMainSeries: dex.is_main_series,
-    regionId: dex.region?.name ? regions.get(dex.region?.name)!.id : null,
-  });
-
-  await insertTranslation(dex.id, dex.names, schema.pokedexName);
-
-  for (const desc of dex.descriptions) {
-    await db.insert(schema.pokedexDescription).values({
-      languageId: languages.get(desc.language.name)!.id,
-      resourceId: dex.id,
-      text: desc.description,
-    });
-  }
-
-  for (const vg of dex.version_groups) {
-    await db.insert(schema.pokedexVersionGroup).values({
-      pokedexId: dex.id,
-      versionGroupId: versionGroups.get(vg.name)!.id,
-    });
-  }
-
-  await resetSerial(schema.pokedexName);
-}
-
 // types
 for (const ty of data.types) {
   await db.insert(schema.type).values({
@@ -707,6 +678,15 @@ for (const poke of data.pokemon) {
     }
   }
 
+  for (const ab of poke.abilities) {
+    await db.insert(schema.pokemonAbility).values({
+      pokemonId: poke.id,
+      abilityId: abilities.get(ab.ability.name)!.id,
+      isHidden: ab.is_hidden,
+      slot: ab.slot,
+    });
+  }
+
   await resetSerial(schema.pokemon);
 }
 
@@ -735,6 +715,43 @@ for (const form of data.pokemonForm) {
   await insertTranslation(form.id, form.names, schema.pokemonFormName);
 
   await resetSerial(schema.pokemonForm);
+}
+
+// pokedex
+for (const dex of data.pokedex) {
+  await db.insert(schema.pokedex).values({
+    id: dex.id,
+    name: dex.name,
+    isMainSeries: dex.is_main_series,
+    regionId: dex.region?.name ? regions.get(dex.region?.name)!.id : null,
+  });
+
+  await insertTranslation(dex.id, dex.names, schema.pokedexName);
+
+  for (const desc of dex.descriptions) {
+    await db.insert(schema.pokedexDescription).values({
+      languageId: languages.get(desc.language.name)!.id,
+      resourceId: dex.id,
+      text: desc.description,
+    });
+  }
+
+  for (const vg of dex.version_groups) {
+    await db.insert(schema.pokedexVersionGroup).values({
+      pokedexId: dex.id,
+      versionGroupId: versionGroups.get(vg.name)!.id,
+    });
+  }
+
+  for (const entry of dex.pokemon_entries) {
+    await db.insert(schema.pokedexEntry).values({
+      pokedexId: dex.id,
+      pokemonSpeciesId: pokemonSpecies.get(entry.pokemon_species.name)!.id,
+      entryNumber: entry.entry_number,
+    });
+  }
+
+  await resetSerial(schema.pokedexName);
 }
 
 process.exit(0);
