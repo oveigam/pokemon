@@ -14,6 +14,13 @@
     "verbatimModuleSyntax": true,
     "noEmit": true,
 
+    // Path alias
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./app/*"],
+      "@ui/*": ["./app/lib/ui/*"]
+    },
+
     // Best practices
     "strict": true,
     "strictNullChecks": true,
