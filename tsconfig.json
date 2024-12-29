@@ -17,8 +17,8 @@
     // Path alias
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./app/*"],
-      "@ui/*": ["./app/lib/ui/*"]
+      "@ui/*": ["./app/lib/ui/*"],
+      "@/*": ["./app/*"]
     },
 
     // Best practices

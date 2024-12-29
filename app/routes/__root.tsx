@@ -1,4 +1,5 @@
 import globalCss from "@/style/global.css?url";
+import "@fontsource-variable/inter";
 import { Outlet, ScrollRestoration, createRootRoute } from "@tanstack/react-router";
 import { Meta, Scripts } from "@tanstack/start";
 import type { ReactNode } from "react";
