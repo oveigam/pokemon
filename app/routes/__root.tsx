@@ -1,10 +1,16 @@
+import type { RouterContext } from "@/router";
 import globalCss from "@/style/global.css?url";
 import "@fontsource-variable/inter";
-import { Outlet, ScrollRestoration, createRootRoute } from "@tanstack/react-router";
-import { Meta, Scripts } from "@tanstack/start";
+import { Outlet, ScrollRestoration, createRootRouteWithContext } from "@tanstack/react-router";
+import { createServerFn, Meta, Scripts } from "@tanstack/start";
 import type { ReactNode } from "react";
+import { getCookie } from "vinxi/server";
 
-export const Route = createRootRoute({
+const getTheme = createServerFn({ method: "GET" }).handler(() => {
+  return getCookie("ui-theme") as "light" | "dark" | "system" | undefined;
+});
+
+export const Route = createRootRouteWithContext<RouterContext>()({
   head: () => ({
     meta: [
       {
@@ -21,6 +27,10 @@ export const Route = createRootRoute({
     links: [{ rel: "stylesheet", href: globalCss }],
   }),
   component: RootComponent,
+  beforeLoad: async () => {
+    const theme = await getTheme();
+    return { theme } satisfies Partial<RouterContext>;
+  },
 });
 
 function RootComponent() {
@@ -32,8 +42,10 @@ function RootComponent() {
 }
 
 function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
+  const { theme } = Route.useRouteContext();
+
   return (
-    <html>
+    <html className={theme}>
       <head>
         <Meta />
       </head>
