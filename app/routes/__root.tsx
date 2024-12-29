@@ -1,3 +1,4 @@
+import globalCss from "@/style/global.css?url";
 import { Outlet, ScrollRestoration, createRootRoute } from "@tanstack/react-router";
 import { Meta, Scripts } from "@tanstack/start";
 import type { ReactNode } from "react";
@@ -16,6 +17,7 @@ export const Route = createRootRoute({
         title: "Pokemon",
       },
     ],
+    links: [{ rel: "stylesheet", href: globalCss }],
   }),
   component: RootComponent,
 });
