@@ -14,8 +14,8 @@
   "dependencies": {
     "@fontsource-variable/inter": "^5.1.1",
     "@radix-ui/react-slot": "^1.1.1",
-    "@tanstack/react-router": "^1.92.9",
-    "@tanstack/start": "^1.92.10",
+    "@tanstack/react-router": "^1.92.11",
+    "@tanstack/start": "^1.92.11",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "drizzle-orm": "^0.38.3",
