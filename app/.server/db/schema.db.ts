@@ -10,7 +10,7 @@ import { damageClass, growthRates, moveAilment, moveCategory, moveTarget, pokemo
 
 const idCols = {
   /** The identifier for this resource */
-  id: serial().primaryKey(),
+  id: integer().primaryKey().generatedByDefaultAsIdentity(),
   /** The name for this resource */
   name: text().notNull(),
 };
