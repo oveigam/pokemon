@@ -8,7 +8,6 @@ import { setCookie } from "vinxi/http";
 const updateTheme = createServerFn({ method: "POST" })
   .validator((data: { theme: "light" | "dark" }) => data)
   .handler(({ data }) => {
-    console.log("HANDLER", data);
     setCookie("ui-theme", data.theme); // TODO set maxAge, etc.
   });
 
