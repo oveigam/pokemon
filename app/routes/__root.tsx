@@ -1,11 +1,13 @@
+import "@fontsource-variable/inter";
+
 import { ThemeSwitch } from "@/modules/common/components/theme-switch";
 import type { RouterContext } from "@/router";
 import globalCss from "@/style/global.css?url";
-import "@fontsource-variable/inter";
 import { createRootRouteWithContext, Outlet, ScrollRestoration } from "@tanstack/react-router";
 import { createServerFn, Meta, Scripts } from "@tanstack/start";
 import type { ReactNode } from "react";
 import { getCookie } from "vinxi/server";
+import { useTranslation } from "react-i18next";
 
 const getTheme = createServerFn({ method: "GET" }).handler(() => {
   return getCookie("ui-theme") as RouterContext["theme"] | undefined;
@@ -30,7 +32,9 @@ export const Route = createRootRouteWithContext<RouterContext>()({
   component: RootComponent,
   beforeLoad: async () => {
     const theme = await getTheme();
-    return { theme: theme ?? "light" } satisfies Partial<RouterContext>;
+    return {
+      theme: theme ?? "light",
+    } satisfies Partial<RouterContext>;
   },
 });
 
@@ -43,6 +47,7 @@ function RootComponent() {
 }
 
 function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
+  const { t } = useTranslation("base");
   const { theme } = Route.useRouteContext();
 
   return (
@@ -51,8 +56,12 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
         <Meta />
       </head>
       <body>
-        <header className="sticky top-0 flex h-10 bg-primary text-primary-foreground">
-          <div className="container flex items-center justify-end">
+        <header className="sticky top-0 grid h-12 grid-cols-3 items-center bg-primary px-2 text-primary-foreground md:px-4 lg:px-6 xl:px-12">
+          <div />
+          <h1 className="invisible text-center font-semibold sm:visible md:text-lg">
+            {t("title")}
+          </h1>
+          <div className="flex justify-end">
             <ThemeSwitch theme={theme} />
           </div>
         </header>
