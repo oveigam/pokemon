@@ -42,18 +42,6 @@ function RootComponent() {
   );
 }
 
-function Header() {
-  const { theme } = Route.useRouteContext();
-
-  return (
-    <header className="flex h-10 bg-primary text-primary-foreground">
-      <div className="container flex items-center justify-end">
-        <ThemeSwitch theme={theme} />
-      </div>
-    </header>
-  );
-}
-
 function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
   const { theme } = Route.useRouteContext();
 
@@ -63,7 +51,11 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
         <Meta />
       </head>
       <body>
-        <Header />
+        <header className="flex h-10 bg-primary text-primary-foreground">
+          <div className="container flex items-center justify-end">
+            <ThemeSwitch theme={theme} />
+          </div>
+        </header>
         {children}
         <ScrollRestoration />
         <Scripts />
