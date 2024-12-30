@@ -51,7 +51,7 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
         <Meta />
       </head>
       <body>
-        <header className="flex h-10 bg-primary text-primary-foreground">
+        <header className="sticky top-0 flex h-10 bg-primary text-primary-foreground">
           <div className="container flex items-center justify-end">
             <ThemeSwitch theme={theme} />
           </div>

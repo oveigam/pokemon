@@ -23,7 +23,9 @@ export const ThemeSwitch = ({ theme }: { theme: Theme }) => {
   return (
     <Switch
       className="data-[state=checked]:bg-zinc-600 data-[state=unchecked]:bg-zinc-300 data-[state=checked]:text-zinc-50 data-[state=unchecked]:text-zinc-800"
-      thumbClassName={cn("flex items-center justify-center data-[state=unchecked]:bg-zinc-50 data-[state=checked]:bg-zinc-800")}
+      thumbClassName={cn(
+        "flex items-center justify-center data-[state=unchecked]:bg-zinc-50 data-[state=checked]:bg-zinc-800",
+      )}
       checked={isDark}
       onCheckedChange={async () => {
         const nextTheme = theme !== "dark" ? "dark" : "light";

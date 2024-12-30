@@ -1,5 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { cn } from "@ui/util/class-name";
+import { PageLayout } from "@/modules/common/components/layout";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { Button } from "@ui/components/button";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
@@ -7,8 +8,19 @@ export const Route = createFileRoute("/")({
 
 function HomePage() {
   return (
-    <main className="container mx-auto flex flex-1 flex-col items-center justify-center">
-      <h1 className={cn("text-rose-600")}>Hello pokemon</h1>
-    </main>
+    <PageLayout className="grid grid-cols-4">
+      <Button asChild variant="ghost" className="">
+        <Link to="/pokemon">Pokemons</Link>
+      </Button>
+      <Button asChild variant="ghost" className="">
+        <Link to="/move">Moves</Link>
+      </Button>
+      <Button asChild variant="ghost" className="">
+        <Link to="/ability">Abilities</Link>
+      </Button>
+      <Button asChild variant="ghost" className="">
+        <Link to="/item">Items</Link>
+      </Button>
+    </PageLayout>
   );
 }

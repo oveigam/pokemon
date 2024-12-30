@@ -11,9 +11,37 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as PokemonImport } from './routes/pokemon'
+import { Route as MoveImport } from './routes/move'
+import { Route as ItemImport } from './routes/item'
+import { Route as AbilityImport } from './routes/ability'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
+
+const PokemonRoute = PokemonImport.update({
+  id: '/pokemon',
+  path: '/pokemon',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const MoveRoute = MoveImport.update({
+  id: '/move',
+  path: '/move',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ItemRoute = ItemImport.update({
+  id: '/item',
+  path: '/item',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AbilityRoute = AbilityImport.update({
+  id: '/ability',
+  path: '/ability',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const IndexRoute = IndexImport.update({
   id: '/',
@@ -32,6 +60,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/ability': {
+      id: '/ability'
+      path: '/ability'
+      fullPath: '/ability'
+      preLoaderRoute: typeof AbilityImport
+      parentRoute: typeof rootRoute
+    }
+    '/item': {
+      id: '/item'
+      path: '/item'
+      fullPath: '/item'
+      preLoaderRoute: typeof ItemImport
+      parentRoute: typeof rootRoute
+    }
+    '/move': {
+      id: '/move'
+      path: '/move'
+      fullPath: '/move'
+      preLoaderRoute: typeof MoveImport
+      parentRoute: typeof rootRoute
+    }
+    '/pokemon': {
+      id: '/pokemon'
+      path: '/pokemon'
+      fullPath: '/pokemon'
+      preLoaderRoute: typeof PokemonImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -39,32 +95,52 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/ability': typeof AbilityRoute
+  '/item': typeof ItemRoute
+  '/move': typeof MoveRoute
+  '/pokemon': typeof PokemonRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/ability': typeof AbilityRoute
+  '/item': typeof ItemRoute
+  '/move': typeof MoveRoute
+  '/pokemon': typeof PokemonRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/ability': typeof AbilityRoute
+  '/item': typeof ItemRoute
+  '/move': typeof MoveRoute
+  '/pokemon': typeof PokemonRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/ability' | '/item' | '/move' | '/pokemon'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/ability' | '/item' | '/move' | '/pokemon'
+  id: '__root__' | '/' | '/ability' | '/item' | '/move' | '/pokemon'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AbilityRoute: typeof AbilityRoute
+  ItemRoute: typeof ItemRoute
+  MoveRoute: typeof MoveRoute
+  PokemonRoute: typeof PokemonRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AbilityRoute: AbilityRoute,
+  ItemRoute: ItemRoute,
+  MoveRoute: MoveRoute,
+  PokemonRoute: PokemonRoute,
 }
 
 export const routeTree = rootRoute
@@ -77,11 +153,27 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/"
+        "/",
+        "/ability",
+        "/item",
+        "/move",
+        "/pokemon"
       ]
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/ability": {
+      "filePath": "ability.tsx"
+    },
+    "/item": {
+      "filePath": "item.tsx"
+    },
+    "/move": {
+      "filePath": "move.tsx"
+    },
+    "/pokemon": {
+      "filePath": "pokemon.tsx"
     }
   }
 }
