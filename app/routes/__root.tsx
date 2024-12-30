@@ -1,13 +1,14 @@
+import { ThemeSwitch } from "@/modules/common/components/theme-switch";
 import type { RouterContext } from "@/router";
 import globalCss from "@/style/global.css?url";
 import "@fontsource-variable/inter";
-import { Outlet, ScrollRestoration, createRootRouteWithContext } from "@tanstack/react-router";
+import { createRootRouteWithContext, Outlet, ScrollRestoration } from "@tanstack/react-router";
 import { createServerFn, Meta, Scripts } from "@tanstack/start";
 import type { ReactNode } from "react";
 import { getCookie } from "vinxi/server";
 
 const getTheme = createServerFn({ method: "GET" }).handler(() => {
-  return getCookie("ui-theme") as "light" | "dark" | "system" | undefined;
+  return getCookie("ui-theme") as RouterContext["theme"] | undefined;
 });
 
 export const Route = createRootRouteWithContext<RouterContext>()({
@@ -29,7 +30,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
   component: RootComponent,
   beforeLoad: async () => {
     const theme = await getTheme();
-    return { theme } satisfies Partial<RouterContext>;
+    return { theme: theme ?? "light" } satisfies Partial<RouterContext>;
   },
 });
 
@@ -38,6 +39,18 @@ function RootComponent() {
     <RootDocument>
       <Outlet />
     </RootDocument>
+  );
+}
+
+function Header() {
+  const { theme } = Route.useRouteContext();
+
+  return (
+    <header className="flex h-10 bg-primary text-primary-foreground">
+      <div className="container flex items-center justify-end">
+        <ThemeSwitch theme={theme} />
+      </div>
+    </header>
   );
 }
 
@@ -50,6 +63,7 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
         <Meta />
       </head>
       <body>
+        <Header />
         {children}
         <ScrollRestoration />
         <Scripts />

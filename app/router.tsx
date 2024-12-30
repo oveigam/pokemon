@@ -2,14 +2,14 @@ import { createRouter as createTanStackRouter } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
 
 export type RouterContext = {
-  theme: "light" | "dark" | "system";
+  theme: "light" | "dark";
 };
 
 export function createRouter() {
   const router = createTanStackRouter({
     routeTree,
     context: {
-      theme: "system",
+      theme: "light",
     },
   });
 
