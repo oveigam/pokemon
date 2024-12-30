@@ -8,9 +8,22 @@ import { createServerFn, Meta, Scripts } from "@tanstack/start";
 import type { ReactNode } from "react";
 import { getCookie } from "vinxi/server";
 import { useTranslation } from "react-i18next";
+import { dal } from "@/.server/data/_dal";
+import { Avatar, AvatarFallback, AvatarImage } from "@ui/components/avatar";
 
 const getTheme = createServerFn({ method: "GET" }).handler(() => {
   return getCookie("ui-theme") as RouterContext["theme"] | undefined;
+});
+
+const getSession = createServerFn({ method: "GET" }).handler(async () => {
+  const token = getCookie("session");
+
+  if (token) {
+    const session = await dal.session.validateSessionToken(token);
+    return session;
+  }
+
+  return null;
 });
 
 export const Route = createRootRouteWithContext<RouterContext>()({
@@ -31,9 +44,10 @@ export const Route = createRootRouteWithContext<RouterContext>()({
   }),
   component: RootComponent,
   beforeLoad: async () => {
-    const theme = await getTheme();
+    const [theme, session] = await Promise.all([getTheme(), getSession()]);
     return {
       theme: theme ?? "light",
+      session,
     } satisfies Partial<RouterContext>;
   },
 });
@@ -48,7 +62,7 @@ function RootComponent() {
 
 function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
   const { t } = useTranslation("base");
-  const { theme } = Route.useRouteContext();
+  const { theme, session } = Route.useRouteContext();
 
   return (
     <html className={theme}>
@@ -61,7 +75,15 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
           <h1 className="invisible text-center font-semibold sm:visible md:text-lg">
             {t("title")}
           </h1>
-          <div className="flex justify-end">
+          <div className="flex items-center justify-end gap-2">
+            <Avatar className="h-6 w-6 bg-card text-xs text-card-foreground">
+              {session?.user.image && (
+                <AvatarImage src={session.user.image} alt={session.user.name} />
+              )}
+              <AvatarFallback>
+                {session?.user.name.slice(0, 2).toUpperCase() ?? "PK"}
+              </AvatarFallback>
+            </Avatar>
             <ThemeSwitch theme={theme} />
           </div>
         </header>
