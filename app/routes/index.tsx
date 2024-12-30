@@ -1,4 +1,4 @@
-import { PageLayout } from "@/modules/common/components/layout";
+import { PageLayout } from "@/components/common/layout/layout";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Button } from "@ui/components/button";
 import { useTranslation } from "react-i18next";

@@ -1,6 +1,6 @@
 import "@fontsource-variable/inter";
 
-import { ThemeSwitch } from "@/modules/common/components/theme-switch";
+import { ThemeSwitch } from "@/components/common/button/theme-switch";
 import type { RouterContext } from "@/router";
 import globalCss from "@/style/global.css?url";
 import { createRootRouteWithContext, Outlet, ScrollRestoration } from "@tanstack/react-router";
