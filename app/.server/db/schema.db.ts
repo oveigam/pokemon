@@ -1,8 +1,35 @@
 import { sql } from "drizzle-orm";
-import { boolean, check, integer, PgColumn, pgTable, primaryKey, real, serial, text, timestamp } from "drizzle-orm/pg-core";
-import { damageClass, growthRates, moveAilment, moveCategory, moveTarget, pokemonColors, pokemonHabitat, pokemonShapes } from "./enums.db";
+import {
+  boolean,
+  check,
+  integer,
+  PgColumn,
+  pgSchema,
+  primaryKey,
+  real,
+  serial,
+  text,
+  timestamp,
+} from "drizzle-orm/pg-core";
+import {
+  damageClass,
+  growthRates,
+  moveAilment,
+  moveCategory,
+  moveTarget,
+  pokemonColors,
+  pokemonHabitat,
+  pokemonShapes,
+} from "./enums.db";
 
 // TODO location area encounters? guardar en que areas se pueden encontrar los pokemon
+
+/*
+ * SCHEMAS
+ */
+
+export const authSchema = pgSchema("auth");
+export const pokemonSchema = pgSchema("pokemon");
 
 /*
  * COMMON COLUMNS
@@ -33,7 +60,7 @@ const auditCols = {
  * @returns tabla con pk(languageId, resourceId) y text (traducción)
  */
 const translationTable = (name: string, resourceIdCol: PgColumn) =>
-  pgTable(
+  pokemonSchema.table(
     name,
     {
       languageId: integer()
@@ -49,15 +76,34 @@ const translationTable = (name: string, resourceIdCol: PgColumn) =>
     (t) => [{ pk: primaryKey({ columns: [t.languageId, t.resourceId] }) }],
   );
 
-/*
- * ENUMS
- */
+export const user = authSchema.table("user", {
+  ...idCols,
+
+  email: text("email").unique(),
+  emailVerified: boolean("emailVerified").notNull().default(false),
+  image: text("image"),
+  isAdmin: boolean().notNull().default(false),
+
+  ...auditCols,
+});
+
+export const session = authSchema.table("session", {
+  id: text("id").primaryKey(),
+  userId: integer("user_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  expiresAt: timestamp("expires_at", {
+    withTimezone: true,
+    mode: "date",
+  }).notNull(),
+  ...auditCols,
+});
 
 /*
  * TABLES
  */
 
-export const language = pgTable("language", {
+export const language = pokemonSchema.table("language", {
   ...idCols,
 
   /** Whether or not the games are published in this language */
@@ -70,7 +116,7 @@ export const language = pgTable("language", {
   ...auditCols,
 });
 
-export const languageName = pgTable("language_name", {
+export const languageName = pokemonSchema.table("language_name", {
   id: serial().primaryKey(),
   languageId: integer()
     .notNull()
@@ -86,7 +132,7 @@ export const languageName = pgTable("language_name", {
  * In each generation, a new set of Pokémon, Moves, Abilities and Types that did not exist in the previous generation are released.
  * - Check out [Bulbapedia](https://bulbapedia.bulbagarden.net/wiki/Generation) for greater details.
  */
-export const generation = pgTable("generation", {
+export const generation = pokemonSchema.table("generation", {
   ...idCols,
   ...auditCols,
 });
@@ -105,7 +151,7 @@ export const generationName = translationTable("generation_name", generation.id)
  *
  * - See [Bulbapedia](https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9dex) for greater detail
  */
-export const pokedex = pgTable("pokedex", {
+export const pokedex = pokemonSchema.table("pokedex", {
   ...idCols,
 
   /** Whether or not this Pokédex originated in the main series of the video games */
@@ -129,7 +175,7 @@ export const pokedexDescription = translationTable("pokedex_description", pokede
 /**
  * Catalogued pokémon for pokedex
  */
-export const pokedexEntry = pgTable(
+export const pokedexEntry = pokemonSchema.table(
   "pokedex_entry",
   {
     pokedexId: integer()
@@ -153,7 +199,7 @@ export const pokedexEntry = pgTable(
  * A good example is Wormadam; Wormadam is the species which can be found in three different varieties,
  * Wormadam-Trash, Wormadam-Sandy and Wormadam-Plant
  */
-export const pokemonSpecies = pgTable("pokemon_species", {
+export const pokemonSpecies = pokemonSchema.table("pokemon_species", {
   ...idCols,
 
   /** The order in which species should be sorted. Based on National Dex order, except families are grouped together and sorted by stage */
@@ -207,7 +253,7 @@ export const pokemonSpeciesGenus = translationTable("pokemon_species_genus", pok
  * which makes it differ from other Pokémon of the same species, such as base stats, available abilities and typings.
  * - See [Bulbapedia](https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_(species)) for greater detail.
  */
-export const pokemon = pgTable("pokemon", {
+export const pokemon = pokemonSchema.table("pokemon", {
   ...idCols,
 
   /** The base experience gained for defeating this Pokémon */
@@ -264,7 +310,7 @@ export const pokemon = pgTable("pokemon", {
 });
 
 //   /** Data describing a Pokemon's types in a previous generation. */
-export const pokemonPastType = pgTable(
+export const pokemonPastType = pokemonSchema.table(
   "pokemon_past_type",
   {
     pokemonId: integer()
@@ -286,7 +332,7 @@ export const pokemonPastType = pgTable(
 );
 
 /** Forms a Pokémon can take */
-export const pokemonForm = pgTable("pokemon_form", {
+export const pokemonForm = pokemonSchema.table("pokemon_form", {
   ...idCols,
 
   pokemonId: integer()
@@ -332,7 +378,7 @@ export const pokemonForm = pgTable("pokemon_form", {
 
 export const pokemonFormName = translationTable("pokemon_form_name", pokemonForm.id);
 
-export const pokemonVersionAppearance = pgTable(
+export const pokemonVersionAppearance = pokemonSchema.table(
   "pokemon_version_appearance",
   {
     pokemonId: integer()
@@ -365,7 +411,7 @@ export const pokemonVersionAppearance = pgTable(
   (t) => [{ pk: primaryKey({ columns: [t.pokemonId, t.versionId] }) }],
 );
 
-export const pokemonHeldItem = pgTable(
+export const pokemonHeldItem = pokemonSchema.table(
   "pokemon_held_item",
   {
     pokemonId: integer()
@@ -385,7 +431,7 @@ export const pokemonHeldItem = pgTable(
   (t) => [{ pk: primaryKey({ columns: [t.pokemonId, t.itemId, t.versionId] }) }],
 );
 
-export const pokemonSpeciesFlavorText = pgTable(
+export const pokemonSpeciesFlavorText = pokemonSchema.table(
   "pokemon_species_flavor_text",
   {
     resourceId: integer()
@@ -404,7 +450,7 @@ export const pokemonSpeciesFlavorText = pgTable(
   (t) => [{ pk: primaryKey({ columns: [t.resourceId, t.versionId, t.languageId] }) }],
 );
 
-export const pokemonSpeciesEggGroup = pgTable(
+export const pokemonSpeciesEggGroup = pokemonSchema.table(
   "pokemon_species_egg_group",
   {
     pokemonSpeciesId: integer()
@@ -419,14 +465,14 @@ export const pokemonSpeciesEggGroup = pgTable(
   (t) => [{ pk: primaryKey({ columns: [t.pokemonSpeciesId, t.eggGroupId] }) }],
 );
 
-export const eggGroup = pgTable("egg_group", {
+export const eggGroup = pokemonSchema.table("egg_group", {
   ...idCols,
   ...auditCols,
 });
 
 export const eggGroupName = translationTable("egg_group_name", eggGroup.id);
 
-export const pokedexVersionGroup = pgTable(
+export const pokedexVersionGroup = pokemonSchema.table(
   "pokedex_version_group",
   {
     pokedexId: integer()
@@ -441,7 +487,7 @@ export const pokedexVersionGroup = pgTable(
   (t) => [{ pk: primaryKey({ columns: [t.pokedexId, t.versionGroupId] }) }],
 );
 
-export const item = pgTable("item", {
+export const item = pokemonSchema.table("item", {
   ...idCols,
 
   /** The price of this item in stores */
@@ -461,7 +507,7 @@ export const item = pgTable("item", {
 export const itemName = translationTable("item_name", item.id);
 
 /** The effect an item listed in different languages */
-export const itemEffect = pgTable(
+export const itemEffect = pokemonSchema.table(
   "item_effect",
   {
     languageId: integer()
@@ -482,7 +528,7 @@ export const itemEffect = pgTable(
 export const itemFlingEffect = translationTable("item_fling_effect", item.id);
 
 /** The flavor text of an ite listed in different languages and version */
-export const itemFlavorText = pgTable(
+export const itemFlavorText = pokemonSchema.table(
   "item_flavor_text",
   {
     languageId: integer()
@@ -501,7 +547,7 @@ export const itemFlavorText = pgTable(
   (t) => [{ pk: primaryKey({ columns: [t.languageId, t.resourceId, t.versionGroupId] }) }],
 );
 
-export const itemGeneration = pgTable(
+export const itemGeneration = pokemonSchema.table(
   "item_generation",
   {
     itemId: integer()
@@ -516,7 +562,7 @@ export const itemGeneration = pgTable(
   (t) => [{ pk: primaryKey({ columns: [t.itemId, t.generationId] }) }],
 );
 
-export const itemItemAttribute = pgTable(
+export const itemItemAttribute = pokemonSchema.table(
   "item_item_attribute",
   {
     itemId: integer()
@@ -531,15 +577,18 @@ export const itemItemAttribute = pgTable(
   (t) => [{ pk: primaryKey({ columns: [t.itemId, t.itemAttributeId] }) }],
 );
 
-export const itemAttribute = pgTable("item_attribute", {
+export const itemAttribute = pokemonSchema.table("item_attribute", {
   ...idCols,
   ...auditCols,
 });
 
 export const itemAttributeName = translationTable("item_attribute_name", itemAttribute.id);
-export const itemAttributeDescription = translationTable("item_attribute_description", itemAttribute.id);
+export const itemAttributeDescription = translationTable(
+  "item_attribute_description",
+  itemAttribute.id,
+);
 
-export const itemCategory = pgTable("item_category", {
+export const itemCategory = pokemonSchema.table("item_category", {
   ...idCols,
   itemPocketId: integer()
     .notNull()
@@ -550,7 +599,7 @@ export const itemCategory = pgTable("item_category", {
 
 export const itemCategoryName = translationTable("item_category_name", itemCategory.id);
 
-export const itemPocket = pgTable("item_pocket", {
+export const itemPocket = pokemonSchema.table("item_pocket", {
   ...idCols,
   ...auditCols,
 });
@@ -562,7 +611,7 @@ export const itemPocketName = translationTable("item_pocket_name", itemPocket.id
  * Versions of the games, e.g., Red, Blue or Yellow,
  * - Check out [Bulbapedia](https://bulbapedia.bulbagarden.net/wiki/Core_series) for greater details.
  */
-export const version = pgTable("version", {
+export const version = pokemonSchema.table("version", {
   ...idCols,
 
   versionGroupId: integer().references(() => versionGroup.id),
@@ -576,7 +625,7 @@ export const versionName = translationTable("version_name", version.id);
  * ## Version Group
  * Version groups categorize highly similar versions of the games
  */
-export const versionGroup = pgTable("version_group", {
+export const versionGroup = pokemonSchema.table("version_group", {
   ...idCols,
   order: integer().notNull(),
   generationId: integer()
@@ -586,7 +635,7 @@ export const versionGroup = pgTable("version_group", {
   ...auditCols,
 });
 
-export const versionGroupRegion = pgTable(
+export const versionGroupRegion = pokemonSchema.table(
   "version_group_region",
   {
     versionGroupId: integer()
@@ -608,7 +657,7 @@ export const versionGroupRegion = pgTable(
  * the species of Pokémon that can be encountered within them.
  * - Check out [Bulbapedia](https://bulbapedia.bulbagarden.net/wiki/Region) for greater details.
  */
-export const region = pgTable("region", {
+export const region = pokemonSchema.table("region", {
   ...idCols,
   mainGenerationId: integer().references(() => generation.id),
 
@@ -623,7 +672,7 @@ export const regionName = translationTable("region_name", region.id);
  * Locations make up sizable portions of regions, like cities or routes.
  * - Check the [List of Locations](https://bulbapedia.bulbagarden.net/wiki/List_of_locations_by_name)
  */
-export const location = pgTable("location", {
+export const location = pokemonSchema.table("location", {
   ...idCols,
 
   regionId: integer().references(() => region.id),
@@ -633,7 +682,7 @@ export const location = pgTable("location", {
 
 export const locationName = translationTable("location_name", location.id);
 
-export const locationGeneration = pgTable(
+export const locationGeneration = pokemonSchema.table(
   "location_generation",
   {
     locationId: integer()
@@ -654,7 +703,7 @@ export const locationGeneration = pgTable(
  * Each area has its own set of possible Pokémon encounters.
  * - Check out [Bulbapedia](https://bulbapedia.bulbagarden.net/wiki/Area) for more details.
  */
-export const locationArea = pgTable("location_area", {
+export const locationArea = pokemonSchema.table("location_area", {
   ...idCols,
   locationId: integer()
     .notNull()
@@ -671,7 +720,7 @@ export const locationAreaName = translationTable("location_area_name", locationA
  * Each type has three properties: which types of Pokémon it is super effective against,
  * which types of Pokémon it is not very effective against, and which types of Pokémon it is completely ineffective against
  */
-export const type = pgTable("type", {
+export const type = pokemonSchema.table("type", {
   ...idCols,
 
   /** The generation in which this move was introduced */
@@ -686,7 +735,7 @@ export const type = pgTable("type", {
 
 export const typeName = translationTable("type_name", type.id);
 
-export const typeDamageRelation = pgTable(
+export const typeDamageRelation = pokemonSchema.table(
   "type_damage_relation",
   {
     fromTypeId: integer()
@@ -702,12 +751,15 @@ export const typeDamageRelation = pgTable(
   (t) => [
     {
       pk: primaryKey({ columns: [t.fromTypeId, t.toTypeId, t.generationId] }),
-      checkDmgRelationValue: check("checkDmgRelationValue", sql`${t.damage} >= 0 AND ${t.damage} <= 2`),
+      checkDmgRelationValue: check(
+        "checkDmgRelationValue",
+        sql`${t.damage} >= 0 AND ${t.damage} <= 2`,
+      ),
     },
   ],
 );
 
-export const move = pgTable(
+export const move = pokemonSchema.table(
   "move",
   {
     ...idCols,
@@ -775,10 +827,17 @@ export const move = pgTable(
 
     ...auditCols,
   },
-  (t) => [{ checkPriorityValues: check("checkPriorityValues", sql`${t.priority} >= -8 AND ${t.priority} <= 8`) }],
+  (t) => [
+    {
+      checkPriorityValues: check(
+        "checkPriorityValues",
+        sql`${t.priority} >= -8 AND ${t.priority} <= 8`,
+      ),
+    },
+  ],
 );
 
-export const moveMachine = pgTable(
+export const moveMachine = pokemonSchema.table(
   "move_machine",
   {
     moveId: integer()
@@ -799,7 +858,7 @@ export const moveMachine = pgTable(
 export const moveName = translationTable("move_name", move.id);
 
 /** The effect of a move listed in different languages */
-export const moveEffect = pgTable(
+export const moveEffect = pokemonSchema.table(
   "move_effect",
   {
     languageId: integer()
@@ -818,7 +877,7 @@ export const moveEffect = pgTable(
   (t) => [{ pk: primaryKey({ columns: [t.languageId, t.resourceId, t.versionGroupId] }) }],
 );
 
-export const movePastValues = pgTable(
+export const movePastValues = pokemonSchema.table(
   "move_past_values",
   {
     moveId: integer()
@@ -845,7 +904,7 @@ export const movePastValues = pgTable(
 );
 
 /** The flavor text of a move listed in different languages */
-export const moveFlavorText = pgTable(
+export const moveFlavorText = pokemonSchema.table(
   "move_flavor_text",
   {
     languageId: integer()
@@ -864,15 +923,18 @@ export const moveFlavorText = pgTable(
   (t) => [{ pk: primaryKey({ columns: [t.languageId, t.resourceId, t.versionGroupId] }) }],
 );
 
-export const moveLearnMethod = pgTable("move_learn_method", {
+export const moveLearnMethod = pokemonSchema.table("move_learn_method", {
   ...idCols,
   ...auditCols,
 });
 
 export const moveLearnMethodName = translationTable("move_learn_method_name", moveLearnMethod.id);
-export const moveLearnMethodDescription = translationTable("move_learn_method_description", moveLearnMethod.id);
+export const moveLearnMethodDescription = translationTable(
+  "move_learn_method_description",
+  moveLearnMethod.id,
+);
 
-export const pokemonMove = pgTable(
+export const pokemonMove = pokemonSchema.table(
   "pokemon_move",
   {
     pokemonId: integer()
@@ -898,7 +960,7 @@ export const pokemonMove = pgTable(
  * Pokémon have multiple possible abilities but can have only one ability at a time.
  * - Check out [Bulbapedia](https://bulbapedia.bulbagarden.net/wiki/Ability) for greater detail.
  */
-export const ability = pgTable("ability", {
+export const ability = pokemonSchema.table("ability", {
   ...idCols,
 
   /** Whether or not this ability originated in the main series of the video games */
@@ -915,7 +977,7 @@ export const ability = pgTable("ability", {
 export const abilityName = translationTable("ability_name", ability.id);
 
 /** The effect of an ability listed in different languages */
-export const abilityEffect = pgTable(
+export const abilityEffect = pokemonSchema.table(
   "ability_effect",
   {
     languageId: integer()
@@ -934,7 +996,7 @@ export const abilityEffect = pgTable(
 );
 
 /** The flavor text of an ability listed in different languages */
-export const abilityFlavorText = pgTable(
+export const abilityFlavorText = pokemonSchema.table(
   "ability_flavor_text",
   {
     languageId: integer()
@@ -953,7 +1015,7 @@ export const abilityFlavorText = pgTable(
   (t) => [{ pk: primaryKey({ columns: [t.languageId, t.resourceId, t.versionGroupId] }) }],
 );
 
-export const pokemonAbility = pgTable(
+export const pokemonAbility = pokemonSchema.table(
   "pokemon_ability",
   {
     pokemonId: integer()

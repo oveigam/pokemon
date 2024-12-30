@@ -1,12 +1,12 @@
 {
-  "id": "70bc79f6-b84c-47b1-ac42-7e16a5627de8",
+  "id": "c815d42e-9794-4af4-93c6-6a125401c652",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
-    "public.ability": {
+    "pokemon.ability": {
       "name": "ability",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "id": {
           "name": "id",
@@ -16,7 +16,7 @@
           "identity": {
             "type": "byDefault",
             "name": "ability_id_seq",
-            "schema": "public",
+            "schema": "pokemon",
             "increment": "1",
             "startWith": "1",
             "minValue": "1",
@@ -64,6 +64,7 @@
           "name": "ability_generation_id_generation_id_fk",
           "tableFrom": "ability",
           "tableTo": "generation",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "generation_id"
           ],
@@ -80,9 +81,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.ability_effect": {
+    "pokemon.ability_effect": {
       "name": "ability_effect",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "language_id": {
           "name": "language_id",
@@ -121,6 +122,7 @@
           "name": "ability_effect_language_id_language_id_fk",
           "tableFrom": "ability_effect",
           "tableTo": "language",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "language_id"
           ],
@@ -134,6 +136,7 @@
           "name": "ability_effect_resource_id_ability_id_fk",
           "tableFrom": "ability_effect",
           "tableTo": "ability",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "resource_id"
           ],
@@ -147,6 +150,7 @@
           "name": "ability_effect_version_group_id_version_group_id_fk",
           "tableFrom": "ability_effect",
           "tableTo": "version_group",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "version_group_id"
           ],
@@ -163,9 +167,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.ability_flavor_text": {
+    "pokemon.ability_flavor_text": {
       "name": "ability_flavor_text",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "language_id": {
           "name": "language_id",
@@ -212,6 +216,7 @@
           "name": "ability_flavor_text_language_id_language_id_fk",
           "tableFrom": "ability_flavor_text",
           "tableTo": "language",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "language_id"
           ],
@@ -225,6 +230,7 @@
           "name": "ability_flavor_text_resource_id_ability_id_fk",
           "tableFrom": "ability_flavor_text",
           "tableTo": "ability",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "resource_id"
           ],
@@ -238,6 +244,7 @@
           "name": "ability_flavor_text_version_group_id_version_group_id_fk",
           "tableFrom": "ability_flavor_text",
           "tableTo": "version_group",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "version_group_id"
           ],
@@ -254,9 +261,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.ability_name": {
+    "pokemon.ability_name": {
       "name": "ability_name",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "language_id": {
           "name": "language_id",
@@ -297,6 +304,7 @@
           "name": "ability_name_language_id_language_id_fk",
           "tableFrom": "ability_name",
           "tableTo": "language",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "language_id"
           ],
@@ -310,6 +318,7 @@
           "name": "ability_name_resource_id_ability_id_fk",
           "tableFrom": "ability_name",
           "tableTo": "ability",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "resource_id"
           ],
@@ -326,9 +335,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.egg_group": {
+    "pokemon.egg_group": {
       "name": "egg_group",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "id": {
           "name": "id",
@@ -338,7 +347,7 @@
           "identity": {
             "type": "byDefault",
             "name": "egg_group_id_seq",
-            "schema": "public",
+            "schema": "pokemon",
             "increment": "1",
             "startWith": "1",
             "minValue": "1",
@@ -376,9 +385,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.egg_group_name": {
+    "pokemon.egg_group_name": {
       "name": "egg_group_name",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "language_id": {
           "name": "language_id",
@@ -419,6 +428,7 @@
           "name": "egg_group_name_language_id_language_id_fk",
           "tableFrom": "egg_group_name",
           "tableTo": "language",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "language_id"
           ],
@@ -432,6 +442,7 @@
           "name": "egg_group_name_resource_id_egg_group_id_fk",
           "tableFrom": "egg_group_name",
           "tableTo": "egg_group",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "resource_id"
           ],
@@ -448,9 +459,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.generation": {
+    "pokemon.generation": {
       "name": "generation",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "id": {
           "name": "id",
@@ -460,7 +471,7 @@
           "identity": {
             "type": "byDefault",
             "name": "generation_id_seq",
-            "schema": "public",
+            "schema": "pokemon",
             "increment": "1",
             "startWith": "1",
             "minValue": "1",
@@ -498,9 +509,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.generation_name": {
+    "pokemon.generation_name": {
       "name": "generation_name",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "language_id": {
           "name": "language_id",
@@ -541,6 +552,7 @@
           "name": "generation_name_language_id_language_id_fk",
           "tableFrom": "generation_name",
           "tableTo": "language",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "language_id"
           ],
@@ -554,6 +566,7 @@
           "name": "generation_name_resource_id_generation_id_fk",
           "tableFrom": "generation_name",
           "tableTo": "generation",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "resource_id"
           ],
@@ -570,9 +583,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.item": {
+    "pokemon.item": {
       "name": "item",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "id": {
           "name": "id",
@@ -582,7 +595,7 @@
           "identity": {
             "type": "byDefault",
             "name": "item_id_seq",
-            "schema": "public",
+            "schema": "pokemon",
             "increment": "1",
             "startWith": "1",
             "minValue": "1",
@@ -642,6 +655,7 @@
           "name": "item_category_id_item_category_id_fk",
           "tableFrom": "item",
           "tableTo": "item_category",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "category_id"
           ],
@@ -658,9 +672,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.item_attribute": {
+    "pokemon.item_attribute": {
       "name": "item_attribute",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "id": {
           "name": "id",
@@ -670,7 +684,7 @@
           "identity": {
             "type": "byDefault",
             "name": "item_attribute_id_seq",
-            "schema": "public",
+            "schema": "pokemon",
             "increment": "1",
             "startWith": "1",
             "minValue": "1",
@@ -708,9 +722,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.item_attribute_description": {
+    "pokemon.item_attribute_description": {
       "name": "item_attribute_description",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "language_id": {
           "name": "language_id",
@@ -751,6 +765,7 @@
           "name": "item_attribute_description_language_id_language_id_fk",
           "tableFrom": "item_attribute_description",
           "tableTo": "language",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "language_id"
           ],
@@ -764,6 +779,7 @@
           "name": "item_attribute_description_resource_id_item_attribute_id_fk",
           "tableFrom": "item_attribute_description",
           "tableTo": "item_attribute",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "resource_id"
           ],
@@ -780,9 +796,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.item_attribute_name": {
+    "pokemon.item_attribute_name": {
       "name": "item_attribute_name",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "language_id": {
           "name": "language_id",
@@ -823,6 +839,7 @@
           "name": "item_attribute_name_language_id_language_id_fk",
           "tableFrom": "item_attribute_name",
           "tableTo": "language",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "language_id"
           ],
@@ -836,6 +853,7 @@
           "name": "item_attribute_name_resource_id_item_attribute_id_fk",
           "tableFrom": "item_attribute_name",
           "tableTo": "item_attribute",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "resource_id"
           ],
@@ -852,9 +870,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.item_category": {
+    "pokemon.item_category": {
       "name": "item_category",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "id": {
           "name": "id",
@@ -864,7 +882,7 @@
           "identity": {
             "type": "byDefault",
             "name": "item_category_id_seq",
-            "schema": "public",
+            "schema": "pokemon",
             "increment": "1",
             "startWith": "1",
             "minValue": "1",
@@ -906,6 +924,7 @@
           "name": "item_category_item_pocket_id_item_pocket_id_fk",
           "tableFrom": "item_category",
           "tableTo": "item_pocket",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "item_pocket_id"
           ],
@@ -922,9 +941,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.item_category_name": {
+    "pokemon.item_category_name": {
       "name": "item_category_name",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "language_id": {
           "name": "language_id",
@@ -965,6 +984,7 @@
           "name": "item_category_name_language_id_language_id_fk",
           "tableFrom": "item_category_name",
           "tableTo": "language",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "language_id"
           ],
@@ -978,6 +998,7 @@
           "name": "item_category_name_resource_id_item_category_id_fk",
           "tableFrom": "item_category_name",
           "tableTo": "item_category",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "resource_id"
           ],
@@ -994,9 +1015,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.item_effect": {
+    "pokemon.item_effect": {
       "name": "item_effect",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "language_id": {
           "name": "language_id",
@@ -1043,6 +1064,7 @@
           "name": "item_effect_language_id_language_id_fk",
           "tableFrom": "item_effect",
           "tableTo": "language",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "language_id"
           ],
@@ -1056,6 +1078,7 @@
           "name": "item_effect_resource_id_item_id_fk",
           "tableFrom": "item_effect",
           "tableTo": "item",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "resource_id"
           ],
@@ -1072,9 +1095,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.item_flavor_text": {
+    "pokemon.item_flavor_text": {
       "name": "item_flavor_text",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "language_id": {
           "name": "language_id",
@@ -1121,6 +1144,7 @@
           "name": "item_flavor_text_language_id_language_id_fk",
           "tableFrom": "item_flavor_text",
           "tableTo": "language",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "language_id"
           ],
@@ -1134,6 +1158,7 @@
           "name": "item_flavor_text_resource_id_item_id_fk",
           "tableFrom": "item_flavor_text",
           "tableTo": "item",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "resource_id"
           ],
@@ -1147,6 +1172,7 @@
           "name": "item_flavor_text_version_group_id_version_group_id_fk",
           "tableFrom": "item_flavor_text",
           "tableTo": "version_group",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "version_group_id"
           ],
@@ -1163,9 +1189,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.item_fling_effect": {
+    "pokemon.item_fling_effect": {
       "name": "item_fling_effect",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "language_id": {
           "name": "language_id",
@@ -1206,6 +1232,7 @@
           "name": "item_fling_effect_language_id_language_id_fk",
           "tableFrom": "item_fling_effect",
           "tableTo": "language",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "language_id"
           ],
@@ -1219,6 +1246,7 @@
           "name": "item_fling_effect_resource_id_item_id_fk",
           "tableFrom": "item_fling_effect",
           "tableTo": "item",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "resource_id"
           ],
@@ -1235,9 +1263,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.item_generation": {
+    "pokemon.item_generation": {
       "name": "item_generation",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "item_id": {
           "name": "item_id",
@@ -1272,6 +1300,7 @@
           "name": "item_generation_item_id_item_id_fk",
           "tableFrom": "item_generation",
           "tableTo": "item",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "item_id"
           ],
@@ -1285,6 +1314,7 @@
           "name": "item_generation_generation_id_generation_id_fk",
           "tableFrom": "item_generation",
           "tableTo": "generation",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "generation_id"
           ],
@@ -1301,9 +1331,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.item_item_attribute": {
+    "pokemon.item_item_attribute": {
       "name": "item_item_attribute",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "item_id": {
           "name": "item_id",
@@ -1338,6 +1368,7 @@
           "name": "item_item_attribute_item_id_item_id_fk",
           "tableFrom": "item_item_attribute",
           "tableTo": "item",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "item_id"
           ],
@@ -1351,6 +1382,7 @@
           "name": "item_item_attribute_item_attribute_id_item_attribute_id_fk",
           "tableFrom": "item_item_attribute",
           "tableTo": "item_attribute",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "item_attribute_id"
           ],
@@ -1367,9 +1399,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.item_name": {
+    "pokemon.item_name": {
       "name": "item_name",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "language_id": {
           "name": "language_id",
@@ -1410,6 +1442,7 @@
           "name": "item_name_language_id_language_id_fk",
           "tableFrom": "item_name",
           "tableTo": "language",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "language_id"
           ],
@@ -1423,6 +1456,7 @@
           "name": "item_name_resource_id_item_id_fk",
           "tableFrom": "item_name",
           "tableTo": "item",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "resource_id"
           ],
@@ -1439,9 +1473,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.item_pocket": {
+    "pokemon.item_pocket": {
       "name": "item_pocket",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "id": {
           "name": "id",
@@ -1451,7 +1485,7 @@
           "identity": {
             "type": "byDefault",
             "name": "item_pocket_id_seq",
-            "schema": "public",
+            "schema": "pokemon",
             "increment": "1",
             "startWith": "1",
             "minValue": "1",
@@ -1489,9 +1523,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.item_pocket_name": {
+    "pokemon.item_pocket_name": {
       "name": "item_pocket_name",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "language_id": {
           "name": "language_id",
@@ -1532,6 +1566,7 @@
           "name": "item_pocket_name_language_id_language_id_fk",
           "tableFrom": "item_pocket_name",
           "tableTo": "language",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "language_id"
           ],
@@ -1545,6 +1580,7 @@
           "name": "item_pocket_name_resource_id_item_pocket_id_fk",
           "tableFrom": "item_pocket_name",
           "tableTo": "item_pocket",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "resource_id"
           ],
@@ -1561,9 +1597,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.language": {
+    "pokemon.language": {
       "name": "language",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "id": {
           "name": "id",
@@ -1573,7 +1609,7 @@
           "identity": {
             "type": "byDefault",
             "name": "language_id_seq",
-            "schema": "public",
+            "schema": "pokemon",
             "increment": "1",
             "startWith": "1",
             "minValue": "1",
@@ -1629,9 +1665,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.language_name": {
+    "pokemon.language_name": {
       "name": "language_name",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "id": {
           "name": "id",
@@ -1672,6 +1708,7 @@
           "name": "language_name_language_id_language_id_fk",
           "tableFrom": "language_name",
           "tableTo": "language",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "language_id"
           ],
@@ -1688,9 +1725,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.location": {
+    "pokemon.location": {
       "name": "location",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "id": {
           "name": "id",
@@ -1700,7 +1737,7 @@
           "identity": {
             "type": "byDefault",
             "name": "location_id_seq",
-            "schema": "public",
+            "schema": "pokemon",
             "increment": "1",
             "startWith": "1",
             "minValue": "1",
@@ -1742,6 +1779,7 @@
           "name": "location_region_id_region_id_fk",
           "tableFrom": "location",
           "tableTo": "region",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "region_id"
           ],
@@ -1758,9 +1796,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.location_area": {
+    "pokemon.location_area": {
       "name": "location_area",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "id": {
           "name": "id",
@@ -1770,7 +1808,7 @@
           "identity": {
             "type": "byDefault",
             "name": "location_area_id_seq",
-            "schema": "public",
+            "schema": "pokemon",
             "increment": "1",
             "startWith": "1",
             "minValue": "1",
@@ -1812,6 +1850,7 @@
           "name": "location_area_location_id_location_id_fk",
           "tableFrom": "location_area",
           "tableTo": "location",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "location_id"
           ],
@@ -1828,9 +1867,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.location_area_name": {
+    "pokemon.location_area_name": {
       "name": "location_area_name",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "language_id": {
           "name": "language_id",
@@ -1871,6 +1910,7 @@
           "name": "location_area_name_language_id_language_id_fk",
           "tableFrom": "location_area_name",
           "tableTo": "language",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "language_id"
           ],
@@ -1884,6 +1924,7 @@
           "name": "location_area_name_resource_id_location_area_id_fk",
           "tableFrom": "location_area_name",
           "tableTo": "location_area",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "resource_id"
           ],
@@ -1900,9 +1941,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.location_generation": {
+    "pokemon.location_generation": {
       "name": "location_generation",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "location_id": {
           "name": "location_id",
@@ -1937,6 +1978,7 @@
           "name": "location_generation_location_id_location_id_fk",
           "tableFrom": "location_generation",
           "tableTo": "location",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "location_id"
           ],
@@ -1950,6 +1992,7 @@
           "name": "location_generation_generation_id_generation_id_fk",
           "tableFrom": "location_generation",
           "tableTo": "generation",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "generation_id"
           ],
@@ -1966,9 +2009,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.location_name": {
+    "pokemon.location_name": {
       "name": "location_name",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "language_id": {
           "name": "language_id",
@@ -2009,6 +2052,7 @@
           "name": "location_name_language_id_language_id_fk",
           "tableFrom": "location_name",
           "tableTo": "language",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "language_id"
           ],
@@ -2022,6 +2066,7 @@
           "name": "location_name_resource_id_location_id_fk",
           "tableFrom": "location_name",
           "tableTo": "location",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "resource_id"
           ],
@@ -2038,9 +2083,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.move": {
+    "pokemon.move": {
       "name": "move",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "id": {
           "name": "id",
@@ -2050,7 +2095,7 @@
           "identity": {
             "type": "byDefault",
             "name": "move_id_seq",
-            "schema": "public",
+            "schema": "pokemon",
             "increment": "1",
             "startWith": "1",
             "minValue": "1",
@@ -2254,6 +2299,7 @@
           "name": "move_type_id_type_id_fk",
           "tableFrom": "move",
           "tableTo": "type",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "type_id"
           ],
@@ -2267,6 +2313,7 @@
           "name": "move_generation_id_generation_id_fk",
           "tableFrom": "move",
           "tableTo": "generation",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "generation_id"
           ],
@@ -2283,9 +2330,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.move_effect": {
+    "pokemon.move_effect": {
       "name": "move_effect",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "language_id": {
           "name": "language_id",
@@ -2338,6 +2385,7 @@
           "name": "move_effect_language_id_language_id_fk",
           "tableFrom": "move_effect",
           "tableTo": "language",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "language_id"
           ],
@@ -2351,6 +2399,7 @@
           "name": "move_effect_resource_id_move_id_fk",
           "tableFrom": "move_effect",
           "tableTo": "move",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "resource_id"
           ],
@@ -2364,6 +2413,7 @@
           "name": "move_effect_version_group_id_version_group_id_fk",
           "tableFrom": "move_effect",
           "tableTo": "version_group",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "version_group_id"
           ],
@@ -2380,9 +2430,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.move_flavor_text": {
+    "pokemon.move_flavor_text": {
       "name": "move_flavor_text",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "language_id": {
           "name": "language_id",
@@ -2429,6 +2479,7 @@
           "name": "move_flavor_text_language_id_language_id_fk",
           "tableFrom": "move_flavor_text",
           "tableTo": "language",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "language_id"
           ],
@@ -2442,6 +2493,7 @@
           "name": "move_flavor_text_resource_id_move_id_fk",
           "tableFrom": "move_flavor_text",
           "tableTo": "move",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "resource_id"
           ],
@@ -2455,6 +2507,7 @@
           "name": "move_flavor_text_version_group_id_version_group_id_fk",
           "tableFrom": "move_flavor_text",
           "tableTo": "version_group",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "version_group_id"
           ],
@@ -2471,9 +2524,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.move_learn_method": {
+    "pokemon.move_learn_method": {
       "name": "move_learn_method",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "id": {
           "name": "id",
@@ -2483,7 +2536,7 @@
           "identity": {
             "type": "byDefault",
             "name": "move_learn_method_id_seq",
-            "schema": "public",
+            "schema": "pokemon",
             "increment": "1",
             "startWith": "1",
             "minValue": "1",
@@ -2521,9 +2574,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.move_learn_method_description": {
+    "pokemon.move_learn_method_description": {
       "name": "move_learn_method_description",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "language_id": {
           "name": "language_id",
@@ -2564,6 +2617,7 @@
           "name": "move_learn_method_description_language_id_language_id_fk",
           "tableFrom": "move_learn_method_description",
           "tableTo": "language",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "language_id"
           ],
@@ -2577,6 +2631,7 @@
           "name": "move_learn_method_description_resource_id_move_learn_method_id_fk",
           "tableFrom": "move_learn_method_description",
           "tableTo": "move_learn_method",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "resource_id"
           ],
@@ -2593,9 +2648,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.move_learn_method_name": {
+    "pokemon.move_learn_method_name": {
       "name": "move_learn_method_name",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "language_id": {
           "name": "language_id",
@@ -2636,6 +2691,7 @@
           "name": "move_learn_method_name_language_id_language_id_fk",
           "tableFrom": "move_learn_method_name",
           "tableTo": "language",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "language_id"
           ],
@@ -2649,6 +2705,7 @@
           "name": "move_learn_method_name_resource_id_move_learn_method_id_fk",
           "tableFrom": "move_learn_method_name",
           "tableTo": "move_learn_method",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "resource_id"
           ],
@@ -2665,9 +2722,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.move_machine": {
+    "pokemon.move_machine": {
       "name": "move_machine",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "move_id": {
           "name": "move_id",
@@ -2708,6 +2765,7 @@
           "name": "move_machine_move_id_move_id_fk",
           "tableFrom": "move_machine",
           "tableTo": "move",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "move_id"
           ],
@@ -2721,6 +2779,7 @@
           "name": "move_machine_item_id_item_id_fk",
           "tableFrom": "move_machine",
           "tableTo": "item",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "item_id"
           ],
@@ -2734,6 +2793,7 @@
           "name": "move_machine_version_group_id_version_group_id_fk",
           "tableFrom": "move_machine",
           "tableTo": "version_group",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "version_group_id"
           ],
@@ -2750,9 +2810,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.move_name": {
+    "pokemon.move_name": {
       "name": "move_name",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "language_id": {
           "name": "language_id",
@@ -2793,6 +2853,7 @@
           "name": "move_name_language_id_language_id_fk",
           "tableFrom": "move_name",
           "tableTo": "language",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "language_id"
           ],
@@ -2806,6 +2867,7 @@
           "name": "move_name_resource_id_move_id_fk",
           "tableFrom": "move_name",
           "tableTo": "move",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "resource_id"
           ],
@@ -2822,9 +2884,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.move_past_values": {
+    "pokemon.move_past_values": {
       "name": "move_past_values",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "move_id": {
           "name": "move_id",
@@ -2889,6 +2951,7 @@
           "name": "move_past_values_move_id_move_id_fk",
           "tableFrom": "move_past_values",
           "tableTo": "move",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "move_id"
           ],
@@ -2902,6 +2965,7 @@
           "name": "move_past_values_version_group_id_version_group_id_fk",
           "tableFrom": "move_past_values",
           "tableTo": "version_group",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "version_group_id"
           ],
@@ -2915,6 +2979,7 @@
           "name": "move_past_values_type_id_type_id_fk",
           "tableFrom": "move_past_values",
           "tableTo": "type",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "type_id"
           ],
@@ -2931,9 +2996,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.pokedex": {
+    "pokemon.pokedex": {
       "name": "pokedex",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "id": {
           "name": "id",
@@ -2943,7 +3008,7 @@
           "identity": {
             "type": "byDefault",
             "name": "pokedex_id_seq",
-            "schema": "public",
+            "schema": "pokemon",
             "increment": "1",
             "startWith": "1",
             "minValue": "1",
@@ -2991,6 +3056,7 @@
           "name": "pokedex_region_id_region_id_fk",
           "tableFrom": "pokedex",
           "tableTo": "region",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "region_id"
           ],
@@ -3007,9 +3073,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.pokedex_description": {
+    "pokemon.pokedex_description": {
       "name": "pokedex_description",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "language_id": {
           "name": "language_id",
@@ -3050,6 +3116,7 @@
           "name": "pokedex_description_language_id_language_id_fk",
           "tableFrom": "pokedex_description",
           "tableTo": "language",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "language_id"
           ],
@@ -3063,6 +3130,7 @@
           "name": "pokedex_description_resource_id_pokedex_id_fk",
           "tableFrom": "pokedex_description",
           "tableTo": "pokedex",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "resource_id"
           ],
@@ -3079,9 +3147,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.pokedex_entry": {
+    "pokemon.pokedex_entry": {
       "name": "pokedex_entry",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "pokedex_id": {
           "name": "pokedex_id",
@@ -3122,6 +3190,7 @@
           "name": "pokedex_entry_pokedex_id_pokedex_id_fk",
           "tableFrom": "pokedex_entry",
           "tableTo": "pokedex",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "pokedex_id"
           ],
@@ -3135,6 +3204,7 @@
           "name": "pokedex_entry_pokemon_species_id_pokemon_species_id_fk",
           "tableFrom": "pokedex_entry",
           "tableTo": "pokemon_species",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "pokemon_species_id"
           ],
@@ -3151,9 +3221,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.pokedex_name": {
+    "pokemon.pokedex_name": {
       "name": "pokedex_name",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "language_id": {
           "name": "language_id",
@@ -3194,6 +3264,7 @@
           "name": "pokedex_name_language_id_language_id_fk",
           "tableFrom": "pokedex_name",
           "tableTo": "language",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "language_id"
           ],
@@ -3207,6 +3278,7 @@
           "name": "pokedex_name_resource_id_pokedex_id_fk",
           "tableFrom": "pokedex_name",
           "tableTo": "pokedex",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "resource_id"
           ],
@@ -3223,9 +3295,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.pokedex_version_group": {
+    "pokemon.pokedex_version_group": {
       "name": "pokedex_version_group",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "pokedex_id": {
           "name": "pokedex_id",
@@ -3260,6 +3332,7 @@
           "name": "pokedex_version_group_pokedex_id_pokedex_id_fk",
           "tableFrom": "pokedex_version_group",
           "tableTo": "pokedex",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "pokedex_id"
           ],
@@ -3273,6 +3346,7 @@
           "name": "pokedex_version_group_version_group_id_version_group_id_fk",
           "tableFrom": "pokedex_version_group",
           "tableTo": "version_group",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "version_group_id"
           ],
@@ -3289,9 +3363,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.pokemon": {
+    "pokemon.pokemon": {
       "name": "pokemon",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "id": {
           "name": "id",
@@ -3301,7 +3375,7 @@
           "identity": {
             "type": "byDefault",
             "name": "pokemon_id_seq",
-            "schema": "public",
+            "schema": "pokemon",
             "increment": "1",
             "startWith": "1",
             "minValue": "1",
@@ -3499,6 +3573,7 @@
           "name": "pokemon_primary_type_id_type_id_fk",
           "tableFrom": "pokemon",
           "tableTo": "type",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "primary_type_id"
           ],
@@ -3512,6 +3587,7 @@
           "name": "pokemon_secondary_type_id_type_id_fk",
           "tableFrom": "pokemon",
           "tableTo": "type",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "secondary_type_id"
           ],
@@ -3525,6 +3601,7 @@
           "name": "pokemon_species_id_pokemon_species_id_fk",
           "tableFrom": "pokemon",
           "tableTo": "pokemon_species",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "species_id"
           ],
@@ -3541,9 +3618,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.pokemon_ability": {
+    "pokemon.pokemon_ability": {
       "name": "pokemon_ability",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "pokemon_id": {
           "name": "pokemon_id",
@@ -3590,6 +3667,7 @@
           "name": "pokemon_ability_pokemon_id_pokemon_id_fk",
           "tableFrom": "pokemon_ability",
           "tableTo": "pokemon",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "pokemon_id"
           ],
@@ -3603,6 +3681,7 @@
           "name": "pokemon_ability_ability_id_ability_id_fk",
           "tableFrom": "pokemon_ability",
           "tableTo": "ability",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "ability_id"
           ],
@@ -3619,9 +3698,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.pokemon_form": {
+    "pokemon.pokemon_form": {
       "name": "pokemon_form",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "id": {
           "name": "id",
@@ -3631,7 +3710,7 @@
           "identity": {
             "type": "byDefault",
             "name": "pokemon_form_id_seq",
-            "schema": "public",
+            "schema": "pokemon",
             "increment": "1",
             "startWith": "1",
             "minValue": "1",
@@ -3763,6 +3842,7 @@
           "name": "pokemon_form_pokemon_id_pokemon_id_fk",
           "tableFrom": "pokemon_form",
           "tableTo": "pokemon",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "pokemon_id"
           ],
@@ -3776,6 +3856,7 @@
           "name": "pokemon_form_version_group_id_version_group_id_fk",
           "tableFrom": "pokemon_form",
           "tableTo": "version_group",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "version_group_id"
           ],
@@ -3789,6 +3870,7 @@
           "name": "pokemon_form_primary_type_id_type_id_fk",
           "tableFrom": "pokemon_form",
           "tableTo": "type",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "primary_type_id"
           ],
@@ -3802,6 +3884,7 @@
           "name": "pokemon_form_secondary_type_id_type_id_fk",
           "tableFrom": "pokemon_form",
           "tableTo": "type",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "secondary_type_id"
           ],
@@ -3818,9 +3901,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.pokemon_form_name": {
+    "pokemon.pokemon_form_name": {
       "name": "pokemon_form_name",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "language_id": {
           "name": "language_id",
@@ -3861,6 +3944,7 @@
           "name": "pokemon_form_name_language_id_language_id_fk",
           "tableFrom": "pokemon_form_name",
           "tableTo": "language",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "language_id"
           ],
@@ -3874,6 +3958,7 @@
           "name": "pokemon_form_name_resource_id_pokemon_form_id_fk",
           "tableFrom": "pokemon_form_name",
           "tableTo": "pokemon_form",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "resource_id"
           ],
@@ -3890,9 +3975,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.pokemon_held_item": {
+    "pokemon.pokemon_held_item": {
       "name": "pokemon_held_item",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "pokemon_id": {
           "name": "pokemon_id",
@@ -3939,6 +4024,7 @@
           "name": "pokemon_held_item_pokemon_id_pokemon_id_fk",
           "tableFrom": "pokemon_held_item",
           "tableTo": "pokemon",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "pokemon_id"
           ],
@@ -3952,6 +4038,7 @@
           "name": "pokemon_held_item_item_id_item_id_fk",
           "tableFrom": "pokemon_held_item",
           "tableTo": "item",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "item_id"
           ],
@@ -3965,6 +4052,7 @@
           "name": "pokemon_held_item_version_id_version_id_fk",
           "tableFrom": "pokemon_held_item",
           "tableTo": "version",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "version_id"
           ],
@@ -3981,9 +4069,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.pokemon_move": {
+    "pokemon.pokemon_move": {
       "name": "pokemon_move",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "pokemon_id": {
           "name": "pokemon_id",
@@ -4036,6 +4124,7 @@
           "name": "pokemon_move_pokemon_id_pokemon_id_fk",
           "tableFrom": "pokemon_move",
           "tableTo": "pokemon",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "pokemon_id"
           ],
@@ -4049,6 +4138,7 @@
           "name": "pokemon_move_move_id_move_id_fk",
           "tableFrom": "pokemon_move",
           "tableTo": "move",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "move_id"
           ],
@@ -4062,6 +4152,7 @@
           "name": "pokemon_move_version_group_id_version_group_id_fk",
           "tableFrom": "pokemon_move",
           "tableTo": "version_group",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "version_group_id"
           ],
@@ -4075,6 +4166,7 @@
           "name": "pokemon_move_learn_method_id_move_learn_method_id_fk",
           "tableFrom": "pokemon_move",
           "tableTo": "move_learn_method",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "learn_method_id"
           ],
@@ -4091,9 +4183,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.pokemon_past_type": {
+    "pokemon.pokemon_past_type": {
       "name": "pokemon_past_type",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "pokemon_id": {
           "name": "pokemon_id",
@@ -4140,6 +4232,7 @@
           "name": "pokemon_past_type_pokemon_id_pokemon_id_fk",
           "tableFrom": "pokemon_past_type",
           "tableTo": "pokemon",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "pokemon_id"
           ],
@@ -4153,6 +4246,7 @@
           "name": "pokemon_past_type_generation_id_generation_id_fk",
           "tableFrom": "pokemon_past_type",
           "tableTo": "generation",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "generation_id"
           ],
@@ -4166,6 +4260,7 @@
           "name": "pokemon_past_type_primary_type_id_type_id_fk",
           "tableFrom": "pokemon_past_type",
           "tableTo": "type",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "primary_type_id"
           ],
@@ -4179,6 +4274,7 @@
           "name": "pokemon_past_type_secondary_type_id_type_id_fk",
           "tableFrom": "pokemon_past_type",
           "tableTo": "type",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "secondary_type_id"
           ],
@@ -4195,9 +4291,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.pokemon_species": {
+    "pokemon.pokemon_species": {
       "name": "pokemon_species",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "id": {
           "name": "id",
@@ -4207,7 +4303,7 @@
           "identity": {
             "type": "byDefault",
             "name": "pokemon_species_id_seq",
-            "schema": "public",
+            "schema": "pokemon",
             "increment": "1",
             "startWith": "1",
             "minValue": "1",
@@ -4339,6 +4435,7 @@
           "name": "pokemon_species_generation_id_generation_id_fk",
           "tableFrom": "pokemon_species",
           "tableTo": "generation",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "generation_id"
           ],
@@ -4355,9 +4452,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.pokemon_species_egg_group": {
+    "pokemon.pokemon_species_egg_group": {
       "name": "pokemon_species_egg_group",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "pokemon_species_id": {
           "name": "pokemon_species_id",
@@ -4392,6 +4489,7 @@
           "name": "pokemon_species_egg_group_pokemon_species_id_pokemon_species_id_fk",
           "tableFrom": "pokemon_species_egg_group",
           "tableTo": "pokemon_species",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "pokemon_species_id"
           ],
@@ -4405,6 +4503,7 @@
           "name": "pokemon_species_egg_group_egg_group_id_egg_group_id_fk",
           "tableFrom": "pokemon_species_egg_group",
           "tableTo": "egg_group",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "egg_group_id"
           ],
@@ -4421,9 +4520,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.pokemon_species_flavor_text": {
+    "pokemon.pokemon_species_flavor_text": {
       "name": "pokemon_species_flavor_text",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "resource_id": {
           "name": "resource_id",
@@ -4470,6 +4569,7 @@
           "name": "pokemon_species_flavor_text_resource_id_pokemon_species_id_fk",
           "tableFrom": "pokemon_species_flavor_text",
           "tableTo": "pokemon_species",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "resource_id"
           ],
@@ -4483,6 +4583,7 @@
           "name": "pokemon_species_flavor_text_version_id_version_id_fk",
           "tableFrom": "pokemon_species_flavor_text",
           "tableTo": "version",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "version_id"
           ],
@@ -4496,6 +4597,7 @@
           "name": "pokemon_species_flavor_text_language_id_language_id_fk",
           "tableFrom": "pokemon_species_flavor_text",
           "tableTo": "language",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "language_id"
           ],
@@ -4512,9 +4614,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.pokemon_species_genus": {
+    "pokemon.pokemon_species_genus": {
       "name": "pokemon_species_genus",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "language_id": {
           "name": "language_id",
@@ -4555,6 +4657,7 @@
           "name": "pokemon_species_genus_language_id_language_id_fk",
           "tableFrom": "pokemon_species_genus",
           "tableTo": "language",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "language_id"
           ],
@@ -4568,6 +4671,7 @@
           "name": "pokemon_species_genus_resource_id_pokemon_species_id_fk",
           "tableFrom": "pokemon_species_genus",
           "tableTo": "pokemon_species",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "resource_id"
           ],
@@ -4584,9 +4688,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.pokemon_species_name": {
+    "pokemon.pokemon_species_name": {
       "name": "pokemon_species_name",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "language_id": {
           "name": "language_id",
@@ -4627,6 +4731,7 @@
           "name": "pokemon_species_name_language_id_language_id_fk",
           "tableFrom": "pokemon_species_name",
           "tableTo": "language",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "language_id"
           ],
@@ -4640,6 +4745,7 @@
           "name": "pokemon_species_name_resource_id_pokemon_species_id_fk",
           "tableFrom": "pokemon_species_name",
           "tableTo": "pokemon_species",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "resource_id"
           ],
@@ -4656,9 +4762,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.pokemon_version_appearance": {
+    "pokemon.pokemon_version_appearance": {
       "name": "pokemon_version_appearance",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "pokemon_id": {
           "name": "pokemon_id",
@@ -4741,6 +4847,7 @@
           "name": "pokemon_version_appearance_pokemon_id_pokemon_id_fk",
           "tableFrom": "pokemon_version_appearance",
           "tableTo": "pokemon",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "pokemon_id"
           ],
@@ -4754,6 +4861,7 @@
           "name": "pokemon_version_appearance_version_id_version_id_fk",
           "tableFrom": "pokemon_version_appearance",
           "tableTo": "version",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "version_id"
           ],
@@ -4770,9 +4878,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.region": {
+    "pokemon.region": {
       "name": "region",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "id": {
           "name": "id",
@@ -4782,7 +4890,7 @@
           "identity": {
             "type": "byDefault",
             "name": "region_id_seq",
-            "schema": "public",
+            "schema": "pokemon",
             "increment": "1",
             "startWith": "1",
             "minValue": "1",
@@ -4824,6 +4932,7 @@
           "name": "region_main_generation_id_generation_id_fk",
           "tableFrom": "region",
           "tableTo": "generation",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "main_generation_id"
           ],
@@ -4840,9 +4949,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.region_name": {
+    "pokemon.region_name": {
       "name": "region_name",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "language_id": {
           "name": "language_id",
@@ -4883,6 +4992,7 @@
           "name": "region_name_language_id_language_id_fk",
           "tableFrom": "region_name",
           "tableTo": "language",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "language_id"
           ],
@@ -4896,6 +5006,7 @@
           "name": "region_name_resource_id_region_id_fk",
           "tableFrom": "region_name",
           "tableTo": "region",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "resource_id"
           ],
@@ -4912,9 +5023,69 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.type": {
+    "auth.session": {
+      "name": "session",
+      "schema": "auth",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "expires_at": {
+          "name": "expires_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "session_user_id_user_id_fk": {
+          "name": "session_user_id_user_id_fk",
+          "tableFrom": "session",
+          "tableTo": "user",
+          "schemaTo": "auth",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "pokemon.type": {
       "name": "type",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "id": {
           "name": "id",
@@ -4924,7 +5095,7 @@
           "identity": {
             "type": "byDefault",
             "name": "type_id_seq",
-            "schema": "public",
+            "schema": "pokemon",
             "increment": "1",
             "startWith": "1",
             "minValue": "1",
@@ -4972,6 +5143,7 @@
           "name": "type_generation_id_generation_id_fk",
           "tableFrom": "type",
           "tableTo": "generation",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "generation_id"
           ],
@@ -4988,9 +5160,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.type_damage_relation": {
+    "pokemon.type_damage_relation": {
       "name": "type_damage_relation",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "from_type_id": {
           "name": "from_type_id",
@@ -5023,6 +5195,7 @@
           "name": "type_damage_relation_from_type_id_type_id_fk",
           "tableFrom": "type_damage_relation",
           "tableTo": "type",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "from_type_id"
           ],
@@ -5036,6 +5209,7 @@
           "name": "type_damage_relation_to_type_id_type_id_fk",
           "tableFrom": "type_damage_relation",
           "tableTo": "type",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "to_type_id"
           ],
@@ -5049,6 +5223,7 @@
           "name": "type_damage_relation_generation_id_generation_id_fk",
           "tableFrom": "type_damage_relation",
           "tableTo": "generation",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "generation_id"
           ],
@@ -5065,9 +5240,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.type_name": {
+    "pokemon.type_name": {
       "name": "type_name",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "language_id": {
           "name": "language_id",
@@ -5108,6 +5283,7 @@
           "name": "type_name_language_id_language_id_fk",
           "tableFrom": "type_name",
           "tableTo": "language",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "language_id"
           ],
@@ -5121,6 +5297,7 @@
           "name": "type_name_resource_id_type_id_fk",
           "tableFrom": "type_name",
           "tableTo": "type",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "resource_id"
           ],
@@ -5137,9 +5314,93 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.version": {
+    "auth.user": {
+      "name": "user",
+      "schema": "auth",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "identity": {
+            "type": "byDefault",
+            "name": "user_id_seq",
+            "schema": "auth",
+            "increment": "1",
+            "startWith": "1",
+            "minValue": "1",
+            "maxValue": "2147483647",
+            "cache": "1",
+            "cycle": false
+          }
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "emailVerified": {
+          "name": "emailVerified",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "image": {
+          "name": "image",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "is_admin": {
+          "name": "is_admin",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "user_email_unique": {
+          "name": "user_email_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "email"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "pokemon.version": {
       "name": "version",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "id": {
           "name": "id",
@@ -5149,7 +5410,7 @@
           "identity": {
             "type": "byDefault",
             "name": "version_id_seq",
-            "schema": "public",
+            "schema": "pokemon",
             "increment": "1",
             "startWith": "1",
             "minValue": "1",
@@ -5191,6 +5452,7 @@
           "name": "version_version_group_id_version_group_id_fk",
           "tableFrom": "version",
           "tableTo": "version_group",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "version_group_id"
           ],
@@ -5207,9 +5469,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.version_group": {
+    "pokemon.version_group": {
       "name": "version_group",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "id": {
           "name": "id",
@@ -5219,7 +5481,7 @@
           "identity": {
             "type": "byDefault",
             "name": "version_group_id_seq",
-            "schema": "public",
+            "schema": "pokemon",
             "increment": "1",
             "startWith": "1",
             "minValue": "1",
@@ -5267,6 +5529,7 @@
           "name": "version_group_generation_id_generation_id_fk",
           "tableFrom": "version_group",
           "tableTo": "generation",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "generation_id"
           ],
@@ -5283,9 +5546,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.version_group_region": {
+    "pokemon.version_group_region": {
       "name": "version_group_region",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "version_group_id": {
           "name": "version_group_id",
@@ -5320,6 +5583,7 @@
           "name": "version_group_region_version_group_id_version_group_id_fk",
           "tableFrom": "version_group_region",
           "tableTo": "version_group",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "version_group_id"
           ],
@@ -5333,6 +5597,7 @@
           "name": "version_group_region_region_id_region_id_fk",
           "tableFrom": "version_group_region",
           "tableTo": "region",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "region_id"
           ],
@@ -5349,9 +5614,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.version_name": {
+    "pokemon.version_name": {
       "name": "version_name",
-      "schema": "",
+      "schema": "pokemon",
       "columns": {
         "language_id": {
           "name": "language_id",
@@ -5392,6 +5657,7 @@
           "name": "version_name_language_id_language_id_fk",
           "tableFrom": "version_name",
           "tableTo": "language",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "language_id"
           ],
@@ -5405,6 +5671,7 @@
           "name": "version_name_resource_id_version_id_fk",
           "tableFrom": "version_name",
           "tableTo": "version",
+          "schemaTo": "pokemon",
           "columnsFrom": [
             "resource_id"
           ],
@@ -5423,7 +5690,10 @@
     }
   },
   "enums": {},
-  "schemas": {},
+  "schemas": {
+    "auth": "auth",
+    "pokemon": "pokemon"
+  },
   "sequences": {},
   "roles": {},
   "policies": {},
