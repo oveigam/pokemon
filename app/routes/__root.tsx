@@ -3,7 +3,12 @@ import "@fontsource-variable/inter";
 import { ThemeSwitch } from "@/components/common/button/theme-switch";
 import type { RouterContext } from "@/router";
 import globalCss from "@/style/global.css?url";
-import { createRootRouteWithContext, Outlet, ScrollRestoration } from "@tanstack/react-router";
+import {
+  createRootRouteWithContext,
+  Link,
+  Outlet,
+  ScrollRestoration,
+} from "@tanstack/react-router";
 import { createServerFn, Meta, Scripts } from "@tanstack/start";
 import type { ReactNode } from "react";
 import { getCookie } from "vinxi/server";
@@ -16,7 +21,7 @@ const getTheme = createServerFn({ method: "GET" }).handler(() => {
 });
 
 const getSession = createServerFn({ method: "GET" }).handler(async () => {
-  const token = getCookie("session");
+  const token = getCookie("authentication");
 
   if (token) {
     const session = await dal.session.validateSessionToken(token);
@@ -76,14 +81,16 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
             {t("title")}
           </h1>
           <div className="flex items-center justify-end gap-2">
-            <Avatar className="h-6 w-6 bg-card text-xs text-card-foreground">
-              {session?.user.image && (
-                <AvatarImage src={session.user.image} alt={session.user.name} />
-              )}
-              <AvatarFallback>
-                {session?.user.name.slice(0, 2).toUpperCase() ?? "PK"}
-              </AvatarFallback>
-            </Avatar>
+            <Link to="/signup">
+              <Avatar className="h-6 w-6 bg-card text-xs text-card-foreground">
+                {session?.user.image && (
+                  <AvatarImage src={session.user.image} alt={session.user.name} />
+                )}
+                <AvatarFallback>
+                  {session?.user.name.slice(0, 2).toUpperCase() ?? "PK"}
+                </AvatarFallback>
+              </Avatar>
+            </Link>
             <ThemeSwitch theme={theme} />
           </div>
         </header>
