@@ -3,6 +3,8 @@ import { createRouter as createTanStackRouter } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
 import type { i18n as I18n } from "i18next";
 import type { Session, User } from "./.server/db/types.db";
+import { routerWithQueryClient } from "@tanstack/react-router-with-query";
+import { QueryClient } from "@tanstack/react-query";
 
 export type RouterContext = {
   theme: "light" | "dark";
@@ -11,17 +13,24 @@ export type RouterContext = {
     user: Pick<User, "id" | "name" | "email" | "image" | "isAdmin">;
     session: Session;
   } | null;
+  queryClient: QueryClient;
 };
 
 export function createRouter() {
-  const router = createTanStackRouter({
-    routeTree,
-    context: {
-      theme: "light",
-      i18n,
-      session: null,
-    },
-  });
+  const queryClient = new QueryClient();
+
+  const router = routerWithQueryClient(
+    createTanStackRouter({
+      routeTree,
+      context: {
+        theme: "light",
+        i18n,
+        session: null,
+        queryClient,
+      },
+    }),
+    queryClient,
+  );
 
   return router;
 }
