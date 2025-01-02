@@ -1,4 +1,18 @@
-import { damageClass, growthRates, moveAilment, moveCategory, moveTarget, pokemonColors, pokemonHabitat, pokemonShapes } from "./enums.db";
+import type { InferSelectModel } from "drizzle-orm";
+import {
+  damageClass,
+  growthRates,
+  moveAilment,
+  moveCategory,
+  moveTarget,
+  pokemonColors,
+  pokemonHabitat,
+  pokemonShapes,
+} from "./enums.db";
+import type { session, user } from "./schema.db";
+
+export type User = InferSelectModel<typeof user>;
+export type Session = InferSelectModel<typeof session>;
 
 export type DamageClass = (typeof damageClass)[number];
 export type GrowthRate = (typeof growthRates)[number];

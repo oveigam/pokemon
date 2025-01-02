@@ -1,0 +1,1 @@
+ALTER TABLE "auth"."user" ADD COLUMN "password_hash" text NOT NULL;
