@@ -79,6 +79,7 @@ const translationTable = (name: string, resourceIdCol: PgColumn) =>
 export const user = authSchema.table("user", {
   ...idCols,
 
+  passwordHash: text().notNull(),
   email: text("email").unique(),
   emailVerified: boolean("emailVerified").notNull().default(false),
   image: text("image"),
