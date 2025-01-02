@@ -8,7 +8,7 @@ export type RouterContext = {
   theme: "light" | "dark";
   i18n: I18n;
   session: {
-    user: User;
+    user: Pick<User, "id" | "name" | "email" | "image" | "isAdmin">;
     session: Session;
   } | null;
 };

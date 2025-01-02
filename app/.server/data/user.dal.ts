@@ -16,7 +16,13 @@ export async function signupUser(user: {
       email: user.email,
       image: user.image,
     })
-    .returning({ id: schema.user.id });
+    .returning({
+      id: schema.user.id,
+      name: schema.user.name,
+      email: schema.user.email,
+      image: schema.user.image,
+      isAdmin: schema.user.isAdmin,
+    });
 
   return createdUser[0]!;
 }
