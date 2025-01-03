@@ -10,12 +10,7 @@ export function PageLayout({
   children: ReactNode;
 }) {
   return (
-    <main
-      className={cn(
-        "container mx-auto flex flex-1 flex-col items-center justify-center p-2",
-        className,
-      )}
-    >
+    <main className={cn("container mx-auto flex flex-1 flex-col items-center p-2", className)}>
       {children}
     </main>
   );

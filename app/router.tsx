@@ -5,6 +5,8 @@ import type { i18n as I18n } from "i18next";
 import type { Session, User } from "./.server/db/types.db";
 import { routerWithQueryClient } from "@tanstack/react-router-with-query";
 import { QueryClient } from "@tanstack/react-query";
+import { PageLayout } from "./components/common/layout/layout";
+import { Spinner } from "@ui/components/spinner";
 
 export type RouterContext = {
   theme: "light" | "dark";
@@ -28,6 +30,16 @@ export function createRouter() {
         session: null,
         queryClient,
       },
+      defaultPreload: "intent",
+      defaultPendingComponent: () => {
+        return (
+          <PageLayout className="py-12">
+            <Spinner />
+          </PageLayout>
+        );
+      },
+      defaultStaleTime: 1000 * 60,
+      defaultGcTime: 1000 * 60,
     }),
     queryClient,
   );

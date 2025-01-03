@@ -1,20 +1,22 @@
 import "@fontsource-variable/inter";
 
+import { dal } from "@/.server/data/_dal";
 import { ThemeSwitch } from "@/components/common/button/theme-switch";
 import type { RouterContext } from "@/router";
 import globalCss from "@/style/global.css?url";
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import {
   createRootRouteWithContext,
   Link,
   Outlet,
   ScrollRestoration,
 } from "@tanstack/react-router";
+import { TanStackRouterDevtools } from '@tanstack/router-devtools';
 import { createServerFn, Meta, Scripts } from "@tanstack/start";
-import type { ReactNode } from "react";
-import { getCookie } from "vinxi/server";
-import { useTranslation } from "react-i18next";
-import { dal } from "@/.server/data/_dal";
 import { Avatar, AvatarFallback, AvatarImage } from "@ui/components/avatar";
+import { type ReactNode } from "react";
+import { useTranslation } from "react-i18next";
+import { getCookie } from "vinxi/server";
 
 const getTheme = createServerFn({ method: "GET" }).handler(() => {
   return getCookie("ui-theme") as RouterContext["theme"] | undefined;
@@ -96,6 +98,8 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
         </header>
         {children}
         <ScrollRestoration />
+        <TanStackRouterDevtools position="bottom-right" />
+        <ReactQueryDevtools buttonPosition="bottom-left" />
         <Scripts />
       </body>
     </html>
