@@ -2,6 +2,8 @@ import type { BaseTranslations } from "../en/base.en";
 
 export const baseEs: BaseTranslations = {
   title: "Pokemon Enterprise Edition",
+  application: "Aplicación",
+  home: "Inicio",
   pokemon: "Pokemon",
   move: "Movimiento",
   move_other: "Movimientos",

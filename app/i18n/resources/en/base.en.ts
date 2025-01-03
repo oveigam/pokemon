@@ -1,5 +1,7 @@
 export const baseEn = {
   title: "Pokemon Enterprise Edition",
+  application: "Application",
+  home: "Home",
   pokemon: "Pokemon",
   move: "Move",
   move_other: "Moves",

@@ -4,19 +4,21 @@ import { dal } from "@/.server/data/_dal";
 import { ThemeSwitch } from "@/components/common/button/theme-switch";
 import type { RouterContext } from "@/router";
 import globalCss from "@/style/global.css?url";
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import {
   createRootRouteWithContext,
   Link,
   Outlet,
   ScrollRestoration,
 } from "@tanstack/react-router";
-import { TanStackRouterDevtools } from '@tanstack/router-devtools';
+import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 import { createServerFn, Meta, Scripts } from "@tanstack/start";
 import { Avatar, AvatarFallback, AvatarImage } from "@ui/components/avatar";
 import { type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { getCookie } from "vinxi/server";
+import { SidebarProvider, SidebarTrigger } from "@ui/components/sidebar";
+import { AppSidebar } from "@/components/common/layout/app-sidebar";
 
 const getTheme = createServerFn({ method: "GET" }).handler(() => {
   return getCookie("ui-theme") as RouterContext["theme"] | undefined;
@@ -44,7 +46,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
         content: "width=device-width, initial-scale=1",
       },
       {
-        title: "Pokemon",
+        title: "Pokemon Enterprise Edition",
       },
     ],
     links: [{ rel: "stylesheet", href: globalCss }],
@@ -77,30 +79,14 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
         <Meta />
       </head>
       <body>
-        <header className="sticky top-0 grid h-12 grid-cols-3 items-center bg-primary px-2 text-primary-foreground md:px-4 lg:px-6 xl:px-12">
-          <div />
-          <h1 className="invisible text-center font-semibold sm:visible md:text-lg">
-            {t("title")}
-          </h1>
-          <div className="flex items-center justify-end gap-2">
-            <Link to="/signup">
-              <Avatar className="h-6 w-6 bg-card text-xs text-card-foreground">
-                {session?.user.image && (
-                  <AvatarImage src={session.user.image} alt={session.user.name} />
-                )}
-                <AvatarFallback>
-                  {session?.user.name.slice(0, 2).toUpperCase() ?? "PK"}
-                </AvatarFallback>
-              </Avatar>
-            </Link>
-            <ThemeSwitch theme={theme} />
-          </div>
-        </header>
-        {children}
-        <ScrollRestoration />
-        <TanStackRouterDevtools position="bottom-right" />
-        <ReactQueryDevtools buttonPosition="bottom-left" />
-        <Scripts />
+        <SidebarProvider defaultOpen={false}>
+          <AppSidebar />
+          {children}
+          <ScrollRestoration />
+          <TanStackRouterDevtools position="top-right" />
+          <ReactQueryDevtools buttonPosition="bottom-right" />
+          <Scripts />
+        </SidebarProvider>
       </body>
     </html>
   );

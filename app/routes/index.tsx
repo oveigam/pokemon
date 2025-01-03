@@ -11,7 +11,7 @@ function HomePage() {
   const { t } = useTranslation("base");
 
   return (
-    <PageLayout className="grid grid-cols-4">
+    <PageLayout className="grid grid-cols-4 items-center">
       <Button asChild variant="ghost" className="">
         <Link to="/pokemon">{t("pokemon", { count: 2 })}</Link>
       </Button>
