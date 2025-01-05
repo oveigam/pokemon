@@ -1,4 +1,4 @@
-import i18n from "@/i18n/i18n";
+import i18n, { initI18n } from "@/i18n/i18n";
 import { createRouter as createTanStackRouter } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
 import type { i18n as I18n } from "i18next";
@@ -9,7 +9,7 @@ import { PageLayout } from "./components/common/layout/layout";
 import { Spinner } from "@ui/components/spinner";
 
 export type RouterContext = {
-  theme: "light" | "dark";
+  theme: "light" | "dark" | "system";
   i18n: I18n;
   session: {
     user: Pick<User, "id" | "name" | "email" | "image" | "isAdmin">;
@@ -26,7 +26,7 @@ export function createRouter() {
       routeTree,
       context: {
         theme: "light",
-        i18n,
+        i18n: initI18n(),
         session: null,
         queryClient,
       },
