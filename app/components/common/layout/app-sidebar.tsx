@@ -1,7 +1,7 @@
 import type { RouterContext } from "@/router";
 import { deleteSession } from "@/services/session/session.api";
 import { updateLanguage, updateTheme } from "@/services/user/user.api";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Link, useRouter, type LinkProps } from "@tanstack/react-router";
 import { Avatar, AvatarFallback, AvatarImage } from "@ui/components/avatar";
 import {
@@ -49,6 +49,7 @@ import {
 import type { ReactNode } from "react";
 import { useTranslations } from "use-intl";
 import { PokeballIcon } from "../icon/pokeball-icon";
+import { getI18nQuery } from "@/services/i18n/i18n.query";
 
 type CtxUser = NonNullable<RouterContext["session"]>["user"];
 
@@ -57,6 +58,8 @@ export function AppSidebar({ user }: { user?: CtxUser }) {
 
   const t = useTranslations();
   const { isMobile } = useSidebar();
+
+  const queryClient = useQueryClient();
 
   const { mutate: delSession } = useMutation({
     mutationFn: deleteSession,
@@ -80,7 +83,7 @@ export function AppSidebar({ user }: { user?: CtxUser }) {
   const { mutate: setLanguage } = useMutation({
     mutationFn: updateLanguage,
     onMutate({ data: { lng } }) {
-      // i18n.changeLanguage(lng);
+      queryClient.prefetchQuery(getI18nQuery(lng));
     },
     onSuccess() {
       router.invalidate();
