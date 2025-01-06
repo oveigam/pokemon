@@ -1,6 +1,6 @@
+import { invalidateSession, validateSessionToken } from "@/server/auth/session";
 import { createServerFn } from "@tanstack/start";
 import { getCookie, deleteCookie } from "vinxi/http";
-import { invalidateSession, validateSessionToken } from "./session.dal";
 
 export const getSession = createServerFn({ method: "GET" }).handler(async () => {
   const token = getCookie("authentication");

@@ -1,5 +1,5 @@
 import { db, schema } from "@/server/db/database";
-import { hashPassword } from "@/server/util/password";
+import { hashPassword } from "@/server/auth/password";
 
 export async function signupUser(user: {
   name: string;

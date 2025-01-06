@@ -1,8 +1,8 @@
 import { createServerFn } from "@tanstack/start";
 import { getCookie, setCookie } from "vinxi/http";
 import { signupUser } from "./user.dal";
-import { createSession } from "../session/session.dal";
 import { redirect } from "@tanstack/react-router";
+import { createSession } from "@/server/auth/session";
 
 export const getTheme = createServerFn({ method: "GET" }).handler(() => {
   return getCookie("ui-theme") as "light" | "dark" | "system" | undefined;
