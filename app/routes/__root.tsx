@@ -1,20 +1,19 @@
 import "@fontsource-variable/inter";
 
-import { getSession } from "@/.server/functions/session.fn";
-import { getTheme, getLanguage } from "@/.server/functions/user.fn";
 import { AppSidebar } from "@/components/common/layout/app-sidebar";
 import type { RouterContext } from "@/router";
+import { getI18nQuery } from "@/services/i18n/i18n.query";
+import { getSession } from "@/services/session/session.api";
+import { getLanguage, getTheme } from "@/services/user/user.api";
 import globalCss from "@/style/global.css?url";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { createRootRouteWithContext, Outlet, ScrollRestoration } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 import { Meta, Scripts } from "@tanstack/start";
 import { SidebarProvider } from "@ui/components/sidebar";
-import { use, type ReactNode } from "react";
-import { useSuspenseQuery } from "@tanstack/react-query";
-import { getI18n } from "@/.server/functions/i18n.fn";
+import { type ReactNode } from "react";
 import { createTranslator, IntlProvider } from "use-intl";
-import { getI18nQuery } from "@/query/i18n.query";
 
 export const Route = createRootRouteWithContext<RouterContext>()({
   head: () => ({
