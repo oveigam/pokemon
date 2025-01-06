@@ -14,7 +14,7 @@ import {
   type PokemonColor,
   type PokemonHabitat,
   type PokemonShapes,
-} from "../app/.server/db/database";
+} from "../app/server/db/database";
 import { data } from "../data/data";
 
 class Progress {

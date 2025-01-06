@@ -1,6 +1,4 @@
 import { Link, useLocation, useRouteContext, useRouter } from "@tanstack/react-router";
-import { deleteSession } from "@/.server/functions/session.fn";
-import { updateLanguage, updateTheme } from "@/.server/functions/user.fn";
 import {
   Sidebar,
   SidebarContent,
@@ -52,6 +50,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@ui/components/avatar";
 import type { RouterContext } from "@/router";
 import { useMutation } from "@tanstack/react-query";
 import { useTranslations } from "use-intl";
+import { deleteSession } from "@/services/session/session.api";
+import { updateLanguage, updateTheme } from "@/services/user/user.api";
 
 type CtxUser = NonNullable<RouterContext["session"]>["user"];
 

@@ -1,7 +1,6 @@
+import type { Locale, Messages } from "@/i18n/i18n";
 import { createServerFn } from "@tanstack/start";
 import type { IntlConfig } from "use-intl";
-import type { Locale, Messages } from "../../i18n/i18n";
-// import asd from "../../i18n/messages/en";
 
 export const getI18n = createServerFn({ method: "GET" })
   .validator((data: { locale: "en" | "es" }) => data)
