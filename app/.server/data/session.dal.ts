@@ -1,7 +1,7 @@
 import { sha256 } from "@oslojs/crypto/sha2";
 import { encodeBase32LowerCaseNoPadding, encodeHexLowerCase } from "@oslojs/encoding";
 import { eq, type InferInsertModel } from "drizzle-orm";
-import { db, schema } from "../db/database";
+import { db, schema } from "../../server/db/database";
 
 export async function createSession(userId: number, expiresInDays = 30) {
   const bytes = new Uint8Array(20);
