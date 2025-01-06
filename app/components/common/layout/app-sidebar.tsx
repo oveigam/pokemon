@@ -1,4 +1,22 @@
-import { Link, useLocation, useRouteContext, useRouter } from "@tanstack/react-router";
+import type { RouterContext } from "@/router";
+import { deleteSession } from "@/services/session/session.api";
+import { updateLanguage, updateTheme } from "@/services/user/user.api";
+import { useMutation } from "@tanstack/react-query";
+import { Link, useRouter, type LinkProps } from "@tanstack/react-router";
+import { Avatar, AvatarFallback, AvatarImage } from "@ui/components/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuPortal,
+  DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from "@ui/components/dropdown-menu";
 import {
   Sidebar,
   SidebarContent,
@@ -13,10 +31,7 @@ import {
   useSidebar,
 } from "@ui/components/sidebar";
 import {
-  BadgeCheck,
-  Bell,
   ChevronsUpDown,
-  CreditCard,
   Home,
   KeyRound,
   Languages,
@@ -25,33 +40,15 @@ import {
   Monitor,
   Moon,
   ShoppingBasket,
-  Sparkles,
   Sprout,
   Sun,
   SunMoon,
   Swords,
   UserPen,
 } from "lucide-react";
-import { PokeballIcon } from "../icon/pokeball-icon";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuTrigger,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuSubTrigger,
-  DropdownMenuSub,
-  DropdownMenuPortal,
-  DropdownMenuSubContent,
-} from "@ui/components/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "@ui/components/avatar";
-import type { RouterContext } from "@/router";
-import { useMutation } from "@tanstack/react-query";
+import type { ReactNode } from "react";
 import { useTranslations } from "use-intl";
-import { deleteSession } from "@/services/session/session.api";
-import { updateLanguage, updateTheme } from "@/services/user/user.api";
+import { PokeballIcon } from "../icon/pokeball-icon";
 
 type CtxUser = NonNullable<RouterContext["session"]>["user"];
 
@@ -113,46 +110,16 @@ export function AppSidebar({ user }: { user?: CtxUser }) {
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
+
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>{t("application")}</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                  <Link to="/pokemon">
-                    <PokeballIcon />
-                    <span>{t("pokemon", { count: 2 })}</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-
-              <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                  <Link to="/move">
-                    <Swords />
-                    <span>{t("move", { count: 2 })}</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-
-              <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                  <Link to="/ability">
-                    <Sprout />
-                    <span>{t("ability", { count: 2 })}</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-
-              <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                  <Link to="/item">
-                    <ShoppingBasket />
-                    <span>{t("item", { count: 2 })}</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
+              <SidebarMenuLink to="/pokemon" icon={<PokeballIcon />} label={t("pokemon")} />
+              <SidebarMenuLink to="/move" icon={<Swords />} label={t("move")} />
+              <SidebarMenuLink to="/ability" icon={<Sprout />} label={t("ability")} />
+              <SidebarMenuLink to="/item" icon={<ShoppingBasket />} label={t("item")} />
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
@@ -281,6 +248,33 @@ export function AppSidebar({ user }: { user?: CtxUser }) {
     </Sidebar>
   );
 }
+
+const SidebarMenuLink = ({
+  to,
+  icon,
+  label,
+}: {
+  to: NonNullable<LinkProps["to"]>;
+  icon: ReactNode;
+  label: string;
+}) => {
+  return (
+    <SidebarMenuItem>
+      <SidebarMenuButton asChild>
+        <Link
+          to={to}
+          activeProps={{
+            "data-active": true,
+            // "aria-disabled": true,
+          }}
+        >
+          {icon}
+          <span>{label}</span>
+        </Link>
+      </SidebarMenuButton>
+    </SidebarMenuItem>
+  );
+};
 
 const UserHeader = ({ user }: { user?: CtxUser }) => {
   const t = useTranslations();
