@@ -34,7 +34,6 @@ import {
   Swords,
   UserPen,
 } from "lucide-react";
-import { useTranslation } from "react-i18next";
 import { PokeballIcon } from "../icon/pokeball-icon";
 import {
   DropdownMenu,
@@ -52,13 +51,14 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@ui/components/avatar";
 import type { RouterContext } from "@/router";
 import { useMutation } from "@tanstack/react-query";
+import { useTranslations } from "use-intl";
 
 type CtxUser = NonNullable<RouterContext["session"]>["user"];
 
 export function AppSidebar({ user }: { user?: CtxUser }) {
   const router = useRouter();
 
-  const { t, i18n } = useTranslation();
+  const t = useTranslations();
   const { isMobile } = useSidebar();
 
   const { mutate: delSession } = useMutation({
@@ -83,7 +83,7 @@ export function AppSidebar({ user }: { user?: CtxUser }) {
   const { mutate: setLanguage } = useMutation({
     mutationFn: updateLanguage,
     onMutate({ data: { lng } }) {
-      i18n.changeLanguage(lng);
+      // i18n.changeLanguage(lng);
     },
     onSuccess() {
       router.invalidate();
@@ -283,7 +283,7 @@ export function AppSidebar({ user }: { user?: CtxUser }) {
 }
 
 const UserHeader = ({ user }: { user?: CtxUser }) => {
-  const { t } = useTranslation();
+  const t = useTranslations();
 
   if (user) {
     return (

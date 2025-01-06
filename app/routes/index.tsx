@@ -1,14 +1,14 @@
 import { PageLayout } from "@/components/common/layout/layout";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Button } from "@ui/components/button";
-import { useTranslation } from "react-i18next";
+import { useTranslations } from "use-intl";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
 });
 
 function HomePage() {
-  const { t } = useTranslation("base");
+  const t = useTranslations();
 
   return (
     <PageLayout className="grid grid-cols-4 items-center">

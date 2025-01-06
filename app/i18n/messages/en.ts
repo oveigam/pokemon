@@ -1,4 +1,4 @@
-export const baseEn = {
+const en = {
   title: "Pokemon Enterprise Edition",
   application: "Application",
   home: "Home",
@@ -24,4 +24,6 @@ export const baseEn = {
   spanish: "Spanish",
 };
 
-export type BaseTranslations = typeof baseEn;
+export type BaseTranslations = typeof en;
+
+export default en;

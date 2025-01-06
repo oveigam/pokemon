@@ -33,15 +33,14 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "drizzle-orm": "^0.38.3",
-    "i18next": "^24.2.0",
     "latest": "^0.2.0",
     "lucide-react": "^0.469.0",
     "postgres": "^3.4.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-i18next": "^15.4.0",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
+    "use-intl": "^3.26.3",
     "vinxi": "^0.5.1"
   },
   "devDependencies": {

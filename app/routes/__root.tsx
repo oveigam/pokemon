@@ -10,9 +10,11 @@ import { createRootRouteWithContext, Outlet, ScrollRestoration } from "@tanstack
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 import { Meta, Scripts } from "@tanstack/start";
 import { SidebarProvider } from "@ui/components/sidebar";
-import { type ReactNode } from "react";
-import { useTranslation } from "react-i18next";
-import { initI18n } from "@/i18n/i18n";
+import { use, type ReactNode } from "react";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { getI18n } from "@/.server/functions/i18n.fn";
+import { createTranslator, IntlProvider } from "use-intl";
+import { getI18nQuery } from "@/query/i18n.query";
 
 export const Route = createRootRouteWithContext<RouterContext>()({
   head: () => ({
@@ -31,13 +33,18 @@ export const Route = createRootRouteWithContext<RouterContext>()({
     links: [{ rel: "stylesheet", href: globalCss }],
   }),
   component: RootComponent,
-  beforeLoad: async (ctx) => {
+  beforeLoad: async ({ context }) => {
     const [theme, lng, session] = await Promise.all([getTheme(), getLanguage(), getSession()]);
+
+    const i18n = await context.queryClient.ensureQueryData(getI18nQuery(lng ?? "en"));
+    const translator = createTranslator(i18n);
 
     return {
       theme: theme ?? "light",
       session,
-    } satisfies Partial<RouterContext>;
+      lng,
+      translator,
+    };
   },
 });
 
@@ -50,22 +57,26 @@ function RootComponent() {
 }
 
 function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
-  const { theme, session } = Route.useRouteContext();
+  const { theme, session, lng } = Route.useRouteContext();
+
+  const { data: i18n } = useSuspenseQuery(getI18nQuery(lng ?? "en"));
 
   return (
-    <html className={theme}>
+    <html lang={lng ?? "en"} className={theme}>
       <head>
         <Meta />
       </head>
       <body>
-        <SidebarProvider defaultOpen={false}>
-          <AppSidebar user={session?.user} />
-          {children}
-          <ScrollRestoration />
-          <TanStackRouterDevtools position="top-right" />
-          <ReactQueryDevtools buttonPosition="bottom-right" />
-          <Scripts />
-        </SidebarProvider>
+        <IntlProvider {...i18n}>
+          <SidebarProvider defaultOpen={false}>
+            <AppSidebar user={session?.user} />
+            {children}
+            <ScrollRestoration />
+            <TanStackRouterDevtools position="top-right" />
+            <ReactQueryDevtools buttonPosition="bottom-right" />
+            <Scripts />
+          </SidebarProvider>
+        </IntlProvider>
       </body>
     </html>
   );

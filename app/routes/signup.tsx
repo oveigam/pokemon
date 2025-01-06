@@ -6,7 +6,7 @@ import { Button } from "@ui/components/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@ui/components/card";
 import { Input } from "@ui/components/input";
 import { Label } from "@ui/components/label";
-import { useTranslation } from "react-i18next";
+import { useTranslations } from "use-intl";
 import { setCookie } from "vinxi/http";
 
 export const Route = createFileRoute("/signup")({
@@ -42,7 +42,7 @@ const signup = createServerFn({ method: "POST" })
   });
 
 function SignUpPage() {
-  const { t } = useTranslation();
+  const t = useTranslations();
 
   return (
     <PageLayout className="flex items-center justify-center">

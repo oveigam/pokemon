@@ -1,6 +1,6 @@
-import type { BaseTranslations } from "../en/base.en";
+import type { BaseTranslations } from "./en";
 
-export const baseEs: BaseTranslations = {
+const es: BaseTranslations = {
   title: "Pokemon Enterprise Edition",
   application: "Aplicación",
   home: "Inicio",
@@ -25,3 +25,5 @@ export const baseEs: BaseTranslations = {
   english: "Inglés",
   spanish: "Español",
 };
+
+export default es;
