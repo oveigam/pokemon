@@ -1,3 +1,5 @@
+import datagridEn from "@datagrid/features/i18n/messages/datagrid.en";
+
 const en = {
   app: {
     title: "Pokemon Enterprise Edition",
@@ -13,6 +15,8 @@ const en = {
     english: "English",
     spanish: "Spanish",
   },
+
+  datagrid: datagridEn,
 
   navigation: {
     home: "Home",
@@ -33,6 +37,10 @@ const en = {
     name: "Name",
     password: "Password",
     email: "Email",
+  },
+
+  pokemon: {
+    name: "Name",
   },
 };
 

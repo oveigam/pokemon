@@ -1,3 +1,5 @@
+import datagridEs from "@datagrid/features/i18n/messages/datagrid.es";
+
 import type { BaseTranslations } from "./en";
 
 const es: BaseTranslations = {
@@ -15,6 +17,8 @@ const es: BaseTranslations = {
     english: "Inglés",
     spanish: "Español",
   },
+
+  datagrid: datagridEs,
 
   navigation: {
     home: "Inicio",
@@ -35,6 +39,10 @@ const es: BaseTranslations = {
     name: "Nombre",
     password: "Contraseña",
     email: "Email",
+  },
+
+  pokemon: {
+    name: "Nombre",
   },
 };
 

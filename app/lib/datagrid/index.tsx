@@ -39,8 +39,8 @@ export function Datagrid<TData, TValue>({
   columns,
   data,
   isLoading,
-  i18n,
-  i18nNS,
+  translator,
+  translatorGrid,
   rowClassName,
   autoWidth,
   autoWidthThreshold,
@@ -65,8 +65,8 @@ export function Datagrid<TData, TValue>({
       return altKey || ctrlKey || shiftKey;
     },
     columnResizeMode: "onChange",
-    i18n,
-    i18nNS,
+    translator,
+    translatorGrid,
     rowClassName,
     autoWidth,
     autoWidthThreshold,
@@ -125,7 +125,7 @@ export function Datagrid<TData, TValue>({
                         key={cell.id}
                         density={table.getDensity()}
                         className={cn(
-                          "flex bg-background",
+                          "flex bg-background items-center",
                           {
                             "flex-grow": table.getIsAutoWidth(),
                             "bg-muted": i % 2 !== 0,
