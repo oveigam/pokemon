@@ -1,9 +1,24 @@
-import type { RouterContext } from "@/router";
-import { getI18nQuery } from "@/services/i18n/i18n.query";
-import { deleteSession } from "@/services/session/session.api";
-import { signInUser, updateLanguage, updateTheme } from "@/services/user/user.api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Link, useRouter, type LinkProps } from "@tanstack/react-router";
+import {
+  ChevronsUpDown,
+  Home,
+  KeyRound,
+  Languages,
+  LogIn,
+  LogOut,
+  Monitor,
+  Moon,
+  ShoppingBasket,
+  Sprout,
+  Sun,
+  SunMoon,
+  Swords,
+  UserPen,
+} from "lucide-react";
+import { useState, type ReactNode } from "react";
+import { useTranslations } from "use-intl";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@ui/components/avatar";
 import { Button } from "@ui/components/button";
 import {
@@ -42,24 +57,12 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@ui/components/sidebar";
-import {
-  ChevronsUpDown,
-  Home,
-  KeyRound,
-  Languages,
-  LogIn,
-  LogOut,
-  Monitor,
-  Moon,
-  ShoppingBasket,
-  Sprout,
-  Sun,
-  SunMoon,
-  Swords,
-  UserPen,
-} from "lucide-react";
-import { useState, type ReactNode } from "react";
-import { useTranslations } from "use-intl";
+
+import type { RouterContext } from "@/router";
+import { getI18nQuery } from "@/services/i18n/i18n.query";
+import { deleteSession } from "@/services/session/session.api";
+import { signInUser, updateLanguage, updateTheme } from "@/services/user/user.api";
+
 import { PokeballIcon } from "../icon/pokeball-icon";
 
 type CtxUser = NonNullable<RouterContext["session"]>["user"];
