@@ -15,9 +15,6 @@ export const Route = createFileRoute("/signup")({
 function SignUpPage() {
   const t = useTranslations();
 
-  console.log("test");
-  console.log("asd");
-
   return (
     <div className="flex items-center justify-center">
       <form
