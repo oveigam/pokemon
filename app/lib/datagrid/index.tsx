@@ -17,6 +17,7 @@ import type { TranslateKeys } from "@/i18n/i18n";
 
 import { RowConsumer } from "./components/table/body/row-consumer";
 import { DatagridHeader } from "./components/table/header/header-controls";
+import { FlexTableContainer } from "./components/util/containers";
 import { DatagridDropdownMenu } from "./components/util/menu";
 import { DensityFeature } from "./features/density/density.feature";
 import { I18nFeature, type I18nOptions } from "./features/i18n/i18n.feature";
@@ -77,77 +78,80 @@ export function Datagrid<TData, TValue>({
   });
 
   return (
-    <div className="overflow-x-visible">
+    <div className="flex flex-1 flex-col overflow-x-auto">
       <div className="flex items-end justify-end gap-3 p-2">
         <DatagridDropdownMenu table={table} />
       </div>
-      <OrderDndContex table={table}>
-        {/* // FIXME any */}
-        <OrderingDnDIndicator>{(id) => table.t(id as any)}</OrderingDnDIndicator>
-        <Table className="grid">
-          <TableHeader className="sticky top-0 z-30 grid bg-background">
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id} className="flex">
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <DatagridHeader key={header.id} header={header}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(header.column.columnDef.header, header.getContext())}
-                    </DatagridHeader>
-                  );
-                })}
-              </TableRow>
-            ))}
-          </TableHeader>
+      <FlexTableContainer className="flex-1">
+        <OrderDndContex table={table}>
+          {/* // FIXME any */}
+          <OrderingDnDIndicator>{(id) => table.t(id as any)}</OrderingDnDIndicator>
 
-          <TableBody className="grid">
-            <RowConsumer table={table} isLoading={isLoading}>
-              {table.getRowModel().rows.map((row, i) => (
-                <TableRow
-                  key={row.id}
-                  className={cn(
-                    "flex hover:bg-primary/5",
-                    { "bg-muted": i % 2 !== 0 },
-                    row.getClassName(),
-                  )}
-                  data-state={row.getIsSelected() && "selected"}
-                >
-                  {row.getVisibleCells().map((cell) => {
-                    const isPinned = cell.column.getIsPinned();
-                    const isLastLeftPinnedColumn =
-                      isPinned === "left" && cell.column.getIsLastColumn("left");
-                    const isFirstRightPinnedColumn =
-                      isPinned === "right" && cell.column.getIsFirstColumn("right");
-
+          <Table className="grid">
+            <TableHeader className="sticky top-0 z-30 grid bg-background">
+              {table.getHeaderGroups().map((headerGroup) => (
+                <TableRow key={headerGroup.id} className="flex">
+                  {headerGroup.headers.map((header) => {
                     return (
-                      <TableCell
-                        key={cell.id}
-                        density={table.getDensity()}
-                        className={cn(
-                          "flex items-center bg-background",
-                          {
-                            "flex-grow": table.getIsAutoWidth(),
-                            "bg-muted": i % 2 !== 0,
-                            "border-r border-primary": isLastLeftPinnedColumn,
-                            "border-l border-primary": isFirstRightPinnedColumn,
-                          },
-                          row.getClassName(), // TODO los estilos de pinning pueden joder el bg del row styles, añadir un prop mas o dejarlo asi?
-                          cell.getClassName(),
-                        )}
-                        width={cell.column.getSize()}
-                        style={pinningPositionStyle(cell.column)}
-                      >
-                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                      </TableCell>
+                      <DatagridHeader key={header.id} header={header}>
+                        {header.isPlaceholder
+                          ? null
+                          : flexRender(header.column.columnDef.header, header.getContext())}
+                      </DatagridHeader>
                     );
                   })}
                 </TableRow>
               ))}
-            </RowConsumer>
-          </TableBody>
-        </Table>
-      </OrderDndContex>
+            </TableHeader>
+
+            <TableBody className="grid">
+              <RowConsumer table={table} isLoading={isLoading}>
+                {table.getRowModel().rows.map((row, i) => (
+                  <TableRow
+                    key={row.id}
+                    className={cn(
+                      "flex hover:bg-primary/5",
+                      { "bg-muted": i % 2 !== 0 },
+                      row.getClassName(),
+                    )}
+                    data-state={row.getIsSelected() && "selected"}
+                  >
+                    {row.getVisibleCells().map((cell) => {
+                      const isPinned = cell.column.getIsPinned();
+                      const isLastLeftPinnedColumn =
+                        isPinned === "left" && cell.column.getIsLastColumn("left");
+                      const isFirstRightPinnedColumn =
+                        isPinned === "right" && cell.column.getIsFirstColumn("right");
+
+                      return (
+                        <TableCell
+                          key={cell.id}
+                          density={table.getDensity()}
+                          className={cn(
+                            "flex items-center bg-background",
+                            {
+                              "flex-grow": table.getIsAutoWidth(),
+                              "bg-muted": i % 2 !== 0,
+                              "border-r border-primary": isLastLeftPinnedColumn,
+                              "border-l border-primary": isFirstRightPinnedColumn,
+                            },
+                            row.getClassName(), // TODO los estilos de pinning pueden joder el bg del row styles, añadir un prop mas o dejarlo asi?
+                            cell.getClassName(),
+                          )}
+                          width={cell.column.getSize()}
+                          style={pinningPositionStyle(cell.column)}
+                        >
+                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                        </TableCell>
+                      );
+                    })}
+                  </TableRow>
+                ))}
+              </RowConsumer>
+            </TableBody>
+          </Table>
+        </OrderDndContex>
+      </FlexTableContainer>
     </div>
   );
 }

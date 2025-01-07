@@ -7,7 +7,7 @@ export const FlexTableContainer = ({
   className,
   children,
 }: {
-  className: ClassValue;
+  className?: ClassValue;
   children: ReactNode;
 }) => {
   return (

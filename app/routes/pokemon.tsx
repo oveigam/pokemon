@@ -62,20 +62,18 @@ function RouteComponent() {
   return (
     <div className="flex flex-1 px-2 pb-2">
       <Card className="flex flex-1 overflow-hidden">
-        <FlexTableContainer className="flex-1">
-          <Datagrid
-            translator={t}
-            translatorGrid={tGrid}
-            data={data}
-            autoWidth={false}
-            columns={columns}
-            // rowClassName={(pokemon) => {
-            //   if (pokemon.name === "Celta de Vigo") {
-            //     return "bg-red-500 text-red-100 hover:bg-red-600";
-            //   }
-            // }}
-          />
-        </FlexTableContainer>
+        <Datagrid
+          translator={t}
+          translatorGrid={tGrid}
+          data={data}
+          autoWidth={false}
+          columns={columns}
+          rowClassName={(pokemon) => {
+            if (pokemon.name === "bulbasaur") {
+              return "bg-green-500 text-green-100 hover:bg-green-600";
+            }
+          }}
+        />
       </Card>
     </div>
   );
