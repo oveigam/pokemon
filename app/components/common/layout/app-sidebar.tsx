@@ -68,28 +68,6 @@ export function AppSidebar({ user }: { user?: CtxUser }) {
     },
   });
 
-  const { mutate: setTheme } = useMutation({
-    mutationFn: updateTheme,
-    onMutate({ data: { theme } }) {
-      const root = window.document.documentElement;
-      root.classList.remove("light", "dark", "system");
-      root.classList.add(theme);
-    },
-    onSuccess() {
-      router.invalidate();
-    },
-  });
-
-  const { mutate: setLanguage } = useMutation({
-    mutationFn: updateLanguage,
-    onMutate({ data: { lng } }) {
-      queryClient.prefetchQuery(getI18nQuery(lng));
-    },
-    onSuccess() {
-      router.invalidate();
-    },
-  });
-
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader>
@@ -152,9 +130,11 @@ export function AppSidebar({ user }: { user?: CtxUser }) {
                     <UserHeader user={user} />
                   </div>
                 </DropdownMenuLabel>
+
                 {user && (
                   <>
                     <DropdownMenuSeparator />
+
                     <DropdownMenuGroup>
                       <DropdownMenuItem asChild>
                         <Link to="/user/profile">
@@ -165,69 +145,16 @@ export function AppSidebar({ user }: { user?: CtxUser }) {
                     </DropdownMenuGroup>
                   </>
                 )}
-                <DropdownMenuSeparator />
-                <DropdownMenuGroup>
-                  <DropdownMenuSub>
-                    <DropdownMenuSubTrigger>
-                      <SunMoon />
-                      {t("app.theme")}
-                    </DropdownMenuSubTrigger>
-                    <DropdownMenuPortal>
-                      <DropdownMenuSubContent>
-                        <DropdownMenuItem
-                          onSelect={() => {
-                            setTheme({ data: { theme: "light" } });
-                          }}
-                        >
-                          <Sun />
-                          {t("app.light")}
-                        </DropdownMenuItem>
-                        <DropdownMenuItem
-                          onSelect={() => {
-                            setTheme({ data: { theme: "dark" } });
-                          }}
-                        >
-                          <Moon />
-                          {t("app.dark")}
-                        </DropdownMenuItem>
-                        <DropdownMenuItem
-                          onSelect={() => {
-                            setTheme({ data: { theme: "system" } });
-                          }}
-                        >
-                          <Monitor />
-                          {t("app.system")}
-                        </DropdownMenuItem>
-                      </DropdownMenuSubContent>
-                    </DropdownMenuPortal>
-                  </DropdownMenuSub>
 
-                  <DropdownMenuSub>
-                    <DropdownMenuSubTrigger>
-                      <Languages />
-                      {t("app.language")}
-                    </DropdownMenuSubTrigger>
-                    <DropdownMenuPortal>
-                      <DropdownMenuSubContent>
-                        <DropdownMenuItem
-                          onSelect={() => {
-                            setLanguage({ data: { lng: "en" } });
-                          }}
-                        >
-                          {t("app.english")}
-                        </DropdownMenuItem>
-                        <DropdownMenuItem
-                          onSelect={() => {
-                            setLanguage({ data: { lng: "es" } });
-                          }}
-                        >
-                          {t("app.spanish")}
-                        </DropdownMenuItem>
-                      </DropdownMenuSubContent>
-                    </DropdownMenuPortal>
-                  </DropdownMenuSub>
-                </DropdownMenuGroup>
                 <DropdownMenuSeparator />
+
+                <DropdownMenuGroup>
+                  <ThemeSubMenu />
+                  <LanguageSubMenu />
+                </DropdownMenuGroup>
+
+                <DropdownMenuSeparator />
+
                 {user ? (
                   <DropdownMenuItem
                     onSelect={() => {
@@ -312,4 +239,102 @@ const UserHeader = ({ user }: { user?: CtxUser }) => {
       </>
     );
   }
+};
+
+const ThemeSubMenu = () => {
+  const router = useRouter();
+  const t = useTranslations();
+
+  const { mutate: setTheme } = useMutation({
+    mutationFn: updateTheme,
+    onMutate({ data: { theme } }) {
+      const root = window.document.documentElement;
+      root.classList.remove("light", "dark", "system");
+      root.classList.add(theme);
+    },
+    onSuccess() {
+      router.invalidate();
+    },
+  });
+
+  return (
+    <DropdownMenuSub>
+      <DropdownMenuSubTrigger>
+        <SunMoon />
+        {t("app.theme")}
+      </DropdownMenuSubTrigger>
+      <DropdownMenuPortal>
+        <DropdownMenuSubContent>
+          <DropdownMenuItem
+            onSelect={() => {
+              setTheme({ data: { theme: "light" } });
+            }}
+          >
+            <Sun />
+            {t("app.light")}
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            onSelect={() => {
+              setTheme({ data: { theme: "dark" } });
+            }}
+          >
+            <Moon />
+            {t("app.dark")}
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            onSelect={() => {
+              setTheme({ data: { theme: "system" } });
+            }}
+          >
+            <Monitor />
+            {t("app.system")}
+          </DropdownMenuItem>
+        </DropdownMenuSubContent>
+      </DropdownMenuPortal>
+    </DropdownMenuSub>
+  );
+};
+
+const LanguageSubMenu = () => {
+  const router = useRouter();
+  const t = useTranslations();
+
+  const queryClient = useQueryClient();
+
+  const { mutate: setLanguage } = useMutation({
+    mutationFn: updateLanguage,
+    onMutate({ data: { lng } }) {
+      queryClient.prefetchQuery(getI18nQuery(lng));
+    },
+    onSuccess() {
+      router.invalidate();
+    },
+  });
+
+  return (
+    <DropdownMenuSub>
+      <DropdownMenuSubTrigger>
+        <Languages />
+        {t("app.language")}
+      </DropdownMenuSubTrigger>
+      <DropdownMenuPortal>
+        <DropdownMenuSubContent>
+          <DropdownMenuItem
+            onSelect={() => {
+              setLanguage({ data: { lng: "en" } });
+            }}
+          >
+            {t("app.english")}
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            onSelect={() => {
+              setLanguage({ data: { lng: "es" } });
+            }}
+          >
+            {t("app.spanish")}
+          </DropdownMenuItem>
+        </DropdownMenuSubContent>
+      </DropdownMenuPortal>
+    </DropdownMenuSub>
+  );
 };
