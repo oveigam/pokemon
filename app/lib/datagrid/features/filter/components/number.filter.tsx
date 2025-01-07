@@ -27,7 +27,7 @@ export function NumberFilter<TData>({
   const filterIsValid = isValidNumberFilterValue(filter);
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-2">
       <div className="flex flex-col gap-2">
         <div className="flex justify-between">
           <NumberInput

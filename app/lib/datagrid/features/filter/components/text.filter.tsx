@@ -22,7 +22,7 @@ export function TextFilter<TData>({
   const filterIsValid = isValidTextFilterValue(filter);
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-2">
       <form
         className="flex flex-col gap-2"
         onSubmit={(e) => {

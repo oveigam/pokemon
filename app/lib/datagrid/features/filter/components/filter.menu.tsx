@@ -42,7 +42,7 @@ export function FilterMenu<TData extends RowData, TValue = unknown>({
           )}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="flex flex-col pt-3">
+      <PopoverContent className="flex flex-col">
         <Button
           variant="ghost"
           size="icon"
