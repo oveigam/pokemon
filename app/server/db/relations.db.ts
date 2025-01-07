@@ -1,6 +1,6 @@
 // TODO in ChatGPT we trust... ir revisando que esté todo según haga falta
-
 import { relations, sql } from "drizzle-orm";
+
 import {
   // Auth schema
   user,

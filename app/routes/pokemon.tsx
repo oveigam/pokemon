@@ -1,6 +1,7 @@
-import { getPokemonsQuery } from "@/services/pokemon/pokemon.query";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
+
+import { getPokemonsQuery } from "@/services/pokemon/pokemon.query";
 
 export const Route = createFileRoute("/pokemon")({
   component: RouteComponent,

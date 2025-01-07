@@ -1,9 +1,11 @@
+import { QueryClient } from "@tanstack/react-query";
 import { createRouter as createTanStackRouter } from "@tanstack/react-router";
+import { routerWithQueryClient } from "@tanstack/react-router-with-query";
+
+import { Spinner } from "@ui/components/spinner";
+
 import { routeTree } from "./routeTree.gen";
 import type { Session, User } from "./server/db/types.db";
-import { routerWithQueryClient } from "@tanstack/react-router-with-query";
-import { QueryClient } from "@tanstack/react-query";
-import { Spinner } from "@ui/components/spinner";
 
 export type RouterContext = {
   theme: "light" | "dark" | "system";

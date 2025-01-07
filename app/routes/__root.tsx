@@ -1,21 +1,22 @@
 import "@fontsource-variable/inter";
-
-import { AppSidebar } from "@/components/common/layout/app-sidebar";
-import type { RouterContext } from "@/router";
-import { getI18nQuery } from "@/services/i18n/i18n.query";
-import { getSession } from "@/services/session/session.api";
-import { getLanguage, getTheme } from "@/services/user/user.api";
-import globalCss from "@/style/global.css?url";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { createRootRouteWithContext, Outlet, ScrollRestoration } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 import { Meta, Scripts } from "@tanstack/start";
-import { SidebarInset, SidebarProvider, SidebarTrigger } from "@ui/components/sidebar";
 import { type ReactNode } from "react";
 import { createTranslator, IntlProvider } from "use-intl";
+
 import { Separator } from "@ui/components/separator";
+import { SidebarInset, SidebarProvider, SidebarTrigger } from "@ui/components/sidebar";
+
+import { AppSidebar } from "@/components/common/layout/app-sidebar";
 import { Breadcrumb } from "@/components/common/navigation/breadcrumb";
+import type { RouterContext } from "@/router";
+import { getI18nQuery } from "@/services/i18n/i18n.query";
+import { getSession } from "@/services/session/session.api";
+import { getLanguage, getTheme } from "@/services/user/user.api";
+import globalCss from "@/style/global.css?url";
 
 export const Route = createRootRouteWithContext<RouterContext>()({
   head: () => ({

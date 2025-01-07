@@ -1,8 +1,8 @@
 // https://pokenode-ts.vercel.app
-
 import { sql } from "drizzle-orm";
 import type { PgTable } from "drizzle-orm/pg-core";
 import { type Machine, type Name, type TypeRelations, type VersionSprites } from "pokenode-ts";
+
 import {
   db,
   schema,
@@ -55,7 +55,9 @@ const byName = <T extends { name: string }>(arr: T[]) => {
 };
 
 const resetSerial = async (table: PgTable) => {
-  await db.execute(sql`SELECT setval(pg_get_serial_sequence('${table}', 'id'), (SELECT MAX(id) FROM ${table}))`);
+  await db.execute(
+    sql`SELECT setval(pg_get_serial_sequence('${table}', 'id'), (SELECT MAX(id) FROM ${table}))`,
+  );
 };
 
 const insertTranslation = async (id: number, names: Name[], table: TranslationTable) => {
@@ -68,7 +70,11 @@ const insertTranslation = async (id: number, names: Name[], table: TranslationTa
   }
 };
 
-const insertDamageTo = async (from: number, relations: TypeRelations, generationId: number | null) => {
+const insertDamageTo = async (
+  from: number,
+  relations: TypeRelations,
+  generationId: number | null,
+) => {
   for (const dmg of relations.no_damage_to) {
     await db
       .insert(schema.typeDamageRelation)
@@ -570,7 +576,9 @@ await migrate("pokemonSpecies", async (sp) => {
     isMythical: sp.is_mythical,
     order: sp.order,
     shape: sp.shape.name as PokemonShapes,
-    evolvesFromPokemonSpeciesId: sp.evolves_from_species ? pokemonSpecies.get(sp.evolves_from_species.name)?.id : null,
+    evolvesFromPokemonSpeciesId: sp.evolves_from_species
+      ? pokemonSpecies.get(sp.evolves_from_species.name)?.id
+      : null,
   });
 
   await insertTranslation(sp.id, sp.names, schema.pokemonSpeciesName);
@@ -632,7 +640,9 @@ await migrate("pokemon", async (poke) => {
     height: poke.height * 10,
     order: poke.order,
     primaryTypeId: types.get(poke.types.find((t) => t.slot === 1)!.type.name)!.id,
-    secondaryTypeId: poke.types.find((t) => t.slot === 2) ? types.get(poke.types.find((t) => t.slot === 2)!.type.name)!.id : null,
+    secondaryTypeId: poke.types.find((t) => t.slot === 2)
+      ? types.get(poke.types.find((t) => t.slot === 2)!.type.name)!.id
+      : null,
     speciesId: pokemonSpecies.get(poke.species.name)!.id,
     weight: poke.weight * 0.1,
 
@@ -651,7 +661,9 @@ await migrate("pokemon", async (poke) => {
       generationId: generations.get(past.generation.name)!.id,
       pokemonId: poke.id,
       primaryTypeId: types.get(past.types.find((t) => t.slot === 1)!.type.name)!.id,
-      secondaryTypeId: past.types.find((t) => t.slot === 2) ? types.get(past.types.find((t) => t.slot === 2)!.type.name)!.id : null,
+      secondaryTypeId: past.types.find((t) => t.slot === 2)
+        ? types.get(past.types.find((t) => t.slot === 2)!.type.name)!.id
+        : null,
     });
   }
 
@@ -670,7 +682,8 @@ await migrate("pokemon", async (poke) => {
       front_shiny_female?: string | null;
     } | null = null;
 
-    const generationSprites = poke.sprites.versions[versionGroup.generation.name as keyof VersionSprites];
+    const generationSprites =
+      poke.sprites.versions[versionGroup.generation.name as keyof VersionSprites];
     if (generationSprites) {
       // @ts-ignore
       versionSprites = generationSprites[version.name] ?? null;
@@ -733,7 +746,9 @@ await migrate("pokemonForm", async (form) => {
     isMega: form.is_mega,
     order: form.order,
     primaryTypeId: types.get(form.types.find((t) => t.slot === 1)!.type.name)!.id,
-    secondaryTypeId: form.types.find((t) => t.slot === 2) ? types.get(form.types.find((t) => t.slot === 2)!.type.name)!.id : null,
+    secondaryTypeId: form.types.find((t) => t.slot === 2)
+      ? types.get(form.types.find((t) => t.slot === 2)!.type.name)!.id
+      : null,
     versionGroupId: versionGroups.get(form.version_group.name)!.id,
     backDefault: form.sprites.back_default,
     backFemale: form.sprites.back_female,

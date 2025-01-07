@@ -1,10 +1,12 @@
-import { signUpUser } from "@/services/user/user.api";
 import { createFileRoute } from "@tanstack/react-router";
+import { useTranslations } from "use-intl";
+
 import { Button } from "@ui/components/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@ui/components/card";
 import { Input } from "@ui/components/input";
 import { Label } from "@ui/components/label";
-import { useTranslations } from "use-intl";
+
+import { signUpUser } from "@/services/user/user.api";
 
 export const Route = createFileRoute("/signup")({
   component: SignUpPage,

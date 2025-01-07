@@ -1,9 +1,10 @@
-import { hashPassword, verifyPasswordHash } from "@/server/auth/password";
-import { createSession } from "@/server/auth/session";
-import { db, schema } from "@/server/db/database";
 import { redirect } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/start";
 import { getCookie, setCookie } from "vinxi/http";
+
+import { hashPassword, verifyPasswordHash } from "@/server/auth/password";
+import { createSession } from "@/server/auth/session";
+import { db, schema } from "@/server/db/database";
 
 export const getTheme = createServerFn({ method: "GET" }).handler(() => {
   return getCookie("ui-theme") as "light" | "dark" | "system" | undefined;

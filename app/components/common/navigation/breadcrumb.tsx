@@ -1,5 +1,7 @@
-import type { TranslateKeys } from "@/i18n/i18n";
 import { Link, useLocation, type LinkProps } from "@tanstack/react-router";
+import { Fragment } from "react";
+import { useTranslations } from "use-intl";
+
 import {
   Breadcrumb as _Breadcrumb,
   BreadcrumbItem,
@@ -8,8 +10,8 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@ui/components/breadcrumb";
-import { Fragment } from "react";
-import { useTranslations } from "use-intl";
+
+import type { TranslateKeys } from "@/i18n/i18n";
 
 export const Breadcrumb = () => {
   const t = useTranslations();

@@ -1,6 +1,7 @@
-import { cn } from "@ui/util/class-name";
 import { cva, type VariantProps } from "class-variance-authority";
 import * as React from "react";
+
+import { cn } from "@ui/util/class-name";
 
 const variants = cva("h-8 w-8 animate-spin", {
   variants: {

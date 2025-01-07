@@ -1,6 +1,24 @@
-export const growthRates = ["slow", "medium", "fast", "medium-slow", "slow-then-very-fast", "fast-then-very-slow"] as const;
+export const growthRates = [
+  "slow",
+  "medium",
+  "fast",
+  "medium-slow",
+  "slow-then-very-fast",
+  "fast-then-very-slow",
+] as const;
 
-export const pokemonColors = ["black", "blue", "brown", "gray", "green", "pink", "purple", "red", "white", "yellow"] as const;
+export const pokemonColors = [
+  "black",
+  "blue",
+  "brown",
+  "gray",
+  "green",
+  "pink",
+  "purple",
+  "red",
+  "white",
+  "yellow",
+] as const;
 
 export const pokemonShapes = [
   "ball",
@@ -19,7 +37,17 @@ export const pokemonShapes = [
   "armor",
 ] as const;
 
-export const pokemonHabitat = ["cave", "forest", "grassland", "mountain", "rare", "rough-terrain", "sea", "urban", "waters-edge"] as const;
+export const pokemonHabitat = [
+  "cave",
+  "forest",
+  "grassland",
+  "mountain",
+  "rare",
+  "rough-terrain",
+  "sea",
+  "urban",
+  "waters-edge",
+] as const;
 
 export const damageClass = ["status", "physical", "special"] as const;
 

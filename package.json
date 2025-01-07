@@ -5,6 +5,7 @@
     "dev": "vinxi dev",
     "build": "vinxi build",
     "start": "vinxi start",
+    "format": "prettier --write \"app/**/*.{js,jsx,ts,tsx,json,css,scss,md,html}\"",
     "pokemon:fetch": "bun run scripts/pokemon.fetch.ts",
     "pokemon:seed": "bun run scripts/pokemon.seed.ts",
     "db:generate": "drizzle-kit generate",

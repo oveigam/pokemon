@@ -1,11 +1,15 @@
 import * as SwitchPrimitives from "@radix-ui/react-switch";
-import { cn } from "@ui/util/class-name";
 import * as React from "react";
 import type { ClassNameValue } from "tailwind-merge";
 
+import { cn } from "@ui/util/class-name";
+
 const Switch = React.forwardRef<
   React.ComponentRef<typeof SwitchPrimitives.Root>,
-  React.ComponentPropsWithoutRef<typeof SwitchPrimitives.Root> & { thumbClassName?: ClassNameValue; children?: React.ReactNode }
+  React.ComponentPropsWithoutRef<typeof SwitchPrimitives.Root> & {
+    thumbClassName?: ClassNameValue;
+    children?: React.ReactNode;
+  }
 >(({ className, thumbClassName, children, ...props }, ref) => (
   <SwitchPrimitives.Root
     className={cn(
