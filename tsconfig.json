@@ -18,6 +18,7 @@
     "baseUrl": ".",
     "paths": {
       "@ui/*": ["./app/lib/ui/*"],
+      "@datagrid/*": ["./app/lib/datagrid/*"],
       "@/*": ["./app/*"]
     },
 

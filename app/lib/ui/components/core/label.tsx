@@ -5,7 +5,18 @@ import * as React from "react";
 import { cn } from "@ui/util/class-name";
 
 const labelVariants = cva(
-  "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
+  "leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
+  {
+    variants: {
+      size: {
+        default: "text-sm font-medium",
+        small: "text-xs font-normal",
+      },
+    },
+    defaultVariants: {
+      size: "default",
+    },
+  },
 );
 
 const Label = React.forwardRef<

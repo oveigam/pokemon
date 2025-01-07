@@ -1,7 +1,7 @@
 {
   "printWidth": 100,
   "endOfLine": "lf",
-  "importOrder": ["^@ui/(.*)$", "^@/(.*)$", "^[./]"],
+  "importOrder": ["^@datagrid/(.*)$", "^@ui/(.*)$", "^@/(.*)$", "^[./]"],
   "importOrderSeparation": true,
   "plugins": ["prettier-plugin-tailwindcss", "@trivago/prettier-plugin-sort-imports"]
 }

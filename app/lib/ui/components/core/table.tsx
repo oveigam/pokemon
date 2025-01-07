@@ -1,3 +1,4 @@
+import { cva, type VariantProps } from "class-variance-authority";
 import * as React from "react";
 
 import { cn } from "@ui/util/class-name";
@@ -53,33 +54,52 @@ const TableRow = React.forwardRef<HTMLTableRowElement, React.HTMLAttributes<HTML
 );
 TableRow.displayName = "TableRow";
 
+const tableHeadVariants = cva(
+  "text-muted-foreground px-2 h-10 text-left align-middle font-medium [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]",
+  {
+    variants: {
+      density: {
+        default: "px-2",
+        sm: "px-1",
+        md: "px-2",
+        lg: "px-3",
+      },
+    },
+    defaultVariants: {
+      density: "md",
+    },
+  },
+);
+
 const TableHead = React.forwardRef<
   HTMLTableCellElement,
-  React.ThHTMLAttributes<HTMLTableCellElement>
->(({ className, ...props }, ref) => (
-  <th
-    ref={ref}
-    className={cn(
-      "h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]",
-      className,
-    )}
-    {...props}
-  />
+  React.ThHTMLAttributes<HTMLTableCellElement> & VariantProps<typeof tableHeadVariants>
+>(({ className, density, ...props }, ref) => (
+  <th ref={ref} className={cn(tableHeadVariants({ density, className }))} {...props} />
 ));
 TableHead.displayName = "TableHead";
 
+const tableCellVariants = cva(
+  "align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]",
+  {
+    variants: {
+      density: {
+        sm: "p-1",
+        md: "p-2",
+        lg: "p-3",
+      },
+    },
+    defaultVariants: {
+      density: "md",
+    },
+  },
+);
+
 const TableCell = React.forwardRef<
   HTMLTableCellElement,
-  React.TdHTMLAttributes<HTMLTableCellElement>
->(({ className, ...props }, ref) => (
-  <td
-    ref={ref}
-    className={cn(
-      "p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]",
-      className,
-    )}
-    {...props}
-  />
+  React.TdHTMLAttributes<HTMLTableCellElement> & VariantProps<typeof tableCellVariants>
+>(({ className, density, ...props }, ref) => (
+  <td ref={ref} className={cn(tableCellVariants({ density, className }))} {...props} />
 ));
 TableCell.displayName = "TableCell";
 

@@ -8,7 +8,12 @@ import { Input } from "@ui/components/core/input";
 import { Separator } from "@ui/components/core/separator";
 import { Sheet, SheetContent } from "@ui/components/core/sheet";
 import { Skeleton } from "@ui/components/core/skeleton";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@ui/components/core/tooltip";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@ui/components/core/tooltip";
 import { useIsMobile } from "@ui/hooks/use-mobile";
 import { cn } from "@ui/util/class-name";
 
