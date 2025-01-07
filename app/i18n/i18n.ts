@@ -1,17 +1,27 @@
-import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
-import { en } from "./resources/en/_en";
-import { es } from "./resources/es/_es";
+import type { NamespaceKeys, NestedKeyOf, useTranslations as _useTranslations } from "use-intl";
 
-i18n.use(initReactI18next).init({
-  lng: "en",
-  supportedLngs: ["en", "es"],
-  fallbackLng: "en",
-  defaultNS: "base",
-  resources: { en, es },
-  interpolation: {
-    escapeValue: false, // not needed for react as it escapes by default
-  },
-});
+import type enMessages from "./messages/en";
 
-export default i18n;
+export const AVAILABLE_LOCALES = ["en", "es"] as const;
+export const DEFAULT_LOCALE = "en" as const;
+
+export type Messages = typeof enMessages;
+export type Locale = (typeof AVAILABLE_LOCALES)[number];
+
+export type MessageNamespace = NamespaceKeys<Messages, NestedKeyOf<Messages>>;
+
+export type Translator<NestedKey extends MessageNamespace = never> = ReturnType<
+  typeof _useTranslations<NestedKey>
+>;
+export type TranslateKeys<NestedKey extends MessageNamespace = never> = Parameters<
+  Translator<NestedKey>
+>[0];
+
+export const tKey = ((key: TranslateKeys) => key) as Translator;
+
+declare module "use-intl" {
+  interface AppConfig {
+    Locale: Locale;
+    Messages: Messages;
+  }
+}

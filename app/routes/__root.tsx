@@ -1,37 +1,19 @@
 import "@fontsource-variable/inter";
 
-import { dal } from "@/.server/data/_dal";
-import { ThemeSwitch } from "@/components/common/button/theme-switch";
+import { AppSidebar } from "@/components/common/layout/app-sidebar";
 import type { RouterContext } from "@/router";
+import { getI18nQuery } from "@/services/i18n/i18n.query";
+import { getSession } from "@/services/session/session.api";
+import { getLanguage, getTheme } from "@/services/user/user.api";
 import globalCss from "@/style/global.css?url";
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import {
-  createRootRouteWithContext,
-  Link,
-  Outlet,
-  ScrollRestoration,
-} from "@tanstack/react-router";
-import { TanStackRouterDevtools } from '@tanstack/router-devtools';
-import { createServerFn, Meta, Scripts } from "@tanstack/start";
-import { Avatar, AvatarFallback, AvatarImage } from "@ui/components/avatar";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { createRootRouteWithContext, Outlet, ScrollRestoration } from "@tanstack/react-router";
+import { TanStackRouterDevtools } from "@tanstack/router-devtools";
+import { Meta, Scripts } from "@tanstack/start";
+import { SidebarProvider } from "@ui/components/sidebar";
 import { type ReactNode } from "react";
-import { useTranslation } from "react-i18next";
-import { getCookie } from "vinxi/server";
-
-const getTheme = createServerFn({ method: "GET" }).handler(() => {
-  return getCookie("ui-theme") as RouterContext["theme"] | undefined;
-});
-
-const getSession = createServerFn({ method: "GET" }).handler(async () => {
-  const token = getCookie("authentication");
-
-  if (token) {
-    const session = await dal.session.validateSessionToken(token);
-    return session;
-  }
-
-  return null;
-});
+import { createTranslator, IntlProvider } from "use-intl";
 
 export const Route = createRootRouteWithContext<RouterContext>()({
   head: () => ({
@@ -44,18 +26,24 @@ export const Route = createRootRouteWithContext<RouterContext>()({
         content: "width=device-width, initial-scale=1",
       },
       {
-        title: "Pokemon",
+        title: "Pokemon Enterprise Edition",
       },
     ],
     links: [{ rel: "stylesheet", href: globalCss }],
   }),
   component: RootComponent,
-  beforeLoad: async () => {
-    const [theme, session] = await Promise.all([getTheme(), getSession()]);
+  beforeLoad: async ({ context }) => {
+    const [theme, lng, session] = await Promise.all([getTheme(), getLanguage(), getSession()]);
+
+    const i18n = await context.queryClient.ensureQueryData(getI18nQuery(lng ?? "en"));
+    const translator = createTranslator(i18n);
+
     return {
       theme: theme ?? "light",
       session,
-    } satisfies Partial<RouterContext>;
+      lng,
+      translator,
+    };
   },
 });
 
@@ -68,39 +56,26 @@ function RootComponent() {
 }
 
 function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
-  const { t } = useTranslation("base");
-  const { theme, session } = Route.useRouteContext();
+  const { theme, session, lng } = Route.useRouteContext();
+
+  const { data: i18n } = useSuspenseQuery(getI18nQuery(lng ?? "en"));
 
   return (
-    <html className={theme}>
+    <html lang={lng ?? "en"} className={theme}>
       <head>
         <Meta />
       </head>
       <body>
-        <header className="sticky top-0 grid h-12 grid-cols-3 items-center bg-primary px-2 text-primary-foreground md:px-4 lg:px-6 xl:px-12">
-          <div />
-          <h1 className="invisible text-center font-semibold sm:visible md:text-lg">
-            {t("title")}
-          </h1>
-          <div className="flex items-center justify-end gap-2">
-            <Link to="/signup">
-              <Avatar className="h-6 w-6 bg-card text-xs text-card-foreground">
-                {session?.user.image && (
-                  <AvatarImage src={session.user.image} alt={session.user.name} />
-                )}
-                <AvatarFallback>
-                  {session?.user.name.slice(0, 2).toUpperCase() ?? "PK"}
-                </AvatarFallback>
-              </Avatar>
-            </Link>
-            <ThemeSwitch theme={theme} />
-          </div>
-        </header>
-        {children}
-        <ScrollRestoration />
-        <TanStackRouterDevtools position="bottom-right" />
-        <ReactQueryDevtools buttonPosition="bottom-left" />
-        <Scripts />
+        <IntlProvider {...i18n}>
+          <SidebarProvider defaultOpen={false}>
+            <AppSidebar user={session?.user} />
+            {children}
+            <ScrollRestoration />
+            <TanStackRouterDevtools position="top-right" />
+            <ReactQueryDevtools buttonPosition="bottom-right" />
+            <Scripts />
+          </SidebarProvider>
+        </IntlProvider>
       </body>
     </html>
   );

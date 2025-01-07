@@ -1,5 +1,5 @@
 import { PageLayout } from "@/components/common/layout/layout";
-import { getPokemonsQuery } from "@/query/pokemon.query";
+import { getPokemonsQuery } from "@/services/pokemon/pokemon.query";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 
