@@ -7,8 +7,8 @@ import { Meta, Scripts } from "@tanstack/start";
 import { type ReactNode } from "react";
 import { createTranslator, IntlProvider } from "use-intl";
 
-import { Separator } from "@ui/components/separator";
-import { SidebarInset, SidebarProvider, SidebarTrigger } from "@ui/components/sidebar";
+import { Separator } from "@ui/components/core/separator";
+import { SidebarInset, SidebarProvider, SidebarTrigger } from "@ui/components/core/sidebar";
 
 import { AppSidebar } from "@/components/common/layout/app-sidebar";
 import { Breadcrumb } from "@/components/common/navigation/breadcrumb";

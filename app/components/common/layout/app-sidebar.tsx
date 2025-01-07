@@ -19,8 +19,8 @@ import {
 import { useState, type ReactNode } from "react";
 import { useTranslations } from "use-intl";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@ui/components/avatar";
-import { Button } from "@ui/components/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@ui/components/core/avatar";
+import { Button } from "@ui/components/core/button";
 import {
   Dialog,
   DialogContent,
@@ -28,7 +28,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@ui/components/dialog";
+} from "@ui/components/core/dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -41,9 +41,9 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "@ui/components/dropdown-menu";
-import { Input } from "@ui/components/input";
-import { Label } from "@ui/components/label";
+} from "@ui/components/core/dropdown-menu";
+import { Input } from "@ui/components/core/input";
+import { Label } from "@ui/components/core/label";
 import {
   Sidebar,
   SidebarContent,
@@ -56,7 +56,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from "@ui/components/sidebar";
+} from "@ui/components/core/sidebar";
 
 import type { RouterContext } from "@/router";
 import { getI18nQuery } from "@/services/i18n/i18n.query";

@@ -1,10 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useTranslations } from "use-intl";
 
-import { Button } from "@ui/components/button";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@ui/components/card";
-import { Input } from "@ui/components/input";
-import { Label } from "@ui/components/label";
+import { Button } from "@ui/components/core/button";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@ui/components/core/card";
+import { Input } from "@ui/components/core/input";
+import { Label } from "@ui/components/core/label";
 
 import { signUpUser } from "@/services/user/user.api";
 

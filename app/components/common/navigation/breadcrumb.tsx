@@ -9,7 +9,7 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@ui/components/breadcrumb";
+} from "@ui/components/core/breadcrumb";
 
 import type { TranslateKeys } from "@/i18n/i18n";
 

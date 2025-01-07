@@ -3,12 +3,12 @@ import { type VariantProps, cva } from "class-variance-authority";
 import { PanelLeft } from "lucide-react";
 import * as React from "react";
 
-import { Button } from "@ui/components/button";
-import { Input } from "@ui/components/input";
-import { Separator } from "@ui/components/separator";
-import { Sheet, SheetContent } from "@ui/components/sheet";
-import { Skeleton } from "@ui/components/skeleton";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@ui/components/tooltip";
+import { Button } from "@ui/components/core/button";
+import { Input } from "@ui/components/core/input";
+import { Separator } from "@ui/components/core/separator";
+import { Sheet, SheetContent } from "@ui/components/core/sheet";
+import { Skeleton } from "@ui/components/core/skeleton";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@ui/components/core/tooltip";
 import { useIsMobile } from "@ui/hooks/use-mobile";
 import { cn } from "@ui/util/class-name";
 
