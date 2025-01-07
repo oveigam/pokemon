@@ -1,4 +1,3 @@
-import { PageLayout } from "@/components/common/layout/layout";
 import { getPokemonsQuery } from "@/services/pokemon/pokemon.query";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
@@ -14,7 +13,7 @@ function RouteComponent() {
   const { data = [] } = useSuspenseQuery(getPokemonsQuery());
 
   return (
-    <PageLayout>
+    <div>
       <ul>
         {data.map((pokemon) => {
           return (
@@ -24,6 +23,6 @@ function RouteComponent() {
           );
         })}
       </ul>
-    </PageLayout>
+    </div>
   );
 }

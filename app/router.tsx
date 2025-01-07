@@ -3,7 +3,6 @@ import { routeTree } from "./routeTree.gen";
 import type { Session, User } from "./server/db/types.db";
 import { routerWithQueryClient } from "@tanstack/react-router-with-query";
 import { QueryClient } from "@tanstack/react-query";
-import { PageLayout } from "./components/common/layout/layout";
 import { Spinner } from "@ui/components/spinner";
 
 export type RouterContext = {
@@ -29,9 +28,9 @@ export function createRouter() {
       defaultPreload: "intent",
       defaultPendingComponent: () => {
         return (
-          <PageLayout className="py-12">
+          <div className="flex flex-1 justify-center py-12">
             <Spinner />
-          </PageLayout>
+          </div>
         );
       },
       defaultStaleTime: 1000 * 60,

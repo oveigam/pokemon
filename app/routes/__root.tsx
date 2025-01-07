@@ -11,9 +11,11 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { createRootRouteWithContext, Outlet, ScrollRestoration } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 import { Meta, Scripts } from "@tanstack/start";
-import { SidebarProvider } from "@ui/components/sidebar";
+import { SidebarInset, SidebarProvider, SidebarTrigger } from "@ui/components/sidebar";
 import { type ReactNode } from "react";
 import { createTranslator, IntlProvider } from "use-intl";
+import { Separator } from "@ui/components/separator";
+import { Breadcrumb } from "@/components/common/navigation/breadcrumb";
 
 export const Route = createRootRouteWithContext<RouterContext>()({
   head: () => ({
@@ -69,7 +71,19 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
         <IntlProvider {...i18n}>
           <SidebarProvider defaultOpen={false}>
             <AppSidebar user={session?.user} />
-            {children}
+
+            <SidebarInset>
+              <div className="flex h-full flex-col">
+                <header className="flex shrink-0 items-center gap-2 p-2">
+                  <SidebarTrigger />
+                  <Separator orientation="vertical" className="mr-2 h-4" />
+                  <Breadcrumb />
+                </header>
+
+                {children}
+              </div>
+            </SidebarInset>
+
             <ScrollRestoration />
             <TanStackRouterDevtools position="top-right" />
             <ReactQueryDevtools buttonPosition="bottom-right" />

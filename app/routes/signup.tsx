@@ -1,4 +1,3 @@
-import { PageLayout } from "@/components/common/layout/layout";
 import { signUpUser } from "@/services/user/user.api";
 import { createFileRoute } from "@tanstack/react-router";
 import { Button } from "@ui/components/button";
@@ -15,7 +14,7 @@ function SignUpPage() {
   const t = useTranslations();
 
   return (
-    <PageLayout className="flex items-center justify-center">
+    <div className="flex items-center justify-center">
       <form
         onSubmit={async (e) => {
           e.preventDefault();
@@ -47,6 +46,6 @@ function SignUpPage() {
           </CardFooter>
         </Card>
       </form>
-    </PageLayout>
+    </div>
   );
 }
