@@ -24,26 +24,26 @@ function SignUpPage() {
       >
         <Card className="min-w-96">
           <CardHeader>
-            <CardTitle>{t("signup")}</CardTitle>
+            <CardTitle>{t("action.signup")}</CardTitle>
           </CardHeader>
           <CardContent className="flex flex-col gap-3">
             <div>
-              <Label htmlFor="name">{t("name")}</Label>
+              <Label htmlFor="name">{t("user.name")}</Label>
               <Input id="name" name="name" />
             </div>
 
             <div>
-              <Label htmlFor="email">{t("email")}</Label>
+              <Label htmlFor="email">{t("user.email")}</Label>
               <Input id="email" name="email" />
             </div>
 
             <div>
-              <Label htmlFor="password">{t("password")}</Label>
+              <Label htmlFor="password">{t("user.password")}</Label>
               <Input id="password" name="password" type="password" />
             </div>
           </CardContent>
           <CardFooter className="flex justify-end">
-            <Button type="submit">{t("create")}</Button>
+            <Button type="submit">{t("action.create")}</Button>
           </CardFooter>
         </Card>
       </form>

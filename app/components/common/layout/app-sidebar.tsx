@@ -105,8 +105,8 @@ export function AppSidebar({ user }: { user?: CtxUser }) {
                   <Home className="size-4" />
                 </div>
                 <div className="grid flex-1 text-left text-xs leading-tight">
-                  <span className="truncate font-semibold">{t("title")}</span>
-                  <span className="truncate text-xs">{t("home")}</span>
+                  <span className="truncate font-semibold">{t("app.title")}</span>
+                  <span className="truncate text-xs">{t("app.home")}</span>
                 </div>
               </Link>
             </SidebarMenuButton>
@@ -116,13 +116,13 @@ export function AppSidebar({ user }: { user?: CtxUser }) {
 
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>{t("application")}</SidebarGroupLabel>
+          <SidebarGroupLabel>{t("app.application")}</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              <SidebarMenuLink to="/pokemon" icon={<PokeballIcon />} label={t("pokemon")} />
-              <SidebarMenuLink to="/move" icon={<Swords />} label={t("move")} />
-              <SidebarMenuLink to="/ability" icon={<Sprout />} label={t("ability")} />
-              <SidebarMenuLink to="/item" icon={<ShoppingBasket />} label={t("item")} />
+              <SidebarMenuLink to="/pokemon" icon={<PokeballIcon />} label={t("app.pokemon")} />
+              <SidebarMenuLink to="/move" icon={<Swords />} label={t("app.moves")} />
+              <SidebarMenuLink to="/ability" icon={<Sprout />} label={t("app.abilities")} />
+              <SidebarMenuLink to="/item" icon={<ShoppingBasket />} label={t("app.items")} />
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
@@ -159,7 +159,7 @@ export function AppSidebar({ user }: { user?: CtxUser }) {
                       <DropdownMenuItem asChild>
                         <Link to="/user/profile">
                           <UserPen />
-                          {t("profile")}
+                          {t("app.profile")}
                         </Link>
                       </DropdownMenuItem>
                     </DropdownMenuGroup>
@@ -170,7 +170,7 @@ export function AppSidebar({ user }: { user?: CtxUser }) {
                   <DropdownMenuSub>
                     <DropdownMenuSubTrigger>
                       <SunMoon />
-                      {t("theme")}
+                      {t("app.theme")}
                     </DropdownMenuSubTrigger>
                     <DropdownMenuPortal>
                       <DropdownMenuSubContent>
@@ -180,7 +180,7 @@ export function AppSidebar({ user }: { user?: CtxUser }) {
                           }}
                         >
                           <Sun />
-                          {t("light-theme")}
+                          {t("app.light")}
                         </DropdownMenuItem>
                         <DropdownMenuItem
                           onSelect={() => {
@@ -188,7 +188,7 @@ export function AppSidebar({ user }: { user?: CtxUser }) {
                           }}
                         >
                           <Moon />
-                          {t("dark-theme")}
+                          {t("app.dark")}
                         </DropdownMenuItem>
                         <DropdownMenuItem
                           onSelect={() => {
@@ -196,7 +196,7 @@ export function AppSidebar({ user }: { user?: CtxUser }) {
                           }}
                         >
                           <Monitor />
-                          {t("system-theme")}
+                          {t("app.system")}
                         </DropdownMenuItem>
                       </DropdownMenuSubContent>
                     </DropdownMenuPortal>
@@ -205,7 +205,7 @@ export function AppSidebar({ user }: { user?: CtxUser }) {
                   <DropdownMenuSub>
                     <DropdownMenuSubTrigger>
                       <Languages />
-                      {t("language")}
+                      {t("app.language")}
                     </DropdownMenuSubTrigger>
                     <DropdownMenuPortal>
                       <DropdownMenuSubContent>
@@ -214,14 +214,14 @@ export function AppSidebar({ user }: { user?: CtxUser }) {
                             setLanguage({ data: { lng: "en" } });
                           }}
                         >
-                          {t("english")}
+                          {t("app.english")}
                         </DropdownMenuItem>
                         <DropdownMenuItem
                           onSelect={() => {
                             setLanguage({ data: { lng: "es" } });
                           }}
                         >
-                          {t("spanish")}
+                          {t("app.spanish")}
                         </DropdownMenuItem>
                       </DropdownMenuSubContent>
                     </DropdownMenuPortal>
@@ -235,12 +235,12 @@ export function AppSidebar({ user }: { user?: CtxUser }) {
                     }}
                   >
                     <LogOut />
-                    {t("logout")}
+                    {t("action.logout")}
                   </DropdownMenuItem>
                 ) : (
                   <DropdownMenuItem>
                     <LogIn />
-                    {t("signin")}
+                    {t("action.signin")}
                   </DropdownMenuItem>
                 )}
               </DropdownMenuContent>
@@ -306,8 +306,8 @@ const UserHeader = ({ user }: { user?: CtxUser }) => {
           </AvatarFallback>
         </Avatar>
         <div className="grid flex-1 text-left text-sm leading-tight">
-          <span className="truncate font-semibold">{t("unidentified")}</span>
-          <span className="truncate text-xs">{t("options")}</span>
+          <span className="truncate font-semibold">{t("app.unidentified")}</span>
+          <span className="truncate text-xs">{t("app.options")}</span>
         </div>
       </>
     );
