@@ -15,7 +15,7 @@ const en = {
   },
 
   navigation: {
-    home: "Inicio",
+    home: "Home",
     pokemon: "Pokemon",
     move: "Moves",
     ability: "Abilities",
