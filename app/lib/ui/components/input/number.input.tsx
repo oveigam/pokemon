@@ -18,7 +18,7 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
         <Input
           ref={ref}
           type="number"
-          id={label ?? props.name}
+          id={props.name ?? label}
           className={cn("peer", className)}
           value={value ?? ""}
           onChange={
@@ -36,7 +36,7 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
           {...props}
         />
         <Label
-          htmlFor={label ?? props.name}
+          htmlFor={props.name ?? label}
           className="px-0.5 leading-none peer-focus:text-primary"
         >
           {label}

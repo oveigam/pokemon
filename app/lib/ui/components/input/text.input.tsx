@@ -12,12 +12,12 @@ const TextInput = React.forwardRef<HTMLInputElement, InputProps & { label: strin
         <Input
           ref={ref}
           type="text"
-          id={label ?? props.name}
+          id={props.name ?? label}
           className={cn("peer", className)}
           {...props}
         />
         <Label
-          htmlFor={label ?? props.name}
+          htmlFor={props.name ?? label}
           className="px-0.5 leading-none peer-focus:text-primary"
         >
           {label}

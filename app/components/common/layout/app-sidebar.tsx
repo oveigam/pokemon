@@ -57,6 +57,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@ui/components/core/sidebar";
+import { TextInput } from "@ui/components/input/text.input";
 
 import type { RouterContext } from "@/router";
 import { getI18nQuery } from "@/services/i18n/i18n.query";
@@ -222,15 +223,8 @@ export function AppSidebar({ user }: { user?: CtxUser }) {
               }}
             >
               <div className="flex flex-col gap-2">
-                <div>
-                  <Label htmlFor="email">{t("user.email")}</Label>
-                  <Input id="email" name="email" />
-                </div>
-
-                <div>
-                  <Label htmlFor="password">{t("user.password")}</Label>
-                  <Input id="password" name="password" type="password" />
-                </div>
+                <TextInput label={t("user.email")} name="email" type="email" />
+                <TextInput label={t("user.password")} name="password" type="password" />
               </div>
 
               <DialogFooter className="mt-4">

@@ -5,6 +5,7 @@ import { Button } from "@ui/components/core/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@ui/components/core/card";
 import { Input } from "@ui/components/core/input";
 import { Label } from "@ui/components/core/label";
+import { TextInput } from "@ui/components/input/text.input";
 
 import { signUpUser } from "@/services/user/user.api";
 
@@ -28,20 +29,9 @@ function SignUpPage() {
             <CardTitle>{t("action.signup")}</CardTitle>
           </CardHeader>
           <CardContent className="flex flex-col gap-3">
-            <div>
-              <Label htmlFor="name">{t("user.name")}</Label>
-              <Input id="name" name="name" />
-            </div>
-
-            <div>
-              <Label htmlFor="email">{t("user.email")}</Label>
-              <Input id="email" name="email" />
-            </div>
-
-            <div>
-              <Label htmlFor="password">{t("user.password")}</Label>
-              <Input id="password" name="password" type="password" />
-            </div>
+            <TextInput label={t("user.name")} name="name" />
+            <TextInput label={t("user.email")} name="email" type="email" />
+            <TextInput label={t("user.password")} name="password" type="password" />
           </CardContent>
           <CardFooter className="flex justify-end">
             <Button type="submit">{t("action.create")}</Button>
