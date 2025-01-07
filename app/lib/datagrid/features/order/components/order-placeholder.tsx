@@ -14,9 +14,9 @@ export function OrderingDnDIndicator({
   return (
     <DragOverlay style={{ width: "unset" }} modifiers={[snapCenterToCursor]}>
       {ctx.active?.id && (
-        <Card className="text-card-foreground/90 flex min-w-32 cursor-grabbing items-center gap-1 px-2 py-2 font-normal">
-          <GripVerticalIcon className="text-foreground/50 mr-1 size-4" />
-          <MoveIcon className="text-foreground/75 size-4" />
+        <Card className="flex min-w-32 cursor-grabbing items-center gap-1 px-2 py-2 font-normal text-card-foreground/90">
+          <GripVerticalIcon className="mr-1 size-4 text-foreground/50" />
+          <MoveIcon className="size-4 text-foreground/75" />
           <span className="truncate">{children(`${ctx.active.id}`)}</span>
         </Card>
       )}

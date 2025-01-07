@@ -26,14 +26,14 @@ export function SortIndicator({
   return (
     <div className="flex items-center">
       <ChevronUp
-        className={cn("text-primary/75 ml-1 size-4 scale-0 transition-all", {
+        className={cn("ml-1 size-4 scale-0 text-primary/75 transition-all", {
           "scale-100": !!sorted,
           "rotate-0 scale-100": sorted === "asc",
           "rotate-180": sorted === "desc",
         })}
       />
       <span
-        className={cn("text-primary/75 -ml-0.5 mb-2 scale-0 text-[0.5rem] transition-all", {
+        className={cn("-ml-0.5 mb-2 scale-0 text-[0.5rem] text-primary/75 transition-all", {
           "scale-100": isMultiSorted && sortPosition > 0,
         })}
       >

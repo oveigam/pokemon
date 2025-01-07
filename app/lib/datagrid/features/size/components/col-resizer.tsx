@@ -19,7 +19,7 @@ export function ColumnResizer<TData>({ header }: { header: Header<TData, unknown
       onMouseDown={header.getResizeHandler()}
       onTouchStart={header.getResizeHandler()}
     >
-      <div className="bg-primary h-full w-0.5" />
+      <div className="h-full w-0.5 bg-primary" />
     </div>
   );
 }

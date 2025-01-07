@@ -82,8 +82,8 @@ export function Datagrid<TData, TValue>({
         <DatagridDropdownMenu table={table} />
       </div>
       <OrderDndContex table={table}>
-        <OrderingDnDIndicator>{(id) => table.t(id as TranslateKeys)}</OrderingDnDIndicator>
-
+        {/* // FIXME any */}
+        <OrderingDnDIndicator>{(id) => table.t(id as any)}</OrderingDnDIndicator>
         <Table className="grid">
           <TableHeader className="sticky top-0 z-30 grid bg-background">
             {table.getHeaderGroups().map((headerGroup) => (
@@ -125,7 +125,7 @@ export function Datagrid<TData, TValue>({
                         key={cell.id}
                         density={table.getDensity()}
                         className={cn(
-                          "flex bg-background items-center",
+                          "flex items-center bg-background",
                           {
                             "flex-grow": table.getIsAutoWidth(),
                             "bg-muted": i % 2 !== 0,
