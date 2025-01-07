@@ -1,9 +1,19 @@
 import type { RouterContext } from "@/router";
+import { getI18nQuery } from "@/services/i18n/i18n.query";
 import { deleteSession } from "@/services/session/session.api";
 import { signInUser, updateLanguage, updateTheme } from "@/services/user/user.api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Link, useRouter, type LinkProps } from "@tanstack/react-router";
 import { Avatar, AvatarFallback, AvatarImage } from "@ui/components/avatar";
+import { Button } from "@ui/components/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@ui/components/dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,6 +27,8 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@ui/components/dropdown-menu";
+import { Input } from "@ui/components/input";
+import { Label } from "@ui/components/label";
 import {
   Sidebar,
   SidebarContent,
@@ -49,20 +61,6 @@ import {
 import { useState, type ReactNode } from "react";
 import { useTranslations } from "use-intl";
 import { PokeballIcon } from "../icon/pokeball-icon";
-import { getI18nQuery } from "@/services/i18n/i18n.query";
-import {
-  Dialog,
-  DialogTrigger,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogFooter,
-  DialogClose,
-} from "@ui/components/dialog";
-import { Button } from "@ui/components/button";
-import { Label } from "@ui/components/label";
-import { Input } from "@ui/components/input";
 
 type CtxUser = NonNullable<RouterContext["session"]>["user"];
 
