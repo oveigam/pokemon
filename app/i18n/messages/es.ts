@@ -42,7 +42,26 @@ const es: BaseTranslations = {
   },
 
   pokemon: {
+    id: "ID",
     name: "Nombre",
+    order: "Orden",
+    genderRate: "Tasa de Género",
+    captureRate: "Tasa de Captura",
+    baseHappiness: "Felicidad Base",
+    isBaby: "Es Bebé",
+    isLegendary: "Es Legendario",
+    isMythical: "Es Mítico",
+    hatchCounter: "Contador de Eclosión",
+    hasGenderDifferences: "Tiene Diferencias de Género",
+    formsSwitchable: "Formas Conmutables",
+    growthRate: "Tasa de Crecimiento",
+    color: "Color",
+    shape: "Forma",
+    evolvesFromPokemonSpeciesId: "Evoluciona De la Especie Pokémon ID",
+    generationId: "ID de Generación",
+    habitat: "Hábitat",
+    createdAt: "Creado En",
+    updatedAt: "Actualizado En",
   },
 };
 

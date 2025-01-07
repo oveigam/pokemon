@@ -40,7 +40,26 @@ const en = {
   },
 
   pokemon: {
+    id: "ID",
     name: "Name",
+    order: "Order",
+    genderRate: "Gender Rate",
+    captureRate: "Capture Rate",
+    baseHappiness: "Base Happiness",
+    isBaby: "Is Baby",
+    isLegendary: "Is Legendary",
+    isMythical: "Is Mythical",
+    hatchCounter: "Hatch Counter",
+    hasGenderDifferences: "Has Gender Differences",
+    formsSwitchable: "Forms Switchable",
+    growthRate: "Growth Rate",
+    color: "Color",
+    shape: "Shape",
+    evolvesFromPokemonSpeciesId: "Evolves From Pokémon Species ID",
+    generationId: "Generation ID",
+    habitat: "Habitat",
+    createdAt: "Created At",
+    updatedAt: "Updated At",
   },
 };
 

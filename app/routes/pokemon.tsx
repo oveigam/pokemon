@@ -56,7 +56,7 @@ export const columns: ColumnDef<Pokemon>[] = [
 function RouteComponent() {
   const { data = [] } = useSuspenseQuery(getPokemonsQuery());
 
-  const t = useTranslations();
+  const t = useTranslations("pokemon");
   const tGrid = useTranslations("datagrid");
 
   return (
