@@ -1,6 +1,6 @@
 import type { RouterContext } from "@/router";
 import { deleteSession } from "@/services/session/session.api";
-import { updateLanguage, updateTheme } from "@/services/user/user.api";
+import { signInUser, updateLanguage, updateTheme } from "@/services/user/user.api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Link, useRouter, type LinkProps } from "@tanstack/react-router";
 import { Avatar, AvatarFallback, AvatarImage } from "@ui/components/avatar";
@@ -46,10 +46,23 @@ import {
   Swords,
   UserPen,
 } from "lucide-react";
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { useTranslations } from "use-intl";
 import { PokeballIcon } from "../icon/pokeball-icon";
 import { getI18nQuery } from "@/services/i18n/i18n.query";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+  DialogClose,
+} from "@ui/components/dialog";
+import { Button } from "@ui/components/button";
+import { Label } from "@ui/components/label";
+import { Input } from "@ui/components/input";
 
 type CtxUser = NonNullable<RouterContext["session"]>["user"];
 
@@ -59,7 +72,14 @@ export function AppSidebar({ user }: { user?: CtxUser }) {
   const t = useTranslations();
   const { isMobile } = useSidebar();
 
-  const queryClient = useQueryClient();
+  const [open, setOpen] = useState(false);
+
+  const { mutate: login } = useMutation({
+    mutationFn: signInUser,
+    onSuccess() {
+      router.invalidate();
+    },
+  });
 
   const { mutate: delSession } = useMutation({
     mutationFn: deleteSession,
@@ -107,73 +127,113 @@ export function AppSidebar({ user }: { user?: CtxUser }) {
       </SidebarContent>
 
       <SidebarFooter>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <SidebarMenuButton
-                  size="lg"
-                  className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-                >
-                  <UserHeader user={user} />
-                  <ChevronsUpDown className="ml-auto size-4" />
-                </SidebarMenuButton>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent
-                className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
-                side={isMobile ? "bottom" : "right"}
-                align="end"
-                sideOffset={4}
-              >
-                <DropdownMenuLabel className="p-0 font-normal">
-                  <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                    <UserHeader user={user} />
-                  </div>
-                </DropdownMenuLabel>
-
-                {user && (
-                  <>
-                    <DropdownMenuSeparator />
-
-                    <DropdownMenuGroup>
-                      <DropdownMenuItem asChild>
-                        <Link to="/user/profile">
-                          <UserPen />
-                          {t("app.profile")}
-                        </Link>
-                      </DropdownMenuItem>
-                    </DropdownMenuGroup>
-                  </>
-                )}
-
-                <DropdownMenuSeparator />
-
-                <DropdownMenuGroup>
-                  <ThemeSubMenu />
-                  <LanguageSubMenu />
-                </DropdownMenuGroup>
-
-                <DropdownMenuSeparator />
-
-                {user ? (
-                  <DropdownMenuItem
-                    onSelect={() => {
-                      delSession({});
-                    }}
+        <Dialog open={open} onOpenChange={setOpen}>
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <SidebarMenuButton
+                    size="lg"
+                    className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
                   >
-                    <LogOut />
-                    {t("action.logout")}
-                  </DropdownMenuItem>
-                ) : (
-                  <DropdownMenuItem>
-                    <LogIn />
-                    {t("action.signin")}
-                  </DropdownMenuItem>
-                )}
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </SidebarMenuItem>
-        </SidebarMenu>
+                    <UserHeader user={user} />
+                    <ChevronsUpDown className="ml-auto size-4" />
+                  </SidebarMenuButton>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent
+                  className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
+                  side={isMobile ? "bottom" : "right"}
+                  align="end"
+                  sideOffset={4}
+                >
+                  <DropdownMenuLabel className="p-0 font-normal">
+                    <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
+                      <UserHeader user={user} />
+                    </div>
+                  </DropdownMenuLabel>
+
+                  {user && (
+                    <>
+                      <DropdownMenuSeparator />
+
+                      <DropdownMenuGroup>
+                        <DropdownMenuItem asChild>
+                          <Link to="/user/profile">
+                            <UserPen />
+                            {t("app.profile")}
+                          </Link>
+                        </DropdownMenuItem>
+                      </DropdownMenuGroup>
+                    </>
+                  )}
+
+                  <DropdownMenuSeparator />
+
+                  <DropdownMenuGroup>
+                    <ThemeSubMenu />
+                    <LanguageSubMenu />
+                  </DropdownMenuGroup>
+
+                  <DropdownMenuSeparator />
+
+                  {user ? (
+                    <DropdownMenuItem
+                      onSelect={() => {
+                        delSession({});
+                      }}
+                    >
+                      <LogOut />
+                      {t("action.logout")}
+                    </DropdownMenuItem>
+                  ) : (
+                    <DialogTrigger asChild>
+                      <DropdownMenuItem>
+                        <LogIn />
+                        {t("action.signin")}
+                      </DropdownMenuItem>
+                    </DialogTrigger>
+                  )}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </SidebarMenuItem>
+          </SidebarMenu>
+
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>{t("action.signin")}</DialogTitle>
+            </DialogHeader>
+
+            <form
+              onSubmit={async (e) => {
+                e.preventDefault();
+                login(
+                  { data: new FormData(e.currentTarget) },
+                  {
+                    onSuccess() {
+                      setOpen(false);
+                    },
+                  },
+                );
+              }}
+            >
+              <div className="flex flex-col gap-2">
+                <div>
+                  <Label htmlFor="email">{t("user.email")}</Label>
+                  <Input id="email" name="email" />
+                </div>
+
+                <div>
+                  <Label htmlFor="password">{t("user.password")}</Label>
+                  <Input id="password" name="password" type="password" />
+                </div>
+              </div>
+
+              <DialogFooter className="mt-4">
+                <Button type="submit">{t("action.signin")}</Button>
+              </DialogFooter>
+            </form>
+          </DialogContent>
+        </Dialog>
       </SidebarFooter>
     </Sidebar>
   );
@@ -336,5 +396,13 @@ const LanguageSubMenu = () => {
         </DropdownMenuSubContent>
       </DropdownMenuPortal>
     </DropdownMenuSub>
+  );
+};
+
+const LogInForm = () => {
+  return (
+    <div>
+      <h1>hola</h1>
+    </div>
   );
 };
