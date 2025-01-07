@@ -4,14 +4,6 @@ const es: BaseTranslations = {
   app: {
     title: "Pokemon Enterprise Edition",
     application: "Aplicación",
-    home: "Inicio",
-    pokemon: "Pokemon",
-    move: "Movimiento",
-    moves: "Movimientos",
-    ability: "Habilidad",
-    abilities: "Habilidades",
-    item: "Item",
-    items: "Items",
     unidentified: "No Identificado",
     options: "Optionces",
     profile: "Perfil",
@@ -22,6 +14,14 @@ const es: BaseTranslations = {
     language: "Idioma",
     english: "Inglés",
     spanish: "Español",
+  },
+
+  navigation: {
+    home: "Inicio",
+    pokemon: "Pokemon",
+    move: "Movimientos",
+    ability: "Habilidades",
+    item: "Items",
   },
 
   action: {

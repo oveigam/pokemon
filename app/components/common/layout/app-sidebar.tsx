@@ -102,7 +102,7 @@ export function AppSidebar({ user }: { user?: CtxUser }) {
                 </div>
                 <div className="grid flex-1 text-left text-xs leading-tight">
                   <span className="truncate font-semibold">{t("app.title")}</span>
-                  <span className="truncate text-xs">{t("app.home")}</span>
+                  <span className="truncate text-xs">{t("navigation.home")}</span>
                 </div>
               </Link>
             </SidebarMenuButton>
@@ -115,10 +115,14 @@ export function AppSidebar({ user }: { user?: CtxUser }) {
           <SidebarGroupLabel>{t("app.application")}</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              <SidebarMenuLink to="/pokemon" icon={<PokeballIcon />} label={t("app.pokemon")} />
-              <SidebarMenuLink to="/move" icon={<Swords />} label={t("app.moves")} />
-              <SidebarMenuLink to="/ability" icon={<Sprout />} label={t("app.abilities")} />
-              <SidebarMenuLink to="/item" icon={<ShoppingBasket />} label={t("app.items")} />
+              <SidebarMenuLink
+                to="/pokemon"
+                icon={<PokeballIcon />}
+                label={t("navigation.pokemon")}
+              />
+              <SidebarMenuLink to="/move" icon={<Swords />} label={t("navigation.move")} />
+              <SidebarMenuLink to="/ability" icon={<Sprout />} label={t("navigation.ability")} />
+              <SidebarMenuLink to="/item" icon={<ShoppingBasket />} label={t("navigation.item")} />
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>

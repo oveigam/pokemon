@@ -2,14 +2,6 @@ const en = {
   app: {
     title: "Pokemon Enterprise Edition",
     application: "Application",
-    home: "Home",
-    pokemon: "Pokemon",
-    move: "Move",
-    moves: "Moves",
-    ability: "Ability",
-    abilities: "Abilities",
-    item: "Item",
-    items: "Items",
     unidentified: "Unidentified",
     options: "Options",
     profile: "Profile",
@@ -20,6 +12,14 @@ const en = {
     language: "Language",
     english: "English",
     spanish: "Spanish",
+  },
+
+  navigation: {
+    home: "Inicio",
+    pokemon: "Pokemon",
+    move: "Moves",
+    ability: "Abilities",
+    item: "Items",
   },
 
   action: {
