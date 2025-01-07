@@ -68,11 +68,11 @@ function RouteComponent() {
           data={data}
           autoWidth={false}
           columns={columns}
-          rowClassName={(pokemon) => {
-            if (pokemon.name === "bulbasaur") {
-              return "bg-green-500 text-green-100 hover:bg-green-600";
-            }
-          }}
+          // rowClassName={(pokemon) => {
+          //   if (pokemon.name === "bulbasaur") {
+          //     return "bg-green-500 text-green-100 hover:bg-green-600";
+          //   }
+          // }}
         />
       </Card>
     </div>

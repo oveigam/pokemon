@@ -111,7 +111,7 @@ export function Datagrid<TData, TValue>({
                     key={row.id}
                     className={cn(
                       "flex hover:bg-primary/5",
-                      { "bg-muted": i % 2 !== 0 },
+                      { "bg-muted": i % 2 === 0 },
                       row.getClassName(),
                     )}
                     data-state={row.getIsSelected() && "selected"}
@@ -131,7 +131,7 @@ export function Datagrid<TData, TValue>({
                             "flex items-center bg-background",
                             {
                               "flex-grow": table.getIsAutoWidth(),
-                              "bg-muted": i % 2 !== 0,
+                              "bg-muted": i % 2 === 0,
                               "border-r border-primary": isLastLeftPinnedColumn,
                               "border-l border-primary": isFirstRightPinnedColumn,
                             },
