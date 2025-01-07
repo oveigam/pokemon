@@ -1,4 +1,4 @@
-import "@fontsource-variable/inter";
+import fontsourceInter from "@fontsource-variable/inter?url";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { createRootRouteWithContext, Outlet, ScrollRestoration } from "@tanstack/react-router";
@@ -32,7 +32,20 @@ export const Route = createRootRouteWithContext<RouterContext>()({
         title: "Pokemon Enterprise Edition",
       },
     ],
-    links: [{ rel: "stylesheet", href: globalCss }],
+    links: [
+      {
+        rel: "icon",
+        href: "/favicon.ico",
+      },
+      {
+        rel: "stylesheet",
+        href: globalCss,
+      },
+      {
+        rel: "stylesheet",
+        href: fontsourceInter,
+      },
+    ],
   }),
   component: RootComponent,
   beforeLoad: async ({ context }) => {
