@@ -18,6 +18,7 @@ export function OrderDndContex<TData>({ table, children }: OrderDndContextProps<
     }),
   );
 
+  // FIXME sigue habiendo scroll, si hay scroll el overlay queda en la posición original en lugar de moverse
   return (
     <DndContext
       sensors={sensors}
