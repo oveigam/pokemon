@@ -27,7 +27,7 @@ export type DatagridMenuProps<TData> = {
 
 export function DatagridDropdownMenu<TData>({
   table,
-  getColumnLabel = (col) => table.t(col.id),
+  getColumnLabel = (col) => table.t(col.id as any), // FIXME any type
 }: DatagridMenuProps<TData>) {
   return (
     <DropdownMenu>

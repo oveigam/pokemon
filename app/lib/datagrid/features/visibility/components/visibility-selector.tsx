@@ -17,7 +17,7 @@ export type VisibilitySelectorProps<TData> = {
 
 export function VisibilitySelector<TData>({
   table,
-  getColumnLabel = (col) => table.t(col.id as TranslateKeys),
+  getColumnLabel = (col) => table.t(col.id as any), // FIXME any typing
 }: VisibilitySelectorProps<TData>) {
   return (
     <DropdownMenu>
