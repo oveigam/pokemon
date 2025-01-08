@@ -11,15 +11,13 @@ export type TextOptions = never;
 
 export function stringCol<TData extends RowData>(
   opts: ColumnHelperOptions<TData, StringValue, TextOptions>,
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): ColumnDef<TData, StringValue> {
   return {
     ...getHelperIdentifier(opts),
 
     meta: {
-      //   options:
-      //     !opts.options || typeof opts.options === "function" ? opts.options : () => opts.options,
+      options:
+        !opts.options || typeof opts.options === "function" ? opts.options : () => opts.options,
 
       //   aggregates: opts.aggregates,
 

@@ -16,8 +16,8 @@ export function textCol<TData extends RowData>(
     ...getHelperIdentifier(opts),
 
     meta: {
-      //   options:
-      //     !opts.options || typeof opts.options === "function" ? opts.options : () => opts.options,
+      options:
+        !opts.options || typeof opts.options === "function" ? opts.options : () => opts.options,
 
       //   aggregates: opts.aggregates,
 

@@ -17,8 +17,8 @@ export function booleanCol<TData extends RowData>(
     ...getHelperIdentifier(opts),
 
     meta: {
-      //   options:
-      //     !opts.options || typeof opts.options === "function" ? opts.options : () => opts.options,
+      options:
+        !opts.options || typeof opts.options === "function" ? opts.options : () => opts.options,
 
       //   aggregates: opts.aggregates,
 
@@ -36,7 +36,6 @@ export function booleanCol<TData extends RowData>(
         if (typeof value !== "boolean") {
           return null;
         }
-
         return value ? (
           <CheckIcon className="m-auto text-green-600" />
         ) : (

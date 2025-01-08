@@ -21,8 +21,8 @@ export function dateCol<TData extends RowData>(
     ...getHelperIdentifier(opts),
 
     meta: {
-      //   options:
-      //     !opts.options || typeof opts.options === "function" ? opts.options : () => opts.options,
+      options:
+        !opts.options || typeof opts.options === "function" ? opts.options : () => opts.options,
 
       //   aggregates: opts.aggregates,
 
@@ -37,13 +37,11 @@ export function dateCol<TData extends RowData>(
       opts.cell ??
       ((ctx) => {
         const value = ctx.getValue();
-        // const opts = ctx.column.columnDef.meta?.options?.(value, ctx.row.original) as
-        //   | DateOptions
-        //   | undefined;
-
+        const opts = ctx.column.columnDef.meta?.options?.(value, ctx.row.original) as
+          | DateOptions
+          | undefined;
         if (value instanceof Date) {
-          // return format(value, opts?.format ?? "dd-MM-yyyy");
-          return format(value, "dd-MM-yyyy");
+          return format(value, opts?.format ?? "dd-MM-yyyy");
         }
         return null;
       }),
