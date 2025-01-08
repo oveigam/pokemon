@@ -32,6 +32,7 @@ type Pokemon = Awaited<ReturnType<typeof getPokemons>>[number];
 const ch = new DatagridColumnHelper<Pokemon>();
 
 const columns = [
+  ch.selection(),
   ch.number({ key: "id" }),
   ch.string({ key: "name" }),
   ch.text({ key: "habitat" }),
@@ -40,6 +41,7 @@ const columns = [
   ch.boolean({ key: "isMythical" }),
   ch.date({ key: "createdAt" }),
   ch.action({
+    position: "right",
     renderActions: (item) => (
       <div>
         <Button variant="ghost" asChild>

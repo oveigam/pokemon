@@ -62,7 +62,7 @@ export function DatagridHeader<TData>({
       >
         {children}
 
-        <HeaderSortIndicator header={header} />
+        {header.column.getCanSort() && <HeaderSortIndicator header={header} />}
       </div>
 
       {header.column.getCanFilter() && (

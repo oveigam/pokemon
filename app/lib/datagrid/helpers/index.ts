@@ -4,6 +4,7 @@ import { actionCol } from "./action.helper";
 import { booleanCol } from "./boolean.helper";
 import { dateCol } from "./date.helper";
 import { numberCol } from "./number.helper";
+import { selectionCol } from "./selection.helper";
 import { stringCol } from "./string.helper";
 import { textCol } from "./text.helper";
 
@@ -17,4 +18,5 @@ export class DatagridColumnHelper<TData extends RowData> {
 
   // utils
   action = actionCol<TData>;
+  selection = selectionCol<TData>;
 }
