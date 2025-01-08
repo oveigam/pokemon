@@ -22,6 +22,7 @@ import { I18nFeature, type I18nOptions } from "./features/i18n/i18n.feature";
 import { OrderingDnDIndicator } from "./features/order/components/order-placeholder";
 import { OrderDndContex } from "./features/order/order.feature";
 import { pinningPositionStyle } from "./features/order/order.util";
+import { getPinInitialState } from "./features/pin/pin.feature";
 import { ColSizeFeature, type ColumnSizingOptions } from "./features/size/col-size.feature";
 import { CellStyleFeature } from "./features/style/cell-style.feature";
 import { RowStyleFeature, type RowStyleProps } from "./features/style/row-style.feature";
@@ -74,9 +75,7 @@ export function Datagrid<TData>({
       size: 350,
     },
     initialState: {
-      columnPinning: {
-        left: ["_actions"],
-      },
+      columnPinning: getPinInitialState(columns),
     },
   });
 
