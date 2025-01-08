@@ -37,10 +37,16 @@ export function numberCol<TData extends RowData>(
         const opts = ctx.column.columnDef.meta?.options?.(value, ctx.row.original) as
           | NumberOptions
           | undefined;
-        if (opts?.format) {
-          return opts.format(value);
+
+        if (typeof value !== "number") {
+          return null;
         }
-        return value;
+
+        return (
+          <div className="flex h-full w-full items-center justify-end">
+            {opts?.format ? opts.format(value) : value}
+          </div>
+        );
       }),
 
     // footer: opts.overrides?.footer ?? ((ctx) => <AggregateFooter ctx={ctx} />),
