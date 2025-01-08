@@ -73,6 +73,11 @@ export function Datagrid<TData>({
       minSize: 100,
       size: 350,
     },
+    initialState: {
+      columnPinning: {
+        left: ["_actions"],
+      },
+    },
   });
 
   return (

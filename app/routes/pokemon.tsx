@@ -1,6 +1,7 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import type { ColumnDef } from "@tanstack/react-table";
+import { EditIcon } from "lucide-react";
 import { useTranslations } from "use-intl";
 
 import { FlexTableContainer } from "@datagrid/components/util/containers";
@@ -13,6 +14,7 @@ import { stringCol } from "@datagrid/helpers/string.helper";
 import { textCol } from "@datagrid/helpers/text.helper";
 import { Datagrid } from "@datagrid/index";
 
+import { Button } from "@ui/components/core/button";
 import { Card } from "@ui/components/core/card";
 
 import type { getPokemons } from "@/services/pokemon/pokemon.api";
@@ -37,6 +39,17 @@ const columns = [
   ch.boolean({ key: "isLegendary" }),
   ch.boolean({ key: "isMythical" }),
   ch.date({ key: "createdAt" }),
+  ch.action({
+    renderActions: (item) => (
+      <div>
+        <Button variant="ghost" asChild>
+          <Link to="/pokemon/$id" params={{ id: String(item.id) }}>
+            <EditIcon />
+          </Link>
+        </Button>
+      </div>
+    ),
+  }),
   // {
   //   accessorKey: "type",
   //   header: translatedColumnIdHeader,

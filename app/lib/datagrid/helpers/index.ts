@@ -1,5 +1,6 @@
 import type { RowData } from "@tanstack/react-table";
 
+import { actionCol } from "./action.helper";
 import { booleanCol } from "./boolean.helper";
 import { dateCol } from "./date.helper";
 import { numberCol } from "./number.helper";
@@ -13,4 +14,7 @@ export class DatagridColumnHelper<TData extends RowData> {
   number = numberCol<TData>;
   boolean = booleanCol<TData>;
   date = dateCol<TData>;
+
+  // utils
+  action = actionCol<TData>;
 }
