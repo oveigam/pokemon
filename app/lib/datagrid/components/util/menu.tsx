@@ -54,6 +54,7 @@ export function DatagridDropdownMenu<TData>({
                         className="capitalize"
                         checked={column.getIsVisible()}
                         onCheckedChange={(value) => column.toggleVisibility(!!value)}
+                        onSelect={(e) => e.preventDefault()}
                       >
                         {getColumnLabel(column)}
                       </DropdownMenuCheckboxItem>
@@ -81,7 +82,10 @@ export function DatagridDropdownMenu<TData>({
                   return (
                     <DropdownMenuItem
                       key={density}
-                      onSelect={() => table.setDensity(density)}
+                      onSelect={(e) => {
+                        e.preventDefault();
+                        table.setDensity(density);
+                      }}
                       disabled={density === table.getDensity()}
                     >
                       {table._t(density)}
