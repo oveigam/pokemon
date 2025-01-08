@@ -52,7 +52,9 @@ export function DatagridHeader<TData>({
     >
       <div
         ref={setDragRef}
-        className="flex flex-1 items-center"
+        className={cn("flex flex-1 items-center", {
+          "cursor-default": !header.column.getCanSort(),
+        })}
         onClick={header.column.getToggleSortingHandler()}
         {...listeners}
         {...attributes}
@@ -63,7 +65,9 @@ export function DatagridHeader<TData>({
         <HeaderSortIndicator header={header} />
       </div>
 
-      <FilterMenu className="z-50 ml-auto group-hover:opacity-100" header={header} />
+      {header.column.getCanFilter() && (
+        <FilterMenu className="z-50 ml-auto group-hover:opacity-100" header={header} />
+      )}
 
       {/* <DropdownMenu>
         <DropdownMenuTrigger asChild>
@@ -108,7 +112,7 @@ export function DatagridHeader<TData>({
         </DropdownMenuContent>
       </DropdownMenu> */}
 
-      <ColumnResizer header={header} />
+      {header.column.getCanResize() && <ColumnResizer header={header} />}
     </TableHead>
   );
 }
