@@ -23,11 +23,13 @@ export const Breadcrumb = () => {
     <_Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem>
-          <BreadcrumbLink asChild>
-            <Link to="/">
-              <BreadcrumbPage>{t("navigation.home")}</BreadcrumbPage>
-            </Link>
-          </BreadcrumbLink>
+          {location.pathname === "/" ? (
+            <BreadcrumbPage>{t("navigation.home")}</BreadcrumbPage>
+          ) : (
+            <BreadcrumbLink asChild>
+              <Link to="/">{t("navigation.home")}</Link>
+            </BreadcrumbLink>
+          )}
         </BreadcrumbItem>
         {paths.length > 0 && <BreadcrumbSeparator />}
 
