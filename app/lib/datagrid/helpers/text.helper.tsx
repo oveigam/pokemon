@@ -35,7 +35,11 @@ export function textCol<TData extends RowData>(
         if (typeof value !== "string") {
           return null;
         }
-        return <div className="h-full w-full overflow-auto whitespace-pre-line">{value}</div>;
+        return (
+          <div className="flex h-full w-full items-center overflow-auto whitespace-pre-line">
+            {value}
+          </div>
+        );
       }),
 
     // footer: opts.overrides?.footer ?? ((ctx) => <AggregateFooter ctx={ctx} />),
