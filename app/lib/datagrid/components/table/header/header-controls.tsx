@@ -36,7 +36,7 @@ export function DatagridHeader<TData>({
   return (
     <TableHead
       ref={setDropRef}
-      className={cn("group relative flex items-center bg-background font-bold text-primary", {
+      className={cn("group relative flex items-center bg-background font-bold text-foreground", {
         "flex-grow": table.getIsAutoWidth(),
         "border-r border-primary": isLastLeftPinnedColumn,
         "border-l border-primary": isFirstRightPinnedColumn,
