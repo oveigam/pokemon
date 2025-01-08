@@ -1,4 +1,4 @@
-import type { Table } from "@tanstack/react-table";
+import type { Row, Table } from "@tanstack/react-table";
 
 import { Skeleton } from "@ui/components/core/skeleton";
 import { TableCell, TableRow } from "@ui/components/core/table";
@@ -6,7 +6,7 @@ import { TableCell, TableRow } from "@ui/components/core/table";
 type RowConsumerProps<TData> = {
   table: Table<TData>;
   isLoading?: boolean;
-  children: React.ReactNode; //| ((value: TData[]) => React.ReactNode);
+  children: (rows: Row<TData>[]) => React.ReactNode;
 };
 
 export function RowConsumer<TData>({ table, isLoading, children }: RowConsumerProps<TData>) {
@@ -32,5 +32,6 @@ export function RowConsumer<TData>({ table, isLoading, children }: RowConsumerPr
       </TableRow>
     );
   }
-  return children;
+
+  return children(table.getRowModel().rows);
 }

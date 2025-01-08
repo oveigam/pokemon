@@ -104,47 +104,49 @@ export function Datagrid<TData>({
 
             <TableBody className="grid">
               <RowConsumer table={table} isLoading={isLoading}>
-                {table.getRowModel().rows.map((row, i) => (
-                  <TableRow
-                    key={row.id}
-                    className={cn(
-                      "flex hover:bg-primary/5",
-                      { "bg-muted": i % 2 === 0 },
-                      row.getClassName(),
-                    )}
-                    data-state={row.getIsSelected() && "selected"}
-                  >
-                    {row.getVisibleCells().map((cell) => {
-                      const isPinned = cell.column.getIsPinned();
-                      const isLastLeftPinnedColumn =
-                        isPinned === "left" && cell.column.getIsLastColumn("left");
-                      const isFirstRightPinnedColumn =
-                        isPinned === "right" && cell.column.getIsFirstColumn("right");
+                {(rows) =>
+                  rows.map((row, i) => (
+                    <TableRow
+                      key={row.id}
+                      className={cn(
+                        "flex hover:bg-primary/5",
+                        { "bg-muted": i % 2 === 0 },
+                        row.getClassName(),
+                      )}
+                      data-state={row.getIsSelected() && "selected"}
+                    >
+                      {row.getVisibleCells().map((cell) => {
+                        const isPinned = cell.column.getIsPinned();
+                        const isLastLeftPinnedColumn =
+                          isPinned === "left" && cell.column.getIsLastColumn("left");
+                        const isFirstRightPinnedColumn =
+                          isPinned === "right" && cell.column.getIsFirstColumn("right");
 
-                      return (
-                        <TableCell
-                          key={cell.id}
-                          density={table.getDensity()}
-                          className={cn(
-                            "flex items-center bg-background",
-                            {
-                              "flex-grow": table.getIsAutoWidth(),
-                              "bg-muted": i % 2 === 0,
-                              "border-r border-primary": isLastLeftPinnedColumn,
-                              "border-l border-primary": isFirstRightPinnedColumn,
-                            },
-                            row.getClassName(), // TODO los estilos de pinning pueden joder el bg del row styles, añadir un prop mas o dejarlo asi?
-                            cell.getClassName(),
-                          )}
-                          width={cell.column.getSize()}
-                          style={pinningPositionStyle(cell.column)}
-                        >
-                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                        </TableCell>
-                      );
-                    })}
-                  </TableRow>
-                ))}
+                        return (
+                          <TableCell
+                            key={cell.id}
+                            density={table.getDensity()}
+                            className={cn(
+                              "flex items-center bg-background",
+                              {
+                                "flex-grow": table.getIsAutoWidth(),
+                                "bg-muted": i % 2 === 0,
+                                "border-r border-primary": isLastLeftPinnedColumn,
+                                "border-l border-primary": isFirstRightPinnedColumn,
+                              },
+                              row.getClassName(), // TODO los estilos de pinning pueden joder el bg del row styles, añadir un prop mas o dejarlo asi?
+                              cell.getClassName(),
+                            )}
+                            width={cell.column.getSize()}
+                            style={pinningPositionStyle(cell.column)}
+                          >
+                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                          </TableCell>
+                        );
+                      })}
+                    </TableRow>
+                  ))
+                }
               </RowConsumer>
             </TableBody>
           </Table>
