@@ -88,6 +88,9 @@ export type ColumnHelperOptions<TData extends RowData, TValue, TOptions> = Acces
    */
   options?: TOptions | ((value: TValue, item: TData) => TOptions);
 
+  size?: number;
+  minSize?: number;
+
   //   /**
   //    * Función para calcular los datos de agregación (totales, medias, etc.) que se quieran mostrar en el footer
   //    *

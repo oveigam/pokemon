@@ -70,10 +70,6 @@ export function Datagrid<TData>({
     rowClassName,
     autoWidth,
     autoWidthThreshold,
-    defaultColumn: {
-      minSize: 100,
-      size: 350,
-    },
     initialState: {
       columnPinning: getPinInitialState(columns),
     },
@@ -113,8 +109,10 @@ export function Datagrid<TData>({
                     <TableRow
                       key={row.id}
                       className={cn(
-                        "flex hover:bg-primary/5",
-                        { "bg-muted": i % 2 === 0 },
+                        "flex hover:bg-accent hover:text-accent-foreground",
+                        {
+                          "bg-muted": i % 2 === 0,
+                        },
                         row.getClassName(),
                       )}
                       data-state={row.getIsSelected() && "selected"}
@@ -131,14 +129,12 @@ export function Datagrid<TData>({
                             key={cell.id}
                             density={table.getDensity()}
                             className={cn(
-                              "flex items-center bg-background",
+                              "flex items-center bg-transparent",
                               {
                                 "flex-grow": table.getIsAutoWidth(),
-                                "bg-muted": i % 2 === 0,
                                 "border-r border-primary": isLastLeftPinnedColumn,
                                 "border-l border-primary": isFirstRightPinnedColumn,
                               },
-                              row.getClassName(), // TODO los estilos de pinning pueden joder el bg del row styles, añadir un prop mas o dejarlo asi?
                               cell.getClassName(),
                             )}
                             width={cell.column.getSize()}

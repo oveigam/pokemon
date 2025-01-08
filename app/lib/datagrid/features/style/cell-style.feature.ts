@@ -15,6 +15,8 @@ declare module "@tanstack/react-table" {
   }
 }
 
+// TODO esto no se esta utilizando en ningun lado
+
 export const CellStyleFeature: TableFeature<unknown> = {
   createCell(cell, column, row) {
     cell.getClassName = () => {

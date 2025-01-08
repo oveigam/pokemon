@@ -16,6 +16,9 @@ export function booleanCol<TData extends RowData>(
   return {
     ...getHelperIdentifier(opts),
 
+    size: opts.size,
+    minSize: opts.minSize,
+
     meta: {
       options:
         !opts.options || typeof opts.options === "function" ? opts.options : () => opts.options,

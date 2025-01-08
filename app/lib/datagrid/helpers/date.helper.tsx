@@ -14,11 +14,12 @@ export type DateOptions = {
 
 export function dateCol<TData extends RowData>(
   opts: ColumnHelperOptions<TData, DateValue, DateOptions>,
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): AccessorColumnDef<TData, DateValue> {
   return {
     ...getHelperIdentifier(opts),
+
+    size: opts.size,
+    minSize: opts.minSize,
 
     meta: {
       options:
