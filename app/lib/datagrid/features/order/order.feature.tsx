@@ -23,6 +23,7 @@ export function OrderDndContex<TData>({ table, children }: OrderDndContextProps<
       sensors={sensors}
       collisionDetection={pointerWithin}
       onDragEnd={reorderColumnDragEventHandler(table)}
+      autoScroll={false}
     >
       {children}
     </DndContext>
