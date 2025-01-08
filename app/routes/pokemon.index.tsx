@@ -20,7 +20,7 @@ import { Card } from "@ui/components/core/card";
 import type { getPokemons } from "@/services/pokemon/pokemon.api";
 import { getPokemonsQuery } from "@/services/pokemon/pokemon.query";
 
-export const Route = createFileRoute("/pokemon")({
+export const Route = createFileRoute("/pokemon/")({
   component: RouteComponent,
   async loader(ctx) {
     ctx.context.queryClient.ensureQueryData(getPokemonsQuery());

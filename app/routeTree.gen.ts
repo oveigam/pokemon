@@ -12,12 +12,12 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as SignupImport } from './routes/signup'
-import { Route as PokemonImport } from './routes/pokemon'
 import { Route as MoveImport } from './routes/move'
 import { Route as LoginImport } from './routes/login'
 import { Route as ItemImport } from './routes/item'
 import { Route as AbilityImport } from './routes/ability'
 import { Route as IndexImport } from './routes/index'
+import { Route as PokemonIndexImport } from './routes/pokemon.index'
 import { Route as UserProfileImport } from './routes/user/profile'
 import { Route as PokemonIdImport } from './routes/pokemon.$id'
 
@@ -26,12 +26,6 @@ import { Route as PokemonIdImport } from './routes/pokemon.$id'
 const SignupRoute = SignupImport.update({
   id: '/signup',
   path: '/signup',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const PokemonRoute = PokemonImport.update({
-  id: '/pokemon',
-  path: '/pokemon',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -65,6 +59,12 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const PokemonIndexRoute = PokemonIndexImport.update({
+  id: '/pokemon/',
+  path: '/pokemon/',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const UserProfileRoute = UserProfileImport.update({
   id: '/user/profile',
   path: '/user/profile',
@@ -72,9 +72,9 @@ const UserProfileRoute = UserProfileImport.update({
 } as any)
 
 const PokemonIdRoute = PokemonIdImport.update({
-  id: '/$id',
-  path: '/$id',
-  getParentRoute: () => PokemonRoute,
+  id: '/pokemon/$id',
+  path: '/pokemon/$id',
+  getParentRoute: () => rootRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -116,13 +116,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MoveImport
       parentRoute: typeof rootRoute
     }
-    '/pokemon': {
-      id: '/pokemon'
-      path: '/pokemon'
-      fullPath: '/pokemon'
-      preLoaderRoute: typeof PokemonImport
-      parentRoute: typeof rootRoute
-    }
     '/signup': {
       id: '/signup'
       path: '/signup'
@@ -132,10 +125,10 @@ declare module '@tanstack/react-router' {
     }
     '/pokemon/$id': {
       id: '/pokemon/$id'
-      path: '/$id'
+      path: '/pokemon/$id'
       fullPath: '/pokemon/$id'
       preLoaderRoute: typeof PokemonIdImport
-      parentRoute: typeof PokemonImport
+      parentRoute: typeof rootRoute
     }
     '/user/profile': {
       id: '/user/profile'
@@ -144,21 +137,17 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UserProfileImport
       parentRoute: typeof rootRoute
     }
+    '/pokemon/': {
+      id: '/pokemon/'
+      path: '/pokemon'
+      fullPath: '/pokemon'
+      preLoaderRoute: typeof PokemonIndexImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
 // Create and export the route tree
-
-interface PokemonRouteChildren {
-  PokemonIdRoute: typeof PokemonIdRoute
-}
-
-const PokemonRouteChildren: PokemonRouteChildren = {
-  PokemonIdRoute: PokemonIdRoute,
-}
-
-const PokemonRouteWithChildren =
-  PokemonRoute._addFileChildren(PokemonRouteChildren)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -166,10 +155,10 @@ export interface FileRoutesByFullPath {
   '/item': typeof ItemRoute
   '/login': typeof LoginRoute
   '/move': typeof MoveRoute
-  '/pokemon': typeof PokemonRouteWithChildren
   '/signup': typeof SignupRoute
   '/pokemon/$id': typeof PokemonIdRoute
   '/user/profile': typeof UserProfileRoute
+  '/pokemon': typeof PokemonIndexRoute
 }
 
 export interface FileRoutesByTo {
@@ -178,10 +167,10 @@ export interface FileRoutesByTo {
   '/item': typeof ItemRoute
   '/login': typeof LoginRoute
   '/move': typeof MoveRoute
-  '/pokemon': typeof PokemonRouteWithChildren
   '/signup': typeof SignupRoute
   '/pokemon/$id': typeof PokemonIdRoute
   '/user/profile': typeof UserProfileRoute
+  '/pokemon': typeof PokemonIndexRoute
 }
 
 export interface FileRoutesById {
@@ -191,10 +180,10 @@ export interface FileRoutesById {
   '/item': typeof ItemRoute
   '/login': typeof LoginRoute
   '/move': typeof MoveRoute
-  '/pokemon': typeof PokemonRouteWithChildren
   '/signup': typeof SignupRoute
   '/pokemon/$id': typeof PokemonIdRoute
   '/user/profile': typeof UserProfileRoute
+  '/pokemon/': typeof PokemonIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -205,10 +194,10 @@ export interface FileRouteTypes {
     | '/item'
     | '/login'
     | '/move'
-    | '/pokemon'
     | '/signup'
     | '/pokemon/$id'
     | '/user/profile'
+    | '/pokemon'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -216,10 +205,10 @@ export interface FileRouteTypes {
     | '/item'
     | '/login'
     | '/move'
-    | '/pokemon'
     | '/signup'
     | '/pokemon/$id'
     | '/user/profile'
+    | '/pokemon'
   id:
     | '__root__'
     | '/'
@@ -227,10 +216,10 @@ export interface FileRouteTypes {
     | '/item'
     | '/login'
     | '/move'
-    | '/pokemon'
     | '/signup'
     | '/pokemon/$id'
     | '/user/profile'
+    | '/pokemon/'
   fileRoutesById: FileRoutesById
 }
 
@@ -240,9 +229,10 @@ export interface RootRouteChildren {
   ItemRoute: typeof ItemRoute
   LoginRoute: typeof LoginRoute
   MoveRoute: typeof MoveRoute
-  PokemonRoute: typeof PokemonRouteWithChildren
   SignupRoute: typeof SignupRoute
+  PokemonIdRoute: typeof PokemonIdRoute
   UserProfileRoute: typeof UserProfileRoute
+  PokemonIndexRoute: typeof PokemonIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -251,9 +241,10 @@ const rootRouteChildren: RootRouteChildren = {
   ItemRoute: ItemRoute,
   LoginRoute: LoginRoute,
   MoveRoute: MoveRoute,
-  PokemonRoute: PokemonRouteWithChildren,
   SignupRoute: SignupRoute,
+  PokemonIdRoute: PokemonIdRoute,
   UserProfileRoute: UserProfileRoute,
+  PokemonIndexRoute: PokemonIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -271,9 +262,10 @@ export const routeTree = rootRoute
         "/item",
         "/login",
         "/move",
-        "/pokemon",
         "/signup",
-        "/user/profile"
+        "/pokemon/$id",
+        "/user/profile",
+        "/pokemon/"
       ]
     },
     "/": {
@@ -291,21 +283,17 @@ export const routeTree = rootRoute
     "/move": {
       "filePath": "move.tsx"
     },
-    "/pokemon": {
-      "filePath": "pokemon.tsx",
-      "children": [
-        "/pokemon/$id"
-      ]
-    },
     "/signup": {
       "filePath": "signup.tsx"
     },
     "/pokemon/$id": {
-      "filePath": "pokemon.$id.tsx",
-      "parent": "/pokemon"
+      "filePath": "pokemon.$id.tsx"
     },
     "/user/profile": {
       "filePath": "user/profile.tsx"
+    },
+    "/pokemon/": {
+      "filePath": "pokemon.index.tsx"
     }
   }
 }
