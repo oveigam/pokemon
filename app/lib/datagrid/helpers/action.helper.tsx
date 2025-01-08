@@ -12,6 +12,7 @@ export function actionCol<TData extends RowData>(opts: {
     enableColumnFilter: false,
     enableGlobalFilter: false,
     enableSorting: false,
+    enableHiding: false,
     size: 75,
     minSize: 0,
     enableResizing: false,
