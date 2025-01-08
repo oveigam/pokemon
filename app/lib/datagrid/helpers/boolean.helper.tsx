@@ -1,4 +1,5 @@
 import type { AccessorColumnDef, RowData } from "@tanstack/react-table";
+import { CheckIcon, XIcon } from "lucide-react";
 
 import { BooleanFilter } from "../features/filter/components/boolean.filter";
 import { booleanFilterFn } from "../features/filter/functions/boolean.filterFn";
@@ -11,9 +12,7 @@ export type BooleanOptions = never;
 
 export function booleanCol<TData extends RowData>(
   opts: ColumnHelperOptions<TData, BooleanValue, BooleanOptions>,
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-): AccessorColumnDef<TData, any> {
+): AccessorColumnDef<TData, BooleanValue> {
   return {
     ...getHelperIdentifier(opts),
 
@@ -30,7 +29,20 @@ export function booleanCol<TData extends RowData>(
 
     header: opts.header ?? translatedColumnIdHeader,
 
-    // cell: opts.overrides?.cell ?? ((ctx) => <BooleanCell value={ctx.getValue()} />),
+    cell:
+      opts.cell ??
+      ((ctx) => {
+        const value = ctx.getValue();
+        if (typeof value !== "boolean") {
+          return null;
+        }
+
+        return value ? (
+          <CheckIcon className="m-auto text-green-600" />
+        ) : (
+          <XIcon className="m-auto text-red-600" />
+        );
+      }),
 
     // footer: opts.overrides?.footer ?? ((ctx) => <AggregateFooter ctx={ctx} />),
   };

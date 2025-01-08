@@ -13,8 +13,6 @@ import {
 import { Table, TableBody, TableCell, TableHeader, TableRow } from "@ui/components/core/table";
 import { cn } from "@ui/util/class-name";
 
-import type { TranslateKeys } from "@/i18n/i18n";
-
 import { RowConsumer } from "./components/table/body/row-consumer";
 import { DatagridHeader } from "./components/table/header/header-controls";
 import { FlexTableContainer } from "./components/util/containers";
@@ -28,15 +26,15 @@ import { ColSizeFeature, type ColumnSizingOptions } from "./features/size/col-si
 import { CellStyleFeature } from "./features/style/cell-style.feature";
 import { RowStyleFeature, type RowStyleProps } from "./features/style/row-style.feature";
 
-export type DatagridProps<TData, TValue> = {
-  columns: ColumnDef<TData, TValue>[];
+export type DatagridProps<TData> = {
+  columns: ColumnDef<TData, any>[];
   data: TData[];
   isLoading?: boolean;
 } & I18nOptions &
   RowStyleProps<TData> &
   ColumnSizingOptions;
 
-export function Datagrid<TData, TValue>({
+export function Datagrid<TData>({
   columns,
   data,
   isLoading,
@@ -45,7 +43,7 @@ export function Datagrid<TData, TValue>({
   rowClassName,
   autoWidth,
   autoWidthThreshold,
-}: DatagridProps<TData, TValue>) {
+}: DatagridProps<TData>) {
   const table = useReactTable({
     _features: [DensityFeature, I18nFeature, RowStyleFeature, CellStyleFeature, ColSizeFeature],
     data,

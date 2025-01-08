@@ -13,15 +13,13 @@ export type NumberOptions = {
 
 export function numberCol<TData extends RowData>(
   opts: ColumnHelperOptions<TData, NumberValue, NumberOptions>,
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-): AccessorColumnDef<TData, any> {
+): AccessorColumnDef<TData, NumberValue> {
   return {
     ...getHelperIdentifier(opts),
 
     meta: {
-      //   options:
-      //     !opts.options || typeof opts.options === "function" ? opts.options : () => opts.options,
+      // options:
+      //   !opts.options || typeof opts.options === "function" ? opts.options : () => opts.options,
 
       //   aggregates: opts.aggregates,
 
@@ -32,18 +30,18 @@ export function numberCol<TData extends RowData>(
 
     header: opts.header ?? translatedColumnIdHeader,
 
-    // cell:
-    //   opts.overrides?.cell ??
-    //   ((ctx) => {
-    //     const value = ctx.getValue();
-    //     const opts = ctx.column.columnDef.meta?.options?.(value, ctx.row.original) as
-    //       | NumberOptions
-    //       | undefined;
-    //     if (opts?.format) {
-    //       return opts.format(value);
-    //     }
-    //     return value;
-    //   }),
+    cell:
+      opts.cell ??
+      ((ctx) => {
+        const value = ctx.getValue();
+        // const opts = ctx.column.columnDef.meta?.options?.(value, ctx.row.original) as
+        //   | NumberOptions
+        //   | undefined;
+        // if (opts?.format) {
+        //   return opts.format(value);
+        // }
+        return value;
+      }),
 
     // footer: opts.overrides?.footer ?? ((ctx) => <AggregateFooter ctx={ctx} />),
   };

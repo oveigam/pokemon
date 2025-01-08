@@ -5,6 +5,7 @@ import { useTranslations } from "use-intl";
 
 import { FlexTableContainer } from "@datagrid/components/util/containers";
 import { translatedColumnIdHeader } from "@datagrid/features/i18n/util";
+import { DatagridColumnHelper } from "@datagrid/helpers";
 import { booleanCol } from "@datagrid/helpers/boolean.helper";
 import { dateCol } from "@datagrid/helpers/date.helper";
 import { numberCol } from "@datagrid/helpers/number.helper";
@@ -26,14 +27,16 @@ export const Route = createFileRoute("/pokemon")({
 
 type Pokemon = Awaited<ReturnType<typeof getPokemons>>[number];
 
-export const columns: ColumnDef<Pokemon>[] = [
-  numberCol<Pokemon>({ key: "id" }),
-  stringCol<Pokemon>({ key: "name" }),
-  textCol<Pokemon>({ key: "habitat" }),
-  booleanCol<Pokemon>({ key: "isBaby" }),
-  booleanCol<Pokemon>({ key: "isLegendary" }),
-  booleanCol<Pokemon>({ key: "isMythical" }),
-  dateCol<Pokemon>({ key: "createdAt" }),
+const ch = new DatagridColumnHelper<Pokemon>();
+
+const columns = [
+  ch.number({ key: "id" }),
+  ch.string({ key: "name" }),
+  ch.text({ key: "habitat" }),
+  ch.boolean({ key: "isBaby" }),
+  ch.boolean({ key: "isLegendary" }),
+  ch.boolean({ key: "isMythical" }),
+  ch.date({ key: "createdAt" }),
   // {
   //   accessorKey: "type",
   //   header: translatedColumnIdHeader,

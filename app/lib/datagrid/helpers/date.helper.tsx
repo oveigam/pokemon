@@ -1,4 +1,5 @@
 import type { AccessorColumnDef, RowData } from "@tanstack/react-table";
+import { format } from "date-fns";
 
 import { DateFilter } from "../features/filter/components/date.filter";
 import { dateFilterFn } from "../features/filter/functions/date.filterFn";
@@ -15,7 +16,7 @@ export function dateCol<TData extends RowData>(
   opts: ColumnHelperOptions<TData, DateValue, DateOptions>,
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-): AccessorColumnDef<TData, any> {
+): AccessorColumnDef<TData, DateValue> {
   return {
     ...getHelperIdentifier(opts),
 
@@ -32,19 +33,20 @@ export function dateCol<TData extends RowData>(
 
     header: opts.header ?? translatedColumnIdHeader,
 
-    // cell:
-    //   opts.overrides?.cell ??
-    //   ((ctx) => {
-    //     const value = ctx.getValue();
-    //     const opts = ctx.column.columnDef.meta?.options?.(value, ctx.row.original) as
-    //       | DateOptions
-    //       | undefined;
+    cell:
+      opts.cell ??
+      ((ctx) => {
+        const value = ctx.getValue();
+        // const opts = ctx.column.columnDef.meta?.options?.(value, ctx.row.original) as
+        //   | DateOptions
+        //   | undefined;
 
-    //     if (value instanceof Date) {
-    //       return format(value, opts?.format ?? "dd-MM-yyyy");
-    //     }
-    //     return value;
-    //   }),
+        if (value instanceof Date) {
+          // return format(value, opts?.format ?? "dd-MM-yyyy");
+          return format(value, "dd-MM-yyyy");
+        }
+        return null;
+      }),
 
     // footer: opts.overrides?.footer ?? ((ctx) => <AggregateFooter ctx={ctx} />),
   };

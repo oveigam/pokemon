@@ -1,6 +1,6 @@
 import type { HeaderContext } from "@tanstack/react-table";
 
-import type { StringValue } from "@datagrid/helpers/string.helper";
+import type { NumberValue } from "@datagrid/helpers/number.helper";
 
 import { Button } from "@ui/components/core/button";
 import { Ranger, Slider } from "@ui/components/core/slider";
@@ -13,7 +13,7 @@ import { isValidNumberFilterValue, type NumberFilterValue } from "../functions/n
 export function NumberFilter<TData>({
   ctx,
 }: {
-  ctx: HeaderContext<TData, StringValue> & { onClose?: () => void };
+  ctx: HeaderContext<TData, NumberValue> & { onClose?: () => void };
 }) {
   const [min, max] = ctx.header.column.getFacetedMinMaxValues() ?? [];
 

@@ -13,7 +13,7 @@ export function stringCol<TData extends RowData>(
   opts: ColumnHelperOptions<TData, StringValue, TextOptions>,
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-): ColumnDef<TData, any> {
+): ColumnDef<TData, StringValue> {
   return {
     ...getHelperIdentifier(opts),
 
@@ -30,7 +30,15 @@ export function stringCol<TData extends RowData>(
 
     header: opts.header ?? translatedColumnIdHeader,
 
-    // cell: opts.overrides?.cell ?? ((ctx) => <TextCell value={ctx.getValue()} />),
+    cell:
+      opts.cell ??
+      ((ctx) => {
+        const value = ctx.getValue();
+        if (typeof value !== "string") {
+          return null;
+        }
+        return <div className="h-full w-full overflow-auto whitespace-pre-line">{value}</div>;
+      }),
 
     // footer: opts.overrides?.footer ?? ((ctx) => <AggregateFooter ctx={ctx} />),
   };
