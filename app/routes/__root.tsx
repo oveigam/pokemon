@@ -99,8 +99,8 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
             </SidebarInset>
 
             <ScrollRestoration />
-            <TanStackRouterDevtools position="top-right" />
-            <ReactQueryDevtools buttonPosition="bottom-right" />
+            {/* <TanStackRouterDevtools position="top-right" />
+            <ReactQueryDevtools buttonPosition="bottom-right" /> */}
             <Scripts />
           </SidebarProvider>
         </IntlProvider>
